@@ -13,9 +13,6 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"></activity>
         <activity android:name=".CreateUser" />
-        <activity android:name=".Search" />
-        <activity android:name=".Home" />
-        <activity android:name=".Profile" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -1,47 +1,117 @@
 package com.example.filmvenner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    /*
-     Her i denne blok kan vi skrive vigtig info til hinanden.
-
-    Jeg har lavet en meget simpel main activity, hvor der bare er én knap som hedder "videre".
-    Nede i onClick metoden kan man ændre hvilken aktivitet, knappen skal tage dig hen til.
-
-    Tjek lige den her fil ud: app > res > values > colors.xml
-    Her kan man gemme sine egne farver under et navn, og bruge de farver i sit layout.
-    Hvis alle gør dét, bliver det rigtig nemt og hurtigt at ændre farveskalaen til sidst ;-)
-    Jeg har lavet et par stykker, og I skal være velkomne til at ændre dem eller ændre navngivningen
-
-     */
+    BottomNavigationView bottomNavigationView;
+    Deque<Integer> integerDeque = new ArrayDeque<>(3);
+    boolean flag = true;
 
 
-    Button videre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
 
-        videre = (Button) findViewById(R.id.buttonVidere);
-        videre.setOnClickListener(this);
+        //ad home frag in deque
+        integerDeque.push(R.id.home);
 
+        //set home as default fragment
+        loadFragment(new HomeFragment());
+        bottomNavigationView.setSelectedItemId(R.id.home);
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        //get selected item id
+                        int id = item.getItemId();
+                        //check condition
+                        if(integerDeque.contains(id)){
+                            //when deque list contains selected id
+                            //check condition
+                            if(id ==R.id.home){
+                                // when selected is home
+                                //check condition
+                                if(integerDeque.size() != 1){
+                                    if(flag){
+                                        //when flag is true, add home fragment in deque list
+                                        integerDeque.addFirst(R.id.home);
+                                        //set flag to false
+                                        flag = false;
+                                    }
+                                }
+                            }
+                            //Remove selected id from deque list
+                            integerDeque.remove(id);
+                        }
+                        //push selected id in dqueqlist
+                        integerDeque.push(id);
+                        //load fragment
+                        loadFragment(getFragment(item.getItemId()));
+                        return true;
+                    }
+                }
+        );
+
+    }
+
+    private Fragment getFragment(int itemId) {
+        switch(itemId){
+            case R.id.home:
+                //set checked home frag
+                bottomNavigationView.getMenu().getItem(0).setChecked(true);
+                //return home frag
+                return new HomeFragment();
+            case R.id.search:
+                bottomNavigationView.getMenu().getItem(1).setChecked(true);
+                return new SearchFragment();
+            case R.id.profile:
+                bottomNavigationView.getMenu().getItem(2).setChecked(true);
+                return new ProfileFragment();
+
+        }
+        //set checked default fome frag
+        bottomNavigationView.getMenu().getItem(0).setChecked(true);
+        return new HomeFragment();
+    }
+
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment,fragment,fragment.getClass().getSimpleName()).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //pop to previous fragment
+        integerDeque.pop();
+        if(!integerDeque.isEmpty()){
+            //when list in not empty
+            loadFragment(getFragment(integerDeque.peek()));
+        }else{
+            //when deque is empty
+            finish();
+        }
     }
 
     @Override
     public void onClick(View view) {
-        if(view == videre){
-            // her kan man ændre hvilken side knappen tager dig hen til
-            Intent login = new Intent(this, Login.class);
-            this.startActivity(login);
-        }
 
     }
 }
