@@ -7,4 +7,24 @@
     android:background="@color/backgroundRed"
     tools:context=".Profile">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="180dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton10"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/edit_custom_rounded_corners"
+        android:padding="3"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_edit"
+        tools:layout_editor_absoluteX="360dp"
+        tools:layout_editor_absoluteY="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
