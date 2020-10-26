@@ -3,17 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundRed"
     tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"
-        />
+
+    <ImageButton
+        android:id="@+id/imageButtonEdit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/edit_custom_rounded_corners"
+        android:padding="3dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_setting" />
 
 </RelativeLayout>
