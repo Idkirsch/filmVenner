@@ -1,5 +1,6 @@
 package com.example.filmvenner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,  BottomNavigationView.OnNavigationItemSelectedListener {
 
     /*
      Her i denne blok kan vi skrive vigtig info til hinanden.
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         videre.setOnClickListener(this);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        bottomNav.setOnNavigationItemSelectedListener(this);
 
     }
 
@@ -54,29 +55,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //  this.startActivity(navHome);
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener
-            navListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(MenuItem item)
-        {
-            // By using switch we can easily get
-            // the selected fragment
-            // by using there id.
-            switch (item.getItemId()) {
-                case R.id.home:
-                 //   Intent videre = new Intent(this, Home.class);
-                  //  this.startActivity(home);
-                    System.out.println("pressed home");
-                    break;
-                case R.id.search:
-                    System.out.println("pressed searhc");
-                    break;
-                case R.id.profile:
-                    System.out.println("pressed profile");
-                    break;
-            }
-            return true;
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+// By using switch we can easily get
+        // the selected fragment
+        // by using there id.
+        switch (item.getItemId()) {
+            case R.id.home:
+                startActivity(new Intent(this, Home.class));
+                System.out.println("pressed home");
+                break;
+            case R.id.search:
+                System.out.println("pressed searhc");
+                break;
+            case R.id.profile:
+                System.out.println("pressed profile");
+                break;
         }
-    };
+        return true;
+    }
 }
