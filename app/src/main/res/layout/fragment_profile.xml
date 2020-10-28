@@ -33,8 +33,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutRated"
-        android:layout_width="450dp"
-        android:layout_height="126dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/custom_rounded_corners"
@@ -43,9 +43,8 @@
 
         <Button
             android:id="@+id/ratedbutton"
-            android:layout_width="383dp"
-            android:layout_height="133dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             android:text="Rated&#10;175"
@@ -60,8 +59,8 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutReviewed"
-        android:layout_width="450dp"
-        android:layout_height="126dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/linearLayoutRated"
         android:background="@drawable/custom_rounded_corners"
@@ -70,9 +69,8 @@
 
         <Button
             android:id="@+id/reviewedbutton"
-            android:layout_width="383dp"
-            android:layout_height="133dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             android:text="Reviewed&#10;23"
@@ -88,8 +86,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutWatched"
-        android:layout_width="450dp"
-        android:layout_height="126dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/linearLayoutReviewed"
         android:background="@drawable/custom_rounded_corners"
@@ -98,9 +96,8 @@
 
         <Button
             android:id="@+id/watchedbutton"
-            android:layout_width="383dp"
-            android:layout_height="133dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             android:text="Watched&#10;250 movies and series"
@@ -115,8 +112,8 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutToWatch"
-        android:layout_width="450dp"
-        android:layout_height="126dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/linearLayoutWatched"
         android:background="@drawable/custom_rounded_corners"
@@ -125,9 +122,8 @@
 
         <Button
             android:id="@+id/towatchbutton"
-            android:layout_width="383dp"
-            android:layout_height="133dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             android:text="Want to watch&#10;273 movies and series"
@@ -148,5 +144,22 @@
         android:layout_above="@+id/linearLayoutToWatch"
         android:background="@drawable/custom_rounded_corners"
         />
+
+    <ImageButton
+        android:id="@+id/imageProfilePic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/textViewProfile"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/custom_circle"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_profile" />
+
+
 
 </RelativeLayout>
