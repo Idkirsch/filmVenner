@@ -1,19 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFragment">
+    android:background="@color/backgroundRed"
+    tools:context=".Search">
 
-    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="257dp"
+        android:layout_height="58dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/custom_rounded_corners"
+        android:hint="search..."
+        android:textColorHint="@color/darkRedButtonText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.248"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.088" />
 
-    <TextView
-        android:layout_width="wrap_content"
+
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="83dp"
+        android:layout_height="58dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/custom_rounded_corners"
+        android:elevation="50dp"
+        android:text="search"
+        android:textColorHint="@color/darkRedButtonText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.899"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.087" />
+
+
+    <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"
-        />
+        android:fillViewport="true"
+        tools:ignore="MissingConstraints">
 
-</RelativeLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="200dp">
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button One"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Two"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Three"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Four"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Five"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Six"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Seven"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Eight"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Nine"
+                android:background="@drawable/custom_rounded_corners"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="300dp">
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button One"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Two"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Three"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Four"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Five"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Six"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Seven"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Eight"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Nine"
+                android:background="@drawable/custom_rounded_corners"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="400dp">
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button One"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Two"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Three"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Four"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Five"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Six"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Seven"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Eight"
+                android:background="@drawable/custom_rounded_corners"/>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button Nine"
+                android:background="@drawable/custom_rounded_corners"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
