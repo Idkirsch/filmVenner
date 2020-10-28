@@ -3,14 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundRed"
-    tools:context=".ProfileFragment">
+    tools:context=".ProfileFragment"
+    android:background="@color/backgroundRed">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <TextView
+        android:id="@+id/textViewProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Profile"
+        android:textSize="24sp" />
 
     <ImageButton
-        android:id="@+id/imageButtonEdit"
+        android:id="@+id/imageButtonSetting"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
@@ -21,5 +29,124 @@
         android:padding="3dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_setting" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRated"
+        android:layout_width="450dp"
+        android:layout_height="126dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/custom_rounded_corners"
+        android:gravity="center_vertical">
+
+
+        <Button
+            android:id="@+id/ratedbutton"
+            android:layout_width="383dp"
+            android:layout_height="133dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Rated&#10;175"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imageViewrated"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow___right_2" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutReviewed"
+        android:layout_width="450dp"
+        android:layout_height="126dp"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/linearLayoutRated"
+        android:background="@drawable/custom_rounded_corners"
+        android:gravity="center_vertical">
+
+
+        <Button
+            android:id="@+id/reviewedbutton"
+            android:layout_width="383dp"
+            android:layout_height="133dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Reviewed&#10;23"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imageViewreviewed"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow___right_2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutWatched"
+        android:layout_width="450dp"
+        android:layout_height="126dp"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/linearLayoutReviewed"
+        android:background="@drawable/custom_rounded_corners"
+        android:gravity="center_vertical">
+
+
+        <Button
+            android:id="@+id/watchedbutton"
+            android:layout_width="383dp"
+            android:layout_height="133dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Watched&#10;250 movies and series"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imageViewwatched"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow___right_2" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutToWatch"
+        android:layout_width="450dp"
+        android:layout_height="126dp"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/linearLayoutWatched"
+        android:background="@drawable/custom_rounded_corners"
+        android:gravity="center_vertical">
+
+
+        <Button
+            android:id="@+id/towatchbutton"
+            android:layout_width="383dp"
+            android:layout_height="133dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Want to watch&#10;273 movies and series"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imageViewwtowatch"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow___right_2" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_above="@+id/linearLayoutToWatch"
+        android:background="@drawable/custom_rounded_corners"
+        />
 
 </RelativeLayout>
