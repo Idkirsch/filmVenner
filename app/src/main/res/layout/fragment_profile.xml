@@ -46,8 +46,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:lines="2"
             android:background="@null"
-            android:text="Rated&#10;175"
+            android:text="Rated\n175"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <ImageView
@@ -72,8 +74,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:lines="2"
             android:background="@null"
-            android:text="Reviewed&#10;23"
+            android:text="Reviewed\n23"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <ImageView
@@ -99,8 +103,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:lines="2"
             android:background="@null"
-            android:text="Watched&#10;250 movies and series"
+            android:text="Watched\n250 movies and series"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <ImageView
@@ -126,7 +132,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
-            android:text="Want to watch&#10;273 movies and series"
+            android:lines="2"
+            android:text="Want to watch\n273 movies and series"
+            android:textAllCaps="false"
             android:textSize="24sp" />
 
         <ImageView
@@ -145,7 +153,7 @@
         android:background="@drawable/custom_rounded_corners"
         />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/imageProfilePic"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -159,6 +167,8 @@
         android:paddingBottom="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_profile" />
+
+
 
 
 
