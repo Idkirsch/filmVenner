@@ -8,6 +8,7 @@
     <color name="buttonColor">#b01e38</color>
 
 
+    <color name="buttonText">#ffffff</color>
 
     <color name="goldButton">#D6A321</color>
     <color name="goldFiller">#C5A964</color>
