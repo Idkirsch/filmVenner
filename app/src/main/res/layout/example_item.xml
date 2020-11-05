@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:padding="2dp"/>
         <TextView
             android:id="@+id/textView1"
@@ -30,6 +30,7 @@
             android:textColor="@color/colorAccent"
             android:layout_toRightOf="@id/imageView1"
             android:layout_marginLeft="8dp"/>
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
