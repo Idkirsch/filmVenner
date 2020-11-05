@@ -18,7 +18,7 @@ import java.util.Deque;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     BottomNavigationView bottomNavigationView;
-    Deque<Integer> integerDeque = new ArrayDeque<>(3);
+    Deque<Integer> integerDeque = new ArrayDeque<>(4);
     boolean flag = true;
 
 
@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.profile:
                 bottomNavigationView.getMenu().getItem(2).setChecked(true);
                 return new ProfileFragment();
+            case R.id.chat:
+                bottomNavigationView.getMenu().getItem(3).setChecked(true);
+                return new ChatFragment();
 
         }
         //set checked default fome frag
