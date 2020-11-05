@@ -19,6 +19,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/bottom_nav"
         android:background="@color/backgroundRed"
-        app:menu="@menu/bn_menu"/>
+        app:itemBackground="@color/goldButton"
+        app:itemTextColor="@color/buttonText"
+        app:menu="@menu/bn_menu"
+        android:elevation="8dp"
+        />
 
 </LinearLayout>
