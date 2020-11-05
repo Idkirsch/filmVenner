@@ -50,13 +50,9 @@
             android:background="@null"
             android:text="Rated\n175"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:drawableRight="@drawable/ic_arrow___right_2"/>
 
-        <ImageView
-            android:id="@+id/imageViewrated"
-            android:layout_width="38dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_arrow___right_2" />
 
     </LinearLayout>
     <LinearLayout
@@ -78,13 +74,9 @@
             android:background="@null"
             android:text="Reviewed\n23"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:drawableRight="@drawable/ic_arrow___right_2"/>
 
-        <ImageView
-            android:id="@+id/imageViewreviewed"
-            android:layout_width="38dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_arrow___right_2" />
 
     </LinearLayout>
 
@@ -107,13 +99,9 @@
             android:background="@null"
             android:text="Watched\n250 movies and series"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:drawableRight="@drawable/ic_arrow___right_2"/>
 
-        <ImageView
-            android:id="@+id/imageViewwatched"
-            android:layout_width="38dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_arrow___right_2" />
 
     </LinearLayout>
     <LinearLayout
@@ -135,13 +123,9 @@
             android:lines="2"
             android:text="Want to watch\n273 movies and series"
             android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:drawableRight="@drawable/ic_arrow___right_2"/>
 
-        <ImageView
-            android:id="@+id/imageViewwtowatch"
-            android:layout_width="38dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_arrow___right_2" />
 
     </LinearLayout>
 
