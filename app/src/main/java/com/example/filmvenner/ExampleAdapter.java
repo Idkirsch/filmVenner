@@ -17,15 +17,14 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageview;
-        public TextView mTV1, mTV2;
+        public TextView mTV1, mTV2, mTitle;
 
         public ExampleViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageview = itemView.findViewById(R.id.imageView1);
             mTV1 = itemView.findViewById(R.id.textView1);
             mTV2 = itemView.findViewById(R.id.textView2);
-
-
+            mTitle = itemView.findViewById(R.id.title);
         }
     }
 
@@ -49,6 +48,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         holder.mImageview.setImageResource(currentItem.getImageResource());
         holder.mTV1.setText(currentItem.getText1());
         holder.mTV2.setText(currentItem.getText2());
+        holder.mTitle.setText(currentItem.getTitle());
 
     }
 
