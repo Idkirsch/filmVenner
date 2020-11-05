@@ -2,11 +2,11 @@ package com.example.filmvenner;
 
 public class ExampleItem {
     private int mImageResource;
-    private String mText1, mText2, mTitle;
+    private String mName, mText2, mTitle;
 
-    public ExampleItem(int ImageResource, String Text1, String Text2, String Title){
+    public ExampleItem(int ImageResource, String Name, String Text2, String Title){
        mImageResource = ImageResource;
-       mText1 = Text1;
+       mName = Name;
        mText2 =Text2;
        mTitle = Title;
     }
@@ -15,8 +15,8 @@ public class ExampleItem {
         return mImageResource;
     }
 
-    public String getText1() {
-        return mText1;
+    public String getName() {
+        return mName;
     }
 
     public String getText2() {

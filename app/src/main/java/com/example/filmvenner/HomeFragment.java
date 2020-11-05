@@ -50,7 +50,11 @@ public class HomeFragment extends Fragment {
         exampleList.add(new ExampleItem(R.drawable.film, "Line1","Line2","Vaiana"));
         exampleList.add(new ExampleItem(R.drawable.ic_android, "Line 3","line4","Title"));
         exampleList.add(new ExampleItem(R.drawable.ic_android, "Line 3","line4","Title"));
-        mRecyclerView = v.findViewById(R.id.recyclerView);
+
+
+
+
+        mRecyclerView = v.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
         mAdapter = new ExampleAdapter(exampleList);
