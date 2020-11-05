@@ -153,8 +153,41 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_profile" />
 
+    <TextView
+        android:id="@+id/ProfileGenreTV"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/divider"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="170dp"
+        android:layout_toEndOf="@+id/imageProfilePic"
+        android:layout_toRightOf="@+id/imageProfilePic"
+        android:text="Action, Scifi, thriller"
+        android:textSize="20sp" />
 
-
+    <TextView
+        android:id="@+id/ProfileNameTV"
+        android:layout_width="172dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/profile"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginRight="39dp"
+        android:layout_marginBottom="1dp"
+        android:layout_toEndOf="@+id/imageProfilePic"
+        android:layout_toRightOf="@+id/imageProfilePic"
+        android:text="Peter Pedersen"
+        android:textSize="24sp" />
 
 
 </RelativeLayout>
