@@ -1,20 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeFragment"
-    android:background="@color/colorPrimaryDark">
+
+<!--******************forsøg 3******************-->
+<!-- kode inspiration fra https://www.vogella.com/tutorials/AndroidListView/article.html -->
+<!-- kan evt. putte de forskellige elementer ind i en https://api.flutter.dev/flutter/widgets/ListView-class.html -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/home_fragment_layout"
+    android:padding="2dip"
+    android:background="@color/backgroundRed">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:scrollbars="vertical"
         />
+
+
 
 </RelativeLayout>
