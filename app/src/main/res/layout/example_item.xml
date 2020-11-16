@@ -17,11 +17,24 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:padding="2dp"/>
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="2dp"
+            android:layout_below="@id/title"/>
+
+
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="movietitle"
+            android:textSize="25sp"
+            style="bold"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+        <TextView
+            android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Line 1"
@@ -29,6 +42,7 @@
             android:textStyle="bold"
             android:textColor="@color/colorAccent"
             android:layout_toRightOf="@id/imageView1"
+            android:layout_below="@+id/title"
             android:layout_marginLeft="8dp"/>
 
         <TextView
@@ -37,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Line 2"
             android:textSize="15sp"
-            android:layout_below="@id/textView1"
+            android:layout_below="@id/Name"
             android:layout_toRightOf="@id/imageView1"
             android:layout_toEndOf="@id/imageView1"
             android:layout_marginLeft="8dp"
@@ -50,3 +64,68 @@
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
+
+
+<!--
+<ImageView
+        android:id="@+id/icon"
+        android:layout_width="68dp"
+        android:layout_height="58dp"
+        android:layout_marginRight="6dip"
+        android:layout_marginBottom="0dp"
+        android:layout_above="@id/reviewBar"
+
+        android:contentDescription="TODO"
+        android:src="@drawable/film" />
+
+    <ImageView
+        android:id="@+id/pofilePic"
+        android:layout_width="68dp"
+        android:layout_height="58dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/secondLine"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/icon"
+        android:layout_above="@id/reviewBar"
+        android:textColor="@color/buttonText"
+        android:text="Review text"
+        android:textSize="12sp" />
+
+        <TextView
+        android:id="@+id/firstLine"
+        android:layout_width="fill_parent"
+        android:layout_height="10dp"
+        android:layout_above="@id/secondLine"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/icon"
+        android:gravity="center_vertical"
+        android:text="Navn på ven"
+        android:textSize="16sp"
+        android:layout_below="@id/firstLine"
+            />
+
+        <TextView
+        android:id="@+id/reviewBar"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+
+        android:text="bar"
+        android:textSize="12sp" />
+
+
+
+-->
