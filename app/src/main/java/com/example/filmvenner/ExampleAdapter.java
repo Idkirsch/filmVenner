@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleViewHolder> {
-    private ArrayList<ExampleItem> mExampleList;
+    private ArrayList<MovieItem> mExampleList;
 
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
@@ -28,7 +28,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         }
     }
 
-    public ExampleAdapter(ArrayList<ExampleItem> exampleList){
+    public ExampleAdapter(ArrayList<MovieItem> exampleList){
         mExampleList = exampleList;
     }
 
@@ -43,7 +43,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
-        ExampleItem currentItem = mExampleList.get(position);
+        MovieItem currentItem = mExampleList.get(position);
 
         holder.mImageview.setImageResource(currentItem.getImageResource());
         holder.mName.setText(currentItem.getName());
