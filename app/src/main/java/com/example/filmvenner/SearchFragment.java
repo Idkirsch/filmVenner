@@ -31,7 +31,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView1, recyclerView2, recyclerView3;
     private Button searchButton;
     private EditText searchField;
-    String url ="https://www.omdbapi.com/?t=";
+    String url ="https://www.omdbapi.com/?s=";
     String apikey ="&apikey=3e1a983d";
 
 
@@ -88,6 +88,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
 
         String request = url+title+apikey;
+        System.out.println(request);
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, request,
@@ -97,7 +98,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         // Display the first 500 characters of the response string.
                         //searchField.setText("Response is: "+ response.substring(0,500));
 
-                        System.out.println("Response is: "+ response.substring(0,500));
+                        //System.out.println("Response is: "+ response.substring(0,500);
+                        System.out.println("Response is: "+ response);
 
                     }
                 }, new Response.ErrorListener() {
