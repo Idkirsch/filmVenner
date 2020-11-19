@@ -9,7 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.filmvenner.data.model.FilmList;
 import com.example.filmvenner.ui.login.RecyclerViewAdapter;
 
@@ -17,10 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements View.OnClickListener {
 
     private List<FilmList> filmLists = new ArrayList<>();
     private RecyclerView recyclerView1, recyclerView2, recyclerView3;
+    private Button searchButton;
+    private EditText searchField;
 
 
     @Override
@@ -49,6 +59,11 @@ public class SearchFragment extends Fragment {
         RecyclerViewAdapter adapter3 = new RecyclerViewAdapter(filmLists, getActivity());
         recyclerView3.setAdapter(adapter3);
 
+        searchButton = view.findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(this);
+
+        searchField = view.findViewById(R.id.search);
+
 
         filmLists.add(new FilmList(R.drawable.film2));
         filmLists.add(new FilmList(R.drawable.film2));
@@ -60,6 +75,40 @@ public class SearchFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        System.out.println("clicked search");
+        System.out.println(searchField.getText().toString());
+        //"http://www.omdbapi.com/?s=inception&apikey=[yourkey]
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        //String url ="https://www.google.com";
+        String url ="http://www.omdbapi.com/?s=inception&apikey=[yourkey]";
+
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        //searchField.setText("Response is: "+ response.substring(0,500));
+                        System.out.println("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //textView.setText("That didn't work!");
+                System.out.println("that didnt work");
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+        //https://developer.android.com/training/volley/simple#java
+
     }
 }
 
