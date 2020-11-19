@@ -9,13 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +28,9 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     Button b1;
+    Button watchedButton;
+    Button watchButton;
+    Button reviewButton;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -66,12 +70,38 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         Button b1 = (Button )view.findViewById(R.id.ratedbutton);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ProfileRated.class));
-            }
-        });
+        b1.setOnClickListener(this);
+        Button watchedButton = (Button)view.findViewById(R.id.watchedbutton);
+        watchedButton.setOnClickListener(this);
+        Button watchButton = (Button)view.findViewById(R.id.towatchbutton);
+        watchButton.setOnClickListener(this);
+        Button reviewedButton = (Button)view.findViewById(R.id.reviewedbutton);
+        reviewedButton.setOnClickListener(this);
+
         return view;
     }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.ratedbutton:
+                startActivity(new Intent(getActivity(),ProfileRated.class));
+                break;
+
+            case R.id.watchedbutton:
+                startActivity(new Intent(getActivity(),ProfileRated.class));
+                break;
+
+            case R.id.towatchbutton:
+                startActivity(new Intent(getActivity(),ProfileRated.class));
+                break;
+
+            case R.id.reviewedbutton:
+                startActivity(new Intent(getActivity(),ProfileRated.class));
+                break;
+        }
+
+    }
 }
+
+
