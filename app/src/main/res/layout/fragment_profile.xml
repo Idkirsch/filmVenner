@@ -34,12 +34,17 @@
     <LinearLayout
         android:id="@+id/linearLayoutRated"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:background="@color/backgroundRed"
         android:gravity="center_vertical">
 
+        <ImageView
+            android:id="@+id/IMRated"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/film" />
 
 
         <Button
@@ -59,11 +64,17 @@
     <LinearLayout
         android:id="@+id/linearLayoutReviewed"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/linearLayoutRated"
         android:background="@color/backgroundRed"
         android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/IMReviewed"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/film" />
 
 
         <Button
@@ -84,11 +95,17 @@
     <LinearLayout
         android:id="@+id/linearLayoutWatched"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/linearLayoutReviewed"
         android:background="@color/backgroundRed"
         android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/IMWatched"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/film" />
 
 
         <Button
@@ -108,12 +125,17 @@
     <LinearLayout
         android:id="@+id/linearLayoutToWatch"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/linearLayoutWatched"
         android:background="@color/backgroundRed"
         android:gravity="center_vertical">
 
+        <ImageView
+            android:id="@+id/IMWatch"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/film" />
 
         <Button
             android:id="@+id/towatchbutton"
@@ -125,11 +147,12 @@
             android:text="Want to watch\n273 movies and series"
             android:textAllCaps="false"
             android:textSize="20sp"
-            android:drawableRight="@drawable/ic_arrow___right_2"/>
+            android:drawableRight="@drawable/ic_arrow___right_2" />
 
 
     </LinearLayout>
 
+    <!--Den horizontale divider-->
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
@@ -138,6 +161,7 @@
         android:background="@android:color/black"
         />
 
+    <!--Selve profil iconet-->
     <ImageView
         android:id="@+id/imageProfilePic"
         android:layout_width="130dp"
