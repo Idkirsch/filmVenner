@@ -84,7 +84,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         //"http://www.omdbapi.com/?s=inception&apikey=[yourkey]
         RequestQueue queue = Volley.newRequestQueue(getContext());
         //String url ="https://www.google.com";
-        String url ="http://www.omdbapi.com/?s=inception&apikey=[yourkey]";
+       // String url ="https://www.omdbapi.com/?s=inception&apikey=[3e1a983d]";
+        String url ="https://www.omdbapi.com/?t=avengers&apikey=3e1a983d";
 
 
         // Request a string response from the provided URL.
