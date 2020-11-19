@@ -2,7 +2,11 @@ package com.example.filmvenner;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,13 +31,12 @@ import java.util.List;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
-    private List<FilmList> filmLists = new ArrayList<>();
-    private RecyclerView recyclerView1, recyclerView2, recyclerView3;
-    private Button searchButton;
-    private EditText searchField;
+
     String url ="https://www.omdbapi.com/?t=";
     String apikey ="&apikey=3e1a983d";
-
+    private Button searchButton;
+    private EditText searchField;
+    SearchResult_Frag fragmentResult = new SearchResult_Frag();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,43 +44,34 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
 
-        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager layoutManager3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView1 = view.findViewById(R.id.recyclerView1);
-        recyclerView2 = view.findViewById(R.id.recyclerView2);
-        recyclerView3 = view.findViewById(R.id.recyclerView3);
-
-
-        recyclerView1.setLayoutManager(layoutManager1);
-        RecyclerViewAdapter adapter1 = new RecyclerViewAdapter(filmLists, getActivity());
-        recyclerView1.setAdapter(adapter1);
-
-        recyclerView2.setLayoutManager(layoutManager2);
-        RecyclerViewAdapter adapter2 = new RecyclerViewAdapter(filmLists, getActivity());
-        recyclerView2.setAdapter(adapter2);
-
-        recyclerView3.setLayoutManager(layoutManager3);
-        RecyclerViewAdapter adapter3 = new RecyclerViewAdapter(filmLists, getActivity());
-        recyclerView3.setAdapter(adapter3);
-
         searchButton = view.findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
 
         searchField = view.findViewById(R.id.search);
 
-
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
+        addInnerFragment(); // This method does the getChildFragmentManager() stuff.
 
 
         return view;
+
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+       // addInnerFragment(); // This method does the getChildFragmentManager() stuff.
+
+    }
+
+    public void addInnerFragment(){
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction childFragManager = fragmentManager.beginTransaction();
+        SearchRecycler_frag recycler_frag = new SearchRecycler_frag();
+        childFragManager.add(R.id.nestedFragment_Search, recycler_frag);
+        childFragManager.addToBackStack("recyclerfrag");
+        childFragManager.commit();
+    }
+
 
     @Override
     public void onClick(View view) {
