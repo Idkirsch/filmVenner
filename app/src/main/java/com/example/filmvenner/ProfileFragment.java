@@ -89,15 +89,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.watchedbutton:
-                startActivity(new Intent(getActivity(),ProfileRated.class));
+                startActivity(new Intent(getActivity(),ProfileWatched.class));
                 break;
 
             case R.id.towatchbutton:
-                startActivity(new Intent(getActivity(),ProfileRated.class));
+                startActivity(new Intent(getActivity(),ProfileToWatch.class));
                 break;
 
             case R.id.reviewedbutton:
-                startActivity(new Intent(getActivity(),ProfileRated.class));
+                startActivity(new Intent(getActivity(),ProfileReviewed.class));
                 break;
         }
 
