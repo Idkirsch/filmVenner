@@ -42,32 +42,19 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-
-
         searchButton = view.findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
-
         searchField = view.findViewById(R.id.search);
-
         addRecyclerFragment(); // This method does the getChildFragmentManager() stuff.
 
-
-
         return view;
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
-
-
     }
 
     public void addRecyclerFragment(){
@@ -95,22 +82,15 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         String title = searchField.getText().toString();
 
-
         viewModel = new ViewModelProvider(requireActivity()).get(SearchResultViewModel.class);
-
         viewModel.setText("Hejsa");
-
 
         if(!title.isEmpty()) {
             String request = url+title+apikey;
             // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, request,
-                    new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, request, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            // Display the first 500 characters of the response string.
-                            //searchField.setText("Response is: "+ response.substring(0,500));
-
                             System.out.println("Response is: " + response);
                             addSearchResultFrag();
                             System.out.println("should add result frag");
@@ -118,7 +98,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    //textView.setText("That didn't work!");
                     System.out.println("that didnt work");
                 }
             });
