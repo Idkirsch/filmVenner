@@ -111,7 +111,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             // Display the first 500 characters of the response string.
                             //searchField.setText("Response is: "+ response.substring(0,500));
 
-                            System.out.println("Response is: " + response.substring(0, 500));
+                            System.out.println("Response is: " + response);
                             addSearchResultFrag();
                             System.out.println("should add result frag");
                         }

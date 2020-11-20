@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:text="Her skal resultatet af søgningen vises"
         android:textSize="40dp"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorAccent"
+        android:id="@+id/TVsearchResult"/>
 
 </FrameLayout>
