@@ -9,6 +9,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Her skal resultatet af søgningen vises" />
+        android:text="Her skal resultatet af søgningen vises"
+        android:textSize="40dp"
+        android:textColor="@color/colorAccent"/>
 
 </FrameLayout>
