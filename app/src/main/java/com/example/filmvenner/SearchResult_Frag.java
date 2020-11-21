@@ -44,9 +44,10 @@ public class SearchResult_Frag extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SearchResultViewModel model = new ViewModelProvider(requireActivity()).get(SearchResultViewModel.class);
-        model.getText().observe(getViewLifecycleOwner(), item -> {
+        model.getMovie().observe(getViewLifecycleOwner(), item -> {
             System.out.println("Item in resultfrag: "+item);
-            result.setText(item);
+            //result.setText(item);
+            result.setText(item.getTitle());
         });
     }
 

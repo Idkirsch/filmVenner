@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,18 +19,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.filmvenner.data.model.FilmList;
-import com.example.filmvenner.ui.login.RecyclerViewAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
@@ -105,7 +96,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
                 //TODO: only add new frag if current frag isn't already the result frag
                 addSearchResultFrag(); // instantiates new fragment where search result is displayed
-                viewModel.setText(response); //transfers some text into viewmodel to be used in child fragment
+              //  viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
+
 
                 try {
                     instantiateJson();
@@ -113,6 +105,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     Movie shrek = movie.fromJson(movietest); //converting test object into
                     System.out.println("title: "+shrek.getTitle());
                     System.out.println("year: "+shrek.getYear());
+                    viewModel.setMovie(shrek);
+                    System.out.println("viewmodel now has shrek");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     System.out.println("failed to instantiate json test object");
