@@ -92,13 +92,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             String request = url+title+apikey;
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, request, response -> {
-                System.out.println("Response is: " + response);
+
 
                 //TODO: only add new frag if current frag isn't already the result frag
                 addSearchResultFrag(); // instantiates new fragment where search result is displayed
               //  viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
 
-
+/*
                 try {
                     instantiateJson();
                     System.out.println("succeeded to instantiate json test object");
@@ -112,25 +112,33 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     System.out.println("failed to instantiate json test object");
                 }
 
-                // TODO: send test json object through viewmodel to childfrag
+ */
 
-/*
+
+
                 try {
 
-                   // JSONObject movieJson = new JSONObject(response);
-                    JSONArray array = movieJson.getJSONArray("movies");
+                    JSONObject movieJson = new JSONObject(response);
+                    System.out.println("Response is: " + response);
+                    Movie movie1 = movie.fromJson(movieJson);
+                    System.out.println("Movie1: "+movie1.getTitle());
+                    viewModel.setMovie(movie1);
 
+                   // JSONArray array = movieJson.getJSONArray("movies");
+/*
                     for(int i = 0; i<array.length();i++){
                         JSONObject object1 = array.getJSONObject(i);
                         System.out.println(object1);
                         // do something to each json here.
                     }
+
+ */
                 }catch(JSONException e){
                     e.printStackTrace();
                     System.out.println("something went wrong when trying to get the json object movie");
                 }
 
-                */
+
 
 
             }, new Response.ErrorListener() {

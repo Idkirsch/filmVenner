@@ -22,8 +22,6 @@ public class SearchResult_Frag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
 
@@ -33,9 +31,7 @@ public class SearchResult_Frag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_search_result_, container, false);
-
         result = view.findViewById(R.id.TVsearchResult);
-
         return view;
 
     }
@@ -47,7 +43,8 @@ public class SearchResult_Frag extends Fragment {
         model.getMovie().observe(getViewLifecycleOwner(), item -> {
             System.out.println("Item in resultfrag: "+item);
             //result.setText(item);
-            result.setText(item.getTitle());
+            result.setText(item.getTitle()+" "+item.getYear());
+
         });
     }
 
