@@ -10,6 +10,8 @@ public class Movie {
 
     private String title;
     private int year;
+
+    /*
     private String rated;
     private String released;
     private String runtime;
@@ -33,7 +35,7 @@ public class Movie {
     private String production;
     private String website;
     private boolean response;
-
+*/
     // TODO: add the rest of the values from json object
 
 
@@ -45,6 +47,7 @@ public class Movie {
         try{
             m.title = jsonObject.getString("Title");
             m.year = jsonObject.getInt("Year");
+            /*
             m.rated = jsonObject.getString("Rated");
             m.released = jsonObject.getString("Released");
             m.runtime = jsonObject.getString("Runtime");
@@ -67,7 +70,7 @@ public class Movie {
             m.production = jsonObject.getString("Production");
             m.website = jsonObject.getString("Website");
             m.response = jsonObject.getBoolean("Response");
-
+*/
             System.out.println("succeded in decoding json into model");
             // TODO : also add remaining values
         }catch (JSONException e){
@@ -94,6 +97,7 @@ public class Movie {
         this.year = year;
     }
 
+    /*
     public String getRated() {
         return rated;
     }
@@ -270,6 +274,8 @@ public class Movie {
         this.released = released;
     }
     //TODO: later, alter method to be able to convert an array of movies into an array of movie objects
+
+     */
 }
 
 
