@@ -13,7 +13,6 @@ public class SearchResultViewModel extends ViewModel {
     private final MutableLiveData<Movie> movie = new MutableLiveData<Movie>();
 
     public void setMovie(Movie input){
-
         movie.setValue(input);
     }
 
