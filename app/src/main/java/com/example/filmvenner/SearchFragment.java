@@ -21,10 +21,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.filmvenner.data.model.FilmList;
 import com.example.filmvenner.ui.login.RecyclerViewAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +44,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     private Button searchButton;
     private EditText searchField;
     SearchResult_Frag fragmentResult = new SearchResult_Frag();
+    Movie movie = new Movie();
+    JSONObject movietest = new JSONObject();
+
 
 
     @Override
@@ -74,6 +82,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         childFragManager.commit();
     }
 
+    public void instantiateJson() throws JSONException {
+        movietest.put("Title", "shrek");
+        movietest.put("Year", "2000");
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -83,19 +96,50 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         String title = searchField.getText().toString();
 
         viewModel = new ViewModelProvider(requireActivity()).get(SearchResultViewModel.class);
-        viewModel.setText("Hejsa");
 
         if(!title.isEmpty()) {
             String request = url+title+apikey;
             // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, request, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            System.out.println("Response is: " + response);
-                            addSearchResultFrag();
-                            System.out.println("should add result frag");
-                        }
-                    }, new Response.ErrorListener() {
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, request, response -> {
+                System.out.println("Response is: " + response);
+
+                //TODO: only add new frag if current frag isn't already the result frag
+                addSearchResultFrag(); // instantiates new fragment where search result is displayed
+                viewModel.setText(response); //transfers some text into viewmodel to be used in child fragment
+
+                try {
+                    instantiateJson();
+                    System.out.println("succeeded to instantiate json test object");
+                    Movie shrek = movie.fromJson(movietest); //converting test object into
+                    System.out.println("title: "+shrek.getTitle());
+                    System.out.println("year: "+shrek.getYear());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    System.out.println("failed to instantiate json test object");
+                }
+
+                // TODO: send test json object through viewmodel to childfrag
+
+/*
+                try {
+
+                   // JSONObject movieJson = new JSONObject(response);
+                    JSONArray array = movieJson.getJSONArray("movies");
+
+                    for(int i = 0; i<array.length();i++){
+                        JSONObject object1 = array.getJSONObject(i);
+                        System.out.println(object1);
+                        // do something to each json here.
+                    }
+                }catch(JSONException e){
+                    e.printStackTrace();
+                    System.out.println("something went wrong when trying to get the json object movie");
+                }
+
+                */
+
+
+            }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     System.out.println("that didnt work");
