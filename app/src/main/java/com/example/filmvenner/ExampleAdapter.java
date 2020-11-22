@@ -12,24 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleViewHolder> {
-    private ArrayList<ExampleItem> mExampleList;
+    private ArrayList<MovieItem> mExampleList;
 
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageview;
-        public TextView mTV1, mTV2;
+        public TextView mName, mTV2, mTitle;
 
         public ExampleViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageview = itemView.findViewById(R.id.imageView1);
-            mTV1 = itemView.findViewById(R.id.textView1);
+            mName = itemView.findViewById(R.id.Name);
             mTV2 = itemView.findViewById(R.id.textView2);
-
-
+            mTitle = itemView.findViewById(R.id.title);
         }
     }
 
-    public ExampleAdapter(ArrayList<ExampleItem> exampleList){
+    public ExampleAdapter(ArrayList<MovieItem> exampleList){
         mExampleList = exampleList;
     }
 
@@ -44,11 +43,12 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
-        ExampleItem currentItem = mExampleList.get(position);
+        MovieItem currentItem = mExampleList.get(position);
 
         holder.mImageview.setImageResource(currentItem.getImageResource());
-        holder.mTV1.setText(currentItem.getText1());
+        holder.mName.setText(currentItem.getName());
         holder.mTV2.setText(currentItem.getText2());
+        holder.mTitle.setText(currentItem.getTitle());
 
     }
 
