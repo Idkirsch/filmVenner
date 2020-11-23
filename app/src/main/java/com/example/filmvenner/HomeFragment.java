@@ -45,11 +45,11 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        ArrayList<ExampleItem> exampleList = new ArrayList<>();
+        ArrayList<MovieItem> exampleList = new ArrayList<>();
 
-        exampleList.add(new ExampleItem(R.drawable.film, "Line1","Line2","Vaiana"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Line 3","line4","Title"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.film, "Line1","Line2","Vaiana"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
 
 
 
