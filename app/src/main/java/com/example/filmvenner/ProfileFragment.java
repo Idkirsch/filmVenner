@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 /**
@@ -31,6 +32,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button watchedButton;
     Button watchButton;
     Button reviewButton;
+    ImageButton settingsButton;
+    ImageButton editButton;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -77,6 +80,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         watchButton.setOnClickListener(this);
         Button reviewedButton = (Button)view.findViewById(R.id.reviewedbutton);
         reviewedButton.setOnClickListener(this);
+        ImageButton settingsButton = (ImageButton) view.findViewById(R.id.imageButtonSetting);
+        settingsButton.setOnClickListener(this);
+        ImageButton editButton = (ImageButton)view.findViewById(R.id.imageButtonEdit);
+        editButton.setOnClickListener(this);
 
         return view;
     }
@@ -98,6 +105,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
             case R.id.reviewedbutton:
                 startActivity(new Intent(getActivity(),ProfileReviewed.class));
+                break;
+
+            case R.id.imageButtonSetting:
+                startActivity(new Intent(getActivity(),Settings.class));
+                break;
+
+            case R.id.imageButtonEdit:
+                startActivity(new Intent(getActivity(),ProfileEdit.class));
                 break;
         }
 

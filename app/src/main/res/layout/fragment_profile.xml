@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,37 +9,120 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <!--Titlen på profilsiden-->
     <TextView
         android:id="@+id/textViewProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:text="Profile"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!--Settings knap-->
     <ImageButton
         android:id="@+id/imageButtonSetting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/edit_custom_rounded_corners"
         android:padding="3dp"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_setting" />
+        android:src="@drawable/ic_setting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Edit knap-->
+    <ImageButton
+        android:id="@+id/imageButtonEdit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/edit_custom_rounded_corners"
+        android:padding="3dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!--Selve profil iconet-->
+    <ImageView
+        android:id="@+id/imageProfilePic"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/custom_circle"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Den horizontale divider-->
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutToWatch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageProfilePic"
+        app:layout_constraintVertical_bias="0.0" />
 
 
+    <!--Bruger navn-->
+
+    <TextView
+        android:id="@+id/ProfileNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="56dp"
+        android:text="Peter Pedersen"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfile" />
+
+
+    <!-- genrevalg -->
+
+    <TextView
+        android:id="@+id/ProfileGenreTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:text="Action, Scifi, thriller"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
+        app:layout_constraintTop_toBottomOf="@+id/ProfileNameTV" />
+
+
+
+    <!--Rated knappen-->
     <LinearLayout
         android:id="@+id/linearLayoutRated"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:background="@color/backgroundRed"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/IMRated"
@@ -49,26 +133,28 @@
 
         <Button
             android:id="@+id/ratedbutton"
-            android:layout_width="match_parent"
+            android:layout_width="401dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
+            android:drawableRight="@drawable/ic_arrow___right_2"
             android:lines="2"
             android:text="Rated\n175"
             android:textAllCaps="false"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/ic_arrow___right_2" />
-
+            android:textSize="20sp" />
 
     </LinearLayout>
+
+    <!--Reviewed knappen-->
     <LinearLayout
         android:id="@+id/linearLayoutReviewed"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/linearLayoutRated"
         android:background="@color/backgroundRed"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutRated"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/IMReviewed"
@@ -82,24 +168,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:lines="2"
             android:background="@null"
+            android:drawableRight="@drawable/ic_arrow___right_2"
+            android:lines="2"
             android:text="Reviewed\n23"
             android:textAllCaps="false"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/ic_arrow___right_2"/>
+            android:textSize="20sp" />
 
 
     </LinearLayout>
 
+    <!--Watched knappen-->
     <LinearLayout
         android:id="@+id/linearLayoutWatched"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/linearLayoutReviewed"
         android:background="@color/backgroundRed"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutReviewed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/IMWatched"
@@ -113,23 +201,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:lines="2"
             android:background="@null"
+            android:drawableRight="@drawable/ic_arrow___right_2"
+            android:lines="2"
             android:text="Watched\n250 movies and series"
             android:textAllCaps="false"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/ic_arrow___right_2"/>
+            android:textSize="20sp" />
 
 
     </LinearLayout>
+
+    <!--Want to watch knappen-->
     <LinearLayout
         android:id="@+id/linearLayoutToWatch"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/linearLayoutWatched"
         android:background="@color/backgroundRed"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutWatched"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/IMWatch"
@@ -143,73 +234,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
+            android:drawableRight="@drawable/ic_arrow___right_2"
             android:lines="2"
             android:text="Want to watch\n273 movies and series"
             android:textAllCaps="false"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/ic_arrow___right_2" />
+            android:textSize="20sp" />
 
 
     </LinearLayout>
 
-    <!--Den horizontale divider-->
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/linearLayoutToWatch"
-        android:background="@android:color/black"
-        />
-
-    <!--Selve profil iconet-->
-    <ImageView
-        android:id="@+id/imageProfilePic"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/custom_circle"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_profile" />
-
-    <TextView
-        android:id="@+id/ProfileGenreTV"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/divider"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
-        android:layout_marginBottom="152dp"
-        android:layout_toEndOf="@+id/imageProfilePic"
-        android:layout_toRightOf="@+id/imageProfilePic"
-        android:text="Action, Scifi, thriller"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/ProfileNameTV"
-        android:layout_width="177dp"
-        android:layout_height="46dp"
-        android:layout_above="@+id/ProfileGenreTV"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_toEndOf="@+id/imageProfilePic"
-        android:layout_toRightOf="@+id/imageProfilePic"
-        android:text="Peter Pedersen"
-        android:textSize="24sp" />
 
 
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

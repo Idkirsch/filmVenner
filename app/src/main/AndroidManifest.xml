@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileReviewed"></activity>
+        <activity android:name=".ProfileEdit"></activity>
+        <activity android:name=".Settings" />
+        <activity android:name=".ProfileReviewed" />
         <activity android:name=".ProfileToWatch" />
         <activity android:name=".ProfileWatched" />
         <activity android:name=".ProfileRated" />
