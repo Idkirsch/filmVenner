@@ -98,26 +98,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 addSearchResultFrag(); // instantiates new fragment where search result is displayed
               //  viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
 
-/*
                 try {
-                    instantiateJson();
-                    System.out.println("succeeded to instantiate json test object");
-                    Movie shrek = movie.fromJson(movietest); //converting test object into
-                    System.out.println("title: "+shrek.getTitle());
-                    System.out.println("year: "+shrek.getYear());
-                    viewModel.setMovie(shrek);
-                    System.out.println("viewmodel now has shrek");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    System.out.println("failed to instantiate json test object");
-                }
-
- */
-
-
-
-                try {
-
+                    System.out.println("request = " + request);
                     JSONObject movieJson = new JSONObject(response);
                     System.out.println("Response is: " + response);
                     Movie movie1 = movie.fromJson(movieJson);
@@ -138,9 +120,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     System.out.println("something went wrong when trying to get the json object movie");
                 }
 
-
-
-
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -155,10 +134,22 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             System.out.println("search field is empty ");
         }
         //https://developer.android.com/training/volley/simple#java
-
     }
-
-
-
 }
 
+
+/*
+                try {
+                    instantiateJson();
+                    System.out.println("succeeded to instantiate json test object");
+                    Movie shrek = movie.fromJson(movietest); //converting test object into
+                    System.out.println("title: "+shrek.getTitle());
+                    System.out.println("year: "+shrek.getYear());
+                    viewModel.setMovie(shrek);
+                    System.out.println("viewmodel now has shrek");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    System.out.println("failed to instantiate json test object");
+                }
+
+ */
