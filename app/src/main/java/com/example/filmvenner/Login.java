@@ -35,7 +35,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view == login){
-            if(username.getText().toString().equals(expected_username) && password.getText().toString().equals(expected_password)){
+            String inputUsername = username.getText().toString();
+            String inputPassword = password.getText().toString();
+
+            if(inputUsername.equals(expected_username) && inputPassword.equals(expected_password)){ // checks if input is equal to expected. TODO: get expected password from database
                 System.out.println("yess man ");
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
