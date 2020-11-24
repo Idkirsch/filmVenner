@@ -32,6 +32,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     String url ="https://www.omdbapi.com/?t=";
     String apikey ="&apikey=3e1a983d";
+    String apiKeyFromTMDB = "fa302bdb2e93149bd69faa350c178b38";
     private Button searchButton;
     private EditText searchField;
     SearchResult_Frag fragmentResult = new SearchResult_Frag();

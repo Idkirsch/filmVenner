@@ -50,6 +50,16 @@ public class HomeFragment extends Fragment {
         exampleList.add(new MovieItem(R.drawable.film, "Line1","Line2","Vaiana"));
         exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
         exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
+        exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
 
 
 
