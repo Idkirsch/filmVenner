@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.jar.JarOutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +35,14 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     JSONObject movietest = new JSONObject();
+    ArrayList<Movie> movies;
+    ArrayList<MovieItem> exampleList = new ArrayList<>();
 
     String titleFromJson = "pis";
     String releaseFromJson = "lort";
+    String title0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -67,48 +72,10 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        ArrayList<MovieItem> exampleList = new ArrayList<>();
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
 
-        try {
-            movietest =  instantiateJson();
-            releaseFromJson = movietest.getString("release").toString();
-            titleFromJson = movietest.getString("Title").toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        /*
-          try {
-
-                    System.out.println("request = " + request);
-                    System.out.println("Response is: " + response);
-
-                    JSONObject movieJson = new JSONObject(response);
-
-                    JSONArray moviesJson = movieJson.getJSONArray("results");
-                    movies = Movie.fromJson(moviesJson);
-
-
-                } catch(JSONException e){
-                    e.printStackTrace();
-                    System.out.println("something went wrong when trying to get the json object movie");
-                }
-
-         */
-
-
-
-
-
-
-        MovieItem testItem = new MovieItem(R.drawable.film, titleFromJson, releaseFromJson, "hrhr");
-        exampleList.add(testItem);
-
-
-
+        instantiateTestJson();
+        callAPI();
+        addItems(); //adds cards to recyclerview
 
         mRecyclerView = v.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
@@ -120,4 +87,53 @@ public class HomeFragment extends Fragment {
 
         return v;
     }
+
+
+    public void callAPI() {
+        String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, request, response -> {
+
+
+            try {
+                JSONObject movieJson = new JSONObject(response);
+                JSONArray moviesJson = movieJson.getJSONArray("results");
+                movies = Movie.fromJson(moviesJson);
+                System.out.println(movies.get(0).getTitle().toString());
+                title0 = movies.get(0).getTitle().toString();
+                // return response;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> System.out.println("that didnt work"));
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+
+
+
+    public void addItems() {
+        System.out.println("Hallo man");
+        MovieItem testItem = new MovieItem(R.drawable.film, titleFromJson, releaseFromJson, "Title");
+        MovieItem testItem2 = new MovieItem(R.drawable.film, title0, releaseFromJson, "Title");
+        exampleList.add(testItem);
+        exampleList.add(testItem2);
+
+    }
+
+
+    public void instantiateTestJson() {
+        try {
+            movietest = instantiateJson();
+            releaseFromJson = movietest.getString("release").toString();
+            titleFromJson = movietest.getString("Title").toString();
+            System.out.println("Are you here???");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
+
