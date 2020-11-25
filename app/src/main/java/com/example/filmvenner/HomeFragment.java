@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
         mRecyclerView = v.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new ExampleAdapter(exampleList);
+        mAdapter = new MovieRecyclerAdapter(exampleList);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);

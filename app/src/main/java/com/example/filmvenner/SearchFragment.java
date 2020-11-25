@@ -22,8 +22,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
@@ -37,6 +41,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     private EditText searchField;
     SearchResult_Frag fragmentResult = new SearchResult_Frag();
     Movie movie = new Movie();
+    ArrayList<Movie> movies;
     JSONObject movietest = new JSONObject();
 
 
@@ -90,7 +95,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         viewModel = new ViewModelProvider(requireActivity()).get(SearchResultViewModel.class);
 
         if(!title.isEmpty()) {
-            String request = url+title+apikey;
+            //String request = url+title+apikey;
+            String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, request, response -> {
 
@@ -99,27 +106,35 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 addSearchResultFrag(); // instantiates new fragment where search result is displayed
               //  viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
 
+
                 try {
+
                     System.out.println("request = " + request);
-                    JSONObject movieJson = new JSONObject(response);
                     System.out.println("Response is: " + response);
+
+                    JSONObject movieJson = new JSONObject(response);
+
+                    JSONArray moviesJson = movieJson.getJSONArray("results");
+                    movies = Movie.fromJson(moviesJson);
+
+
+
+/*
+
+
                     Movie movie1 = movie.fromJson(movieJson);
                     System.out.println("Movie1: "+movie1.getTitle());
                     viewModel.setMovie(movie1);
+*/
 
-                   // JSONArray array = movieJson.getJSONArray("movies");
-/*
-                    for(int i = 0; i<array.length();i++){
-                        JSONObject object1 = array.getJSONObject(i);
-                        System.out.println(object1);
-                        // do something to each json here.
-                    }
 
- */
-                }catch(JSONException e){
+
+                } catch(JSONException e){
                     e.printStackTrace();
                     System.out.println("something went wrong when trying to get the json object movie");
                 }
+
+
 
             }, new Response.ErrorListener() {
                 @Override
@@ -139,18 +154,4 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 }
 
 
-/*
-                try {
-                    instantiateJson();
-                    System.out.println("succeeded to instantiate json test object");
-                    Movie shrek = movie.fromJson(movietest); //converting test object into
-                    System.out.println("title: "+shrek.getTitle());
-                    System.out.println("year: "+shrek.getYear());
-                    viewModel.setMovie(shrek);
-                    System.out.println("viewmodel now has shrek");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    System.out.println("failed to instantiate json test object");
-                }
 
- */

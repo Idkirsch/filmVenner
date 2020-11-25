@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleViewHolder> {
+public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdapter.ExampleViewHolder> {
     private ArrayList<MovieItem> mExampleList;
 
 
@@ -28,7 +28,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         }
     }
 
-    public ExampleAdapter(ArrayList<MovieItem> exampleList){
+    public MovieRecyclerAdapter(ArrayList<MovieItem> exampleList){
         mExampleList = exampleList;
     }
 

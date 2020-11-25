@@ -49,7 +49,7 @@ public class SearchResult_Frag extends Fragment {
         model.getMovie().observe(getViewLifecycleOwner(), item -> {
             System.out.println("Item in resultfrag: "+item);
             //result.setText(item);
-            result.setText(item.getTitle()+" "+item.getYear());
+            result.setText(item.getTitle()+" "+item.getRelease());
             String url = "http://i.imgur.com/DvpvklR.png";
            /* Picasso.with(this).load(url).into(poster);*/
 
