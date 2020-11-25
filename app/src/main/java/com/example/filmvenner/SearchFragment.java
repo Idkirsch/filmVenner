@@ -100,40 +100,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, request, response -> {
-
-
                 //TODO: only add new frag if current frag isn't already the result frag
                 addSearchResultFrag(); // instantiates new fragment where search result is displayed
-              //  viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
-
-
-                try {
-
-                    System.out.println("request = " + request);
-                    System.out.println("Response is: " + response);
-
-                    JSONObject movieJson = new JSONObject(response);
-
-                    JSONArray moviesJson = movieJson.getJSONArray("results");
-                    movies = Movie.fromJson(moviesJson);
-
-
-
-/*
-
-
-                    Movie movie1 = movie.fromJson(movieJson);
-                    System.out.println("Movie1: "+movie1.getTitle());
-                    viewModel.setMovie(movie1);
-*/
-
-
-
-                } catch(JSONException e){
-                    e.printStackTrace();
-                    System.out.println("something went wrong when trying to get the json object movie");
-                }
-
 
 
             }, new Response.ErrorListener() {
