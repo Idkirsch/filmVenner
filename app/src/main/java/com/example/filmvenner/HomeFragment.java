@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
         exampleList.add(new MovieItem(R.drawable.ic_android, "Line 3","line4","Title"));
 
 
-
+//Hallo
 
         mRecyclerView = v.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
