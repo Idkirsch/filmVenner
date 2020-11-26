@@ -63,13 +63,13 @@ public class SearchRecycler_frag extends Fragment {
         recyclerView3.setAdapter(adapter3);
 
 
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
-        filmLists.add(new FilmList(R.drawable.film2));
+        filmLists.add(new FilmList(R.drawable.film));
+        filmLists.add(new FilmList(R.drawable.film));
+        filmLists.add(new FilmList(R.drawable.film));
+        filmLists.add(new FilmList(R.drawable.film));
+        filmLists.add(new FilmList(R.drawable.film));
+        filmLists.add(new FilmList(R.drawable.film));
+        filmLists.add(new FilmList(R.drawable.film));
 
 
         return view;
