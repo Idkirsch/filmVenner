@@ -1,4 +1,4 @@
-package com.example.filmvenner.ui.login;
+package com.example.filmvenner;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

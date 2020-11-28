@@ -1,4 +1,4 @@
-package com.example.filmvenner.ui.login;
+package com.example.filmvenner;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,10 +9,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.filmvenner.R;
-import com.example.filmvenner.data.model.FilmList;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {

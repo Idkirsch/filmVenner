@@ -1,4 +1,4 @@
-package com.example.filmvenner.data.model;
+package com.example.filmvenner;
 
 public class FilmList {
     private int image;
