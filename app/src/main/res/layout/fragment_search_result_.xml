@@ -6,22 +6,14 @@
     tools:context=".SearchResult_Frag"
     android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Her skal resultatet af søgningen vises"
-        android:textSize="40dp"
-        android:textColor="@color/colorAccent"
-        android:id="@+id/TVsearchResult"/>
-
-    <ImageView
-        android:id="@+id/imageViewSearchResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/film" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:background="@color/backgroundRed"
+        android:scrollbars="vertical"
+        />
 
 
 </LinearLayout>

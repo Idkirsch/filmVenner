@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -34,9 +35,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     private SearchResultViewModel viewModel;
 
-    String url ="https://www.omdbapi.com/?t=";
-    String apikey ="&apikey=3e1a983d";
+  //  String url = "https://www.omdbapi.com/?t=";
+  //  String apikey = "&apikey=3e1a983d";
     String apiKeyFromTMDB = "fa302bdb2e93149bd69faa350c178b38";
+    String query1 = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=";
+    String query2;
+    String query3 = "&page=1&include_adult=false";
     private Button searchButton;
     private EditText searchField;
     SearchResult_Frag fragmentResult = new SearchResult_Frag();
@@ -53,7 +57,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         searchButton.setOnClickListener(this);
         searchField = view.findViewById(R.id.search);
         addRecyclerFragment(); // This method does the getChildFragmentManager() stuff.
-
         return view;
     }
 
@@ -62,7 +65,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void addRecyclerFragment(){
+    public void addRecyclerFragment() {
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction childFragManager = fragmentManager.beginTransaction();
         SearchRecycler_frag recycler_frag = new SearchRecycler_frag();
@@ -71,7 +74,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         childFragManager.commit();
     }
 
-    public void addSearchResultFrag(){
+    public void addSearchResultFrag() {
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction childFragManager = fragmentManager.beginTransaction();
         childFragManager.replace(R.id.nestedFragment_Search, fragmentResult);
@@ -89,67 +92,48 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         System.out.println("clicked search");
         System.out.println(searchField.getText().toString());
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+
         String title = searchField.getText().toString();
 
-        viewModel = new ViewModelProvider(requireActivity()).get(SearchResultViewModel.class);
 
-        if(!title.isEmpty()) {
-            //String request = url+title+apikey;
-            String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+        if (!title.isEmpty()) {
+            query2 = title;
+            callAPI();
+            viewModel = new ViewModelProvider(requireActivity()).get(SearchResultViewModel.class);
+            addSearchResultFrag(); // instantiates new fragment where search result is displayed
 
-            // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, request, response -> {
-
-
-                //TODO: only add new frag if current frag isn't already the result frag
-                addSearchResultFrag(); // instantiates new fragment where search result is displayed
-              //  viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
-
-
-                try {
-
-                    System.out.println("request = " + request);
-                    System.out.println("Response is: " + response);
-
-                    JSONObject movieJson = new JSONObject(response);
-
-                    JSONArray moviesJson = movieJson.getJSONArray("results");
-                    movies = Movie.fromJson(moviesJson);
-
-
-
-/*
-
-
-                    Movie movie1 = movie.fromJson(movieJson);
-                    System.out.println("Movie1: "+movie1.getTitle());
-                    viewModel.setMovie(movie1);
-*/
-
-
-
-                } catch(JSONException e){
-                    e.printStackTrace();
-                    System.out.println("something went wrong when trying to get the json object movie");
-                }
-
-
-
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println("that didnt work");
-                }
-            });
-
-            // Add the request to the RequestQueue.
-            queue.add(stringRequest);
-
-        }else{
+        } else {
             System.out.println("search field is empty ");
+
         }
-        //https://developer.android.com/training/volley/simple#java
+    }
+
+
+    public void callAPI() {
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+       // String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+        String request = query1+query2+query3;
+
+        //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject movieJson = response;
+                            JSONArray moviesJson = movieJson.getJSONArray("results");
+                            movies = Movie.fromJson(moviesJson);
+                            System.out.println(movies.get(0).getTitle().toString());
+                            viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }, error -> System.out.println("that didnt work"));
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
     }
 }
 
