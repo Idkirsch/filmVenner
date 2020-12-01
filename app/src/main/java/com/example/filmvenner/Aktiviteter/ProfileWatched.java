@@ -1,14 +1,16 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Aktiviteter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Settings extends AppCompatActivity {
+import com.example.filmvenner.R;
+
+public class ProfileWatched extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_profile_watched);
     }
 }

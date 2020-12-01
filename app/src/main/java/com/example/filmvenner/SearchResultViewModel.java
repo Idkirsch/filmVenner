@@ -22,6 +22,4 @@ public class SearchResultViewModel extends ViewModel {
 
         return movie;
     }
-
-
 }

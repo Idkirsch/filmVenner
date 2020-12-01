@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Fragmenter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
+import com.example.filmvenner.Aktiviteter.ProfileEdit;
+import com.example.filmvenner.Aktiviteter.ProfileRated;
+import com.example.filmvenner.Aktiviteter.ProfileReviewed;
+import com.example.filmvenner.Aktiviteter.ProfileToWatch;
+import com.example.filmvenner.Aktiviteter.ProfileWatched;
+import com.example.filmvenner.R;
+import com.example.filmvenner.Aktiviteter.Settings;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,27 +99,27 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.ratedbutton:
-                startActivity(new Intent(getActivity(),ProfileRated.class));
+                startActivity(new Intent(getActivity(), ProfileRated.class));
                 break;
 
             case R.id.watchedbutton:
-                startActivity(new Intent(getActivity(),ProfileWatched.class));
+                startActivity(new Intent(getActivity(), ProfileWatched.class));
                 break;
 
             case R.id.towatchbutton:
-                startActivity(new Intent(getActivity(),ProfileToWatch.class));
+                startActivity(new Intent(getActivity(), ProfileToWatch.class));
                 break;
 
             case R.id.reviewedbutton:
-                startActivity(new Intent(getActivity(),ProfileReviewed.class));
+                startActivity(new Intent(getActivity(), ProfileReviewed.class));
                 break;
 
             case R.id.imageButtonSetting:
-                startActivity(new Intent(getActivity(),Settings.class));
+                startActivity(new Intent(getActivity(), Settings.class));
                 break;
 
             case R.id.imageButtonEdit:
-                startActivity(new Intent(getActivity(),ProfileEdit.class));
+                startActivity(new Intent(getActivity(), ProfileEdit.class));
                 break;
         }
 

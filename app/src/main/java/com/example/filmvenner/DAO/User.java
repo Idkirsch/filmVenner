@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.DAO;
 
 public class User {
     private String name;

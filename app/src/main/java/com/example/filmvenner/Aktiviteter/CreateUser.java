@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Aktiviteter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.filmvenner.R;
+import com.example.filmvenner.DAO.User;
 
 public class CreateUser extends AppCompatActivity implements View.OnClickListener {
 

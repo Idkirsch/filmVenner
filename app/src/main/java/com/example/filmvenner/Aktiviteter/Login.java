@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Aktiviteter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.example.filmvenner.Aktiviteter.CreateUser;
+import com.example.filmvenner.Aktiviteter.MainActivity;
+import com.example.filmvenner.R;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 

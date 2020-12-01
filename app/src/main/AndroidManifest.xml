@@ -10,24 +10,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileEdit"></activity>
-        <activity android:name=".Settings" />
-        <activity android:name=".ProfileReviewed" />
-        <activity android:name=".ProfileToWatch" />
-        <activity android:name=".ProfileWatched" />
-        <activity android:name=".ProfileRated" />
+        <activity android:name=".Aktiviteter.ProfileEdit"></activity>
+        <activity android:name=".Aktiviteter.Settings" />
+        <activity android:name=".Aktiviteter.ProfileReviewed" />
+        <activity android:name=".Aktiviteter.ProfileToWatch" />
+        <activity android:name=".Aktiviteter.ProfileWatched" />
+        <activity android:name=".Aktiviteter.ProfileRated" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".CreateUser" />
-        <activity android:name=".Login">
+        <activity android:name=".Aktiviteter.CreateUser" />
+        <activity android:name=".Aktiviteter.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Aktiviteter.MainActivity" />
     </application>
 
 </manifest>

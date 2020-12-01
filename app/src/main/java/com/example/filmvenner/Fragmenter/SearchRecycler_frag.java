@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Fragmenter;
 
 import android.os.Bundle;
 
@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.filmvenner.DAO.FilmList;
+import com.example.filmvenner.R;
+import com.example.filmvenner.Adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

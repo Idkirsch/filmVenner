@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Fragmenter;
 
 import android.os.Bundle;
 
@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.example.filmvenner.DAO.Movie;
+import com.example.filmvenner.DAO.MovieItem;
+import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
+import com.example.filmvenner.R;
+import com.example.filmvenner.SearchResultViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;

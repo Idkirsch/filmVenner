@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.DAO;
 
 import org.json.JSONArray;
 import org.json.JSONException;

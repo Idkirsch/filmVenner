@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Fragmenter;
 
 import android.os.Bundle;
 
@@ -18,16 +18,16 @@ import android.widget.EditText;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.filmvenner.DAO.Movie;
+import com.example.filmvenner.R;
+import com.example.filmvenner.SearchResultViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 

@@ -1,15 +1,18 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Aktiviteter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
+import com.example.filmvenner.Fragmenter.ChatFragment;
+import com.example.filmvenner.Fragmenter.HomeFragment;
+import com.example.filmvenner.Fragmenter.ProfileFragment;
+import com.example.filmvenner.R;
+import com.example.filmvenner.Fragmenter.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayDeque;

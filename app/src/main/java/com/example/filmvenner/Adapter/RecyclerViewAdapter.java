@@ -1,4 +1,4 @@
-package com.example.filmvenner;
+package com.example.filmvenner.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.filmvenner.DAO.FilmList;
+import com.example.filmvenner.R;
 
 import java.util.List;
 
