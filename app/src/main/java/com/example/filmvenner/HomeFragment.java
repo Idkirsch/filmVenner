@@ -34,10 +34,11 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    API api = new API();
+    //    APIqueue api = new APIqueue();
     private  RequestQueue mRequestQueue;
+  //  RequestQueue mRequestQueue = APIqueue.getInstance(getContext()).getRequestQueue();
 
-  // JSONObject movietest = new JSONObject();
+    // JSONObject movietest = new JSONObject();
     ArrayList<Movie> movies;
     ArrayList<MovieItem> exampleList = new ArrayList<>();
 
@@ -92,35 +93,35 @@ public class HomeFragment extends Fragment {
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, request, null, new Response.Listener<JSONObject>()
-          {
+                (Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                        JSONObject movieJson = response;
-                        JSONArray moviesJson = movieJson.getJSONArray("results");
+                            JSONObject movieJson = response;
+                            JSONArray moviesJson = movieJson.getJSONArray("results");
 
-                        movies = Movie.fromJson(moviesJson);
-                        System.out.println(movies.get(0).getTitle().toString());
-                       // title0 = movies.get(0).getTitle().toString();
+                            movies = Movie.fromJson(moviesJson);
+                            System.out.println(movies.get(0).getTitle().toString());
+                            // title0 = movies.get(0).getTitle().toString();
 
-                        for(int i=0;i<moviesJson.length();i++){
-                            String title = movies.get(i).getTitle().toString();
-                            MovieItem item = new MovieItem(R.drawable.film, "_", "release date", title);
-                            exampleList.add(item);
-                        }
-                        mAdapter = new MovieRecyclerAdapter(exampleList);
-                        mRecyclerView.setAdapter(mAdapter);
-
+                            for (int i = 0; i < moviesJson.length(); i++) {
+                                String title = movies.get(i).getTitle().toString();
+                                MovieItem item = new MovieItem(R.drawable.film, "_", "release date", title);
+                                exampleList.add(item);
+                            }
+                            mAdapter = new MovieRecyclerAdapter(exampleList);
+                            mRecyclerView.setAdapter(mAdapter);
                             //addItems();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-        }, error -> System.out.println("that didnt work"));
+                }, error -> System.out.println("that didnt work"));
         // Add the request to the RequestQueue.
         mRequestQueue.add(jsonObjectRequest);
+        //APIqueue.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+
     }
 
 }
