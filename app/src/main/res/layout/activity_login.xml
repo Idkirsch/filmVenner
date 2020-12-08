@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Aktiviteter.Login"
     android:background="@color/backgroundRed"
-    android:orientation="vertical">
+    android:gravity="center|top"
+    android:orientation="vertical"
+    tools:context=".Aktiviteter.Login">
 
     <!-- Rectangle 20 -->
     <EditText
@@ -14,45 +15,42 @@
         android:layout_width="274dp"
         android:layout_height="56dp"
         android:layout_marginTop="150dp"
-        android:layout_marginLeft="50dp"
         android:background="@drawable/custom_rounded_corners"
+        android:gravity="center_vertical"
         android:hint="username"
-        android:textColorHint="@color/darkRedButtonText"
-             />
+        android:textColorHint="@color/darkRedButtonText" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="274dp"
         android:layout_height="56dp"
-        android:layout_marginLeft="50dp"
-       android:layout_marginTop="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custom_rounded_corners"
+        android:gravity="center_vertical"
         android:hint="password"
-        android:textColorHint="@color/darkRedButtonText"        app:layout_constraintBottom_toBottomOf="parent"
-    />
+        android:textColorHint="@color/darkRedButtonText"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="120dp"
         android:layout_height="56dp"
-        android:layout_marginLeft="120dp"
         android:layout_marginTop="20dp"
-
-        android:text="Login"
-        android:textColorHint="@color/buttonText"
-        android:elevation="50dp"
         android:background="@drawable/custom_rounded_corners"
- />
+
+        android:elevation="50dp"
+        android:gravity="center"
+        android:text="Login"
+        android:textColorHint="@color/buttonText" />
 
     <Button
         android:id="@+id/createUserButtonLoginFrag"
         android:layout_width="140dp"
         android:layout_height="56dp"
-        android:text="Opret dig her"
-        android:layout_marginLeft="120dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/custom_rounded_corners"
-        android:textColorHint="@color/darkRedButtonText"
-        />
+        android:gravity="center"
+        android:text="Opret dig her"
+        android:textColorHint="@color/darkRedButtonText" />
 
 </LinearLayout>
