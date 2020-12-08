@@ -6,22 +6,43 @@
     android:orientation="vertical"
     tools:context=".Fragmenter.SearchRecycler_frag">
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/buttonText"
+        android:text="Genre" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/buttonText"
+        android:text="Popular" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/buttonText"
+        android:text="Recent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView3"
