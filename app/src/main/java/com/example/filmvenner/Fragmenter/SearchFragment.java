@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,7 +42,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     String query1 = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=";
     String query2;
     String query3 = "&page=1&include_adult=false";
-    private Button searchButton;
+    private ImageButton searchButton;
     private EditText searchField;
     SearchResult_Frag fragmentResult = new SearchResult_Frag();
     Movie movie = new Movie();
