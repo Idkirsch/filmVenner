@@ -15,7 +15,8 @@ import com.example.filmvenner.R;
 import java.util.ArrayList;
 
 public class ListmovieAdapter extends RecyclerView.Adapter<ListmovieAdapter.ListmovieViewHolder> {
-    private ArrayList<ListmovieItem> mlistmovieList;
+
+    public ArrayList<ListmovieItem> mlistmovieList;
 
 
     public static class ListmovieViewHolder extends RecyclerView.ViewHolder{

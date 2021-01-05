@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragmenter.ProfileFragment"
-    android:background="@color/backgroundRed">
+    android:background="@color/backgroundRed"
+    tools:context=".Fragmenter.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -40,14 +40,14 @@
         android:id="@+id/imageButtonEdit"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_custom_rounded_corners"
         android:padding="3dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_edit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--Selve profil iconet-->
     <ImageView
@@ -72,14 +72,15 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginBottom="89dp"
         android:background="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutToWatch"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout_for_something"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageProfilePic"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -110,7 +111,6 @@
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
         app:layout_constraintTop_toBottomOf="@+id/ProfileNameTV" />
-
 
 
     <!--Rated knappen-->
@@ -211,7 +211,22 @@
 
     </LinearLayout>
 
+
     <!--Want to watch knappen-->
+
+    <FrameLayout
+        android:id="@+id/frameLayout_for_something"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_marginStart="112dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginBottom="421dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.901" />
+
     <LinearLayout
         android:id="@+id/linearLayoutToWatch"
         android:layout_width="match_parent"
@@ -242,8 +257,6 @@
 
 
     </LinearLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

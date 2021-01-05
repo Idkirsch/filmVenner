@@ -27,14 +27,6 @@ import com.example.filmvenner.Aktiviteter.Settings;
  */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     Button b1;
     Button watchedButton;
@@ -47,31 +39,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -80,36 +55,39 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        Button b1 = (Button )view.findViewById(R.id.ratedbutton);
+        Button b1 = (Button) view.findViewById(R.id.ratedbutton);
         b1.setOnClickListener(this);
-        Button watchedButton = (Button)view.findViewById(R.id.watchedbutton);
+        Button watchedButton = (Button) view.findViewById(R.id.watchedbutton);
         watchedButton.setOnClickListener(this);
-        Button watchButton = (Button)view.findViewById(R.id.towatchbutton);
+        Button watchButton = (Button) view.findViewById(R.id.towatchbutton);
         watchButton.setOnClickListener(this);
-        Button reviewedButton = (Button)view.findViewById(R.id.reviewedbutton);
+        Button reviewedButton = (Button) view.findViewById(R.id.reviewedbutton);
         reviewedButton.setOnClickListener(this);
         ImageButton settingsButton = (ImageButton) view.findViewById(R.id.imageButtonSetting);
         settingsButton.setOnClickListener(this);
-        ImageButton editButton = (ImageButton)view.findViewById(R.id.imageButtonEdit);
+        ImageButton editButton = (ImageButton) view.findViewById(R.id.imageButtonEdit);
         editButton.setOnClickListener(this);
 
         return view;
     }
 
-    public void addRecyclerFragment() {
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction childFragManager = fragmentManager.beginTransaction();
-        ProfilWantToWatch recycler_frag = new ProfilWantToWatch();
-        childFragManager.add(R.id.wanttowatch_fragment_layout, recycler_frag);
-        childFragManager.addToBackStack("recyclerfrag");
-        childFragManager.commit();
-    }
 
-    //recyclerviewWanttowatch
+
+//    public void addWantToWatchFragment() {
+//        FragmentManager fragmentManager = getChildFragmentManager();
+//        FragmentTransaction childFragManager = fragmentManager.beginTransaction();
+//        ProfilWantToWatch recycler_frag = new ProfilWantToWatch();
+//
+//        childFragManager.add(R.id.wanttowatch_fragment_layout, recycler_frag);
+//        childFragManager.addToBackStack("recyclerfrag");
+//        childFragManager.commit();
+//    }
+//
+//    //recyclerviewWanttowatch
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.ratedbutton:
                 startActivity(new Intent(getActivity(), ProfileRated.class));
                 break;
@@ -119,7 +97,34 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.towatchbutton:
-                addRecyclerFragment();
+
+                System.out.println("klikkede på to watch button");
+
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                ChatFragment chat = new ChatFragment();
+//
+//                // Erstat det her framelayout med hvad end der er i chat
+//                fragmentTransaction.add(R.id.frameLayout_for_something, chat);
+//
+
+
+
+                ProfilWantToWatch wantToWatch = new ProfilWantToWatch();
+                fragmentTransaction.add(R.id.frameLayout_for_something, wantToWatch);
+
+
+                fragmentTransaction.commit();
+
+
+
+
+
+
+
+
+                //addWantToWatchFragment();
                 //startActivity(new Intent(getActivity(), ProfileToWatch.class)); //todo Towatch fragment
                 break;
 
