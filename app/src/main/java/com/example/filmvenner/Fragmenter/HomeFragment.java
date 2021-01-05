@@ -21,6 +21,12 @@ import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.DAO.MovieItem;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,13 +44,13 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    //    APIqueue api = new APIqueue();
     private  RequestQueue mRequestQueue;
-  //  RequestQueue mRequestQueue = APIqueue.getInstance(getContext()).getRequestQueue();
-
-    // JSONObject movietest = new JSONObject();
     ArrayList<Movie> movies;
     ArrayList<MovieItem> exampleList = new ArrayList<>();
+
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+    CollectionReference usersDB = database.collection("users");
 
 
     public HomeFragment() {
@@ -65,13 +71,11 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         mRequestQueue = Volley.newRequestQueue(getContext());
 
         callAPI();
-
 
         mRecyclerView = v.findViewById(R.id.recyclerviewHome);
         mRecyclerView.setHasFixedSize(true);
@@ -80,6 +84,8 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        retrieveData();
+
         return v;
     }
 
@@ -87,8 +93,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
 
 
@@ -122,11 +126,31 @@ public class HomeFragment extends Fragment {
                     }
 
                 }, error -> System.out.println("that didnt work"));
-        // Add the request to the RequestQueue.
         mRequestQueue.add(jsonObjectRequest);
-        //APIqueue.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+    }
+
+
+    public void retrieveData(){
+        DocumentReference docRef = database.collection("users").document("TEST");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        System.out.println("DocumentSnapshot data: "+ document.getData());
+                    }else{
+                        System.out.println("no such document");
+                    }
+                }else{
+                    System.out.println("get failed with "+task.getException());
+                }
+            }
+        });
 
     }
+
+
 
 }
 

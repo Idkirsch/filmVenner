@@ -16,6 +16,7 @@ import com.example.filmvenner.DAO.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,6 +31,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
     //database
     FirebaseFirestore database = FirebaseFirestore.getInstance();
+    CollectionReference users = database.collection("users");
 
 
 
@@ -64,13 +66,11 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             String name = username.getText().toString();
             String mail = email.getText().toString();
 
-
-            addUser(name,mail);
-
-
             if(FieldsHasValues()){
                 System.out.println("yes, the fields have values");
                 //TODO: this is where to save the user in the database
+                addUser(name,mail);
+
                 test_user.setname(username.getText().toString());
                 test_user.setEmail(email.getText().toString());
                 test_user.setPassword(password.getText().toString());
@@ -88,7 +88,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         Map<String,Object> user = new HashMap<>();
         user.put("name", name);
         user.put("email", email);
-
+        users.document("TEST").set(user);
 
         database.collection("users")
                 .add(user)
@@ -104,8 +104,6 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                         System.out.println("Error adding document "+e);
                     }
                 });
-
-
     }
 
 
