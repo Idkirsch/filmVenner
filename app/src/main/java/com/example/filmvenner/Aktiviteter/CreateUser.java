@@ -32,30 +32,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     FirebaseFirestore database = FirebaseFirestore.getInstance();
 
 
-    public void addUser(){
-        Map<String,Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
 
-
-        database.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        System.out.println( "DocumentSnapshot added with ID :"+documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println("Error adding document "+e);
-                    }
-                });
-
-
-    }
 
 
 
@@ -77,7 +54,6 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
         FirebaseApp.initializeApp(this);
 
-       // addUser();
 
 
     }
@@ -85,8 +61,13 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if(view == create){
+            String name = username.getText().toString();
+            String mail = email.getText().toString();
 
-            addUser();
+
+            addUser(name,mail);
+
+
             if(FieldsHasValues()){
                 System.out.println("yes, the fields have values");
                 //TODO: this is where to save the user in the database
@@ -102,6 +83,32 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
         }
     }
+
+    public void addUser(String name, String email){
+        Map<String,Object> user = new HashMap<>();
+        user.put("name", name);
+        user.put("email", email);
+
+
+        database.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        System.out.println( "DocumentSnapshot added with ID :"+documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("Error adding document "+e);
+                    }
+                });
+
+
+    }
+
+
 
 // checks if all fields are OK
     public boolean FieldsHasValues(){
