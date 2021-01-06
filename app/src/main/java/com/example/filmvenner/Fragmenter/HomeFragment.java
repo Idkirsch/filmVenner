@@ -21,6 +21,7 @@ import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.DAO.MovieItem;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
+import com.example.filmvenner.DAO.User;
 import com.example.filmvenner.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Movie> movies;
     ArrayList<MovieItem> exampleList = new ArrayList<>();
     DatabaseAccess db = new DatabaseAccess();
+    User user = new User();
 
 //
 //    FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -85,7 +87,6 @@ public class HomeFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
-
 
         return v;
     }

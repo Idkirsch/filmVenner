@@ -73,7 +73,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
                 addUser(usrname,mail,usrname);
 
-                test_user.setname(username.getText().toString());
+                test_user.setUsername(username.getText().toString());
                 test_user.setEmail(email.getText().toString());
                 test_user.setPassword(password.getText().toString());
 
