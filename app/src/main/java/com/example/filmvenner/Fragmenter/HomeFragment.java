@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.DAO.MovieItem;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
@@ -47,10 +48,11 @@ public class HomeFragment extends Fragment {
     private  RequestQueue mRequestQueue;
     ArrayList<Movie> movies;
     ArrayList<MovieItem> exampleList = new ArrayList<>();
+    DatabaseAccess db = new DatabaseAccess();
 
-    FirebaseFirestore database = FirebaseFirestore.getInstance();
-
-    CollectionReference usersDB = database.collection("users");
+//
+//    FirebaseFirestore database = FirebaseFirestore.getInstance();
+//    CollectionReference usersDB = database.collection("users");
 
 
     public HomeFragment() {
@@ -84,7 +86,7 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        retrieveData();
+        db.retrieveData();
 
         return v;
     }
@@ -130,25 +132,25 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void retrieveData(){
-        DocumentReference docRef = database.collection("users").document("TEST");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if(document.exists()){
-                        System.out.println("DocumentSnapshot data: "+ document.getData());
-                    }else{
-                        System.out.println("no such document");
-                    }
-                }else{
-                    System.out.println("get failed with "+task.getException());
-                }
-            }
-        });
-
-    }
+//    public void retrieveData(){
+//        DocumentReference docRef = database.collection("users").document("TEST");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    if(document.exists()){
+//                        System.out.println("DocumentSnapshot data: "+ document.getData());
+//                    }else{
+//                        System.out.println("no such document");
+//                    }
+//                }else{
+//                    System.out.println("get failed with "+task.getException());
+//                }
+//            }
+//        });
+//
+//    }
 
 
 

@@ -3,6 +3,7 @@ package com.example.filmvenner.Fragmenter;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,13 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.filmvenner.Aktiviteter.ProfileEdit;
 import com.example.filmvenner.Aktiviteter.ProfileRated;
 import com.example.filmvenner.Aktiviteter.ProfileReviewed;
 import com.example.filmvenner.Aktiviteter.ProfileWatched;
+import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.R;
 import com.example.filmvenner.Aktiviteter.Settings;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +43,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button reviewButton;
     ImageButton settingsButton;
     ImageButton editButton;
+    DatabaseAccess db = new DatabaseAccess();
+    private TextView profilename;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -52,6 +63,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
@@ -68,22 +80,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         ImageButton editButton = (ImageButton) view.findViewById(R.id.imageButtonEdit);
         editButton.setOnClickListener(this);
 
+        profilename = view.findViewById(R.id.ProfileNameTV);
+
+        db.retrieveData();
+
+
         return view;
     }
 
 
-
-//    public void addWantToWatchFragment() {
-//        FragmentManager fragmentManager = getChildFragmentManager();
-//        FragmentTransaction childFragManager = fragmentManager.beginTransaction();
-//        ProfilWantToWatch recycler_frag = new ProfilWantToWatch();
-//
-//        childFragManager.add(R.id.wanttowatch_fragment_layout, recycler_frag);
-//        childFragManager.addToBackStack("recyclerfrag");
-//        childFragManager.commit();
-//    }
-//
-//    //recyclerviewWanttowatch
 
     @Override
     public void onClick(View view) {
@@ -102,12 +107,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                 FragmentManager fragmentManager = getChildFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
-//                ChatFragment chat = new ChatFragment();
-//
-//                // Erstat det her framelayout med hvad end der er i chat
-//                fragmentTransaction.add(R.id.frameLayout_for_something, chat);
-//
 
 
 
@@ -117,15 +116,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                 fragmentTransaction.commit();
 
-
-
-
-
-
-
-
-                //addWantToWatchFragment();
-                //startActivity(new Intent(getActivity(), ProfileToWatch.class)); //todo Towatch fragment
                 break;
 
             case R.id.reviewedbutton:
@@ -142,6 +132,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
+
 }
 
 
