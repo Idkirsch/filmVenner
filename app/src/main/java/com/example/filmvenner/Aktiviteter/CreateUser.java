@@ -63,7 +63,14 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
             if(FieldsHasValues()){
                 System.out.println("yes, the fields have values");
 
-                //TODO: this is where to save the user in the database
+
+
+
+
+
+
+
+
                 addUser(usrname,mail,usrname);
 
                 test_user.setname(username.getText().toString());
