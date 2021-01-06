@@ -28,6 +28,9 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     User test_user = new User();
     EditText email, username, password, confirmPassword;
     Button create;
+    private static final String KEY_NAME = "username";
+    private static final String KEY_EMAIL = "email";
+
 
     //database
     FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -49,20 +52,19 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
 
         FirebaseApp.initializeApp(this);
 
-
-
     }
 
     @Override
     public void onClick(View view) {
         if(view == create){
-            String name = username.getText().toString();
+            String usrname = username.getText().toString();
             String mail = email.getText().toString();
 
             if(FieldsHasValues()){
                 System.out.println("yes, the fields have values");
+
                 //TODO: this is where to save the user in the database
-                addUser(name,mail);
+                addUser(usrname,mail,usrname);
 
                 test_user.setname(username.getText().toString());
                 test_user.setEmail(email.getText().toString());
@@ -77,11 +79,11 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    public void addUser(String name, String email){
+    public void addUser(String name, String email, String documentName){
         Map<String,Object> user = new HashMap<>();
-        user.put("name", name);
-        user.put("email", email);
-        users.document("TEST").set(user);
+        user.put(KEY_NAME, name);
+        user.put(KEY_EMAIL, email);
+        users.document(documentName).set(user);
 
         database.collection("users")
                 .add(user)
@@ -97,6 +99,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                         System.out.println("Error adding document "+e);
                     }
                 });
+
     }
 
 

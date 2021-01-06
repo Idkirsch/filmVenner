@@ -86,7 +86,6 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        db.retrieveData();
 
         return v;
     }
@@ -121,13 +120,14 @@ public class HomeFragment extends Fragment {
                             }
                             mAdapter = new MovieRecyclerAdapter(exampleList);
                             mRecyclerView.setAdapter(mAdapter);
+
                             //addItems();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                }, error -> System.out.println("that didnt work"));
+                }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
         mRequestQueue.add(jsonObjectRequest);
     }
 

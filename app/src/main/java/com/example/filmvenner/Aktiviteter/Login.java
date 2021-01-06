@@ -1,5 +1,6 @@
 package com.example.filmvenner.Aktiviteter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,12 +12,20 @@ import android.widget.EditText;
 import com.example.filmvenner.Aktiviteter.CreateUser;
 import com.example.filmvenner.Aktiviteter.MainActivity;
 import com.example.filmvenner.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button login, createUser;
     EditText username, password;
     String expected_username = "test123", expected_password = "1";
+
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+
 
 
     @Override
@@ -32,7 +41,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
-
     }
 
     @Override
@@ -40,6 +48,33 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(view == login){
             String inputUsername = username.getText().toString();
             String inputPassword = password.getText().toString();
+
+
+            //check if name MARIE is in document TEST in collection users.
+            // if it is, print it in console
+
+//
+//            DocumentReference docRef = database.collection("users").document(inputUsername);
+//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    if(task.isSuccessful()){
+//                        DocumentSnapshot document = task.getResult();
+//                        if(document.exists()){
+//                            if(document.getString("name").equals(inputUsername)){
+//                                System.out.println("the username equals the username from database");
+//                                System.out.println("name from database= "+document.get("name"));
+//                                System.out.println("name from inputfield= "+inputUsername);
+//                            }
+//
+//                        }else{
+//                            System.out.println("no such document");
+//                        }
+//                    }else{
+//                        System.out.println("get failed with "+task.getException());
+//                    }
+//                }
+//            });
 
             if(inputUsername.equals(expected_username) && inputPassword.equals(expected_password)){ // checks if input is equal to expected. TODO: get expected password from database
                 System.out.println("yess man ");
