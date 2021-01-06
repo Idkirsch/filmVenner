@@ -47,34 +47,38 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         if(view == login){
             String inputUsername = username.getText().toString();
+            System.out.println("input username is: "+inputUsername);
             String inputPassword = password.getText().toString();
 
 
-            //check if name MARIE is in document TEST in collection users.
+            //check if name MARIE is in document "username"  in collection users.
             // if it is, print it in console
 
-//
-//            DocumentReference docRef = database.collection("users").document(inputUsername);
-//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                    if(task.isSuccessful()){
-//                        DocumentSnapshot document = task.getResult();
-//                        if(document.exists()){
-//                            if(document.getString("name").equals(inputUsername)){
-//                                System.out.println("the username equals the username from database");
-//                                System.out.println("name from database= "+document.get("name"));
-//                                System.out.println("name from inputfield= "+inputUsername);
-//                            }
-//
-//                        }else{
-//                            System.out.println("no such document");
-//                        }
-//                    }else{
-//                        System.out.println("get failed with "+task.getException());
-//                    }
-//                }
-//            });
+
+            //DocumentReference docRef = database.collection("users").document(inputUsername);
+
+            DocumentReference docRef = database.collection("users").document("BrugernavnET");
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot document = task.getResult();
+                        if(document.exists()){
+                            if(document.getString("username").equals(inputUsername)){
+                                System.out.println("the username equals the username from database");
+                                System.out.println("name from database= "+document.get("username"));
+                                System.out.println("name from inputfield= "+inputUsername);
+                            }
+
+                        }else{
+                            System.out.println("no such document");
+                        }
+                    }else{
+                        System.out.println("get failed with "+task.getException());
+                    }
+                }
+            });
+
 
             if(inputUsername.equals(expected_username) && inputPassword.equals(expected_password)){ // checks if input is equal to expected. TODO: get expected password from database
                 System.out.println("yess man ");
