@@ -34,13 +34,6 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     CollectionReference users = database.collection("users");
 
 
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

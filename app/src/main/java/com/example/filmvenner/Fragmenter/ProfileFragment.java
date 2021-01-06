@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
@@ -37,14 +42,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 
+//    Executor backgroundThread = Executors.newSingleThreadExecutor();
+//    Handler uiThread = new Handler(Looper.getMainLooper());
+
     Button b1;
     Button watchedButton;
     Button watchButton;
     Button reviewButton;
     ImageButton settingsButton;
     ImageButton editButton;
-    DatabaseAccess db = new DatabaseAccess();
+//    DatabaseAccess db = new DatabaseAccess();
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+
     private TextView profilename;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -81,14 +92,48 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editButton.setOnClickListener(this);
 
         profilename = view.findViewById(R.id.ProfileNameTV);
-        profilename.setText("HEjsa");
 
-        db.retrieveData();
+//        backgroundThread.execute(() -> {
+//            try {
+//                db.getName();
+//                System.out.println("name from database background: "+db.getName());
+//                uiThread.post(() -> {
+//                });
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//
+
+
+        DocumentReference docRef = database.collection("users").document("TEST");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        System.out.println("DocumentSnapshot data: "+ document.getData());
+                        System.out.println("document get name: "+ document.get("name"));
+                        profilename.setText(document.getString("name"));
+                        //create map to save data in
+                        //Map<String, Object> user = document.getData();
+
+                    }else{
+                        System.out.println("no such document");
+                    }
+                }else{
+                    System.out.println("get failed with "+task.getException());
+                }
+            }
+        });
+
+
+
 
 
         return view;
     }
-
 
 
     @Override
