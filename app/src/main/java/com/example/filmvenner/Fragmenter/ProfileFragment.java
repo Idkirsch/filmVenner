@@ -81,6 +81,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editButton.setOnClickListener(this);
 
         profilename = view.findViewById(R.id.ProfileNameTV);
+        profilename.setText("HEjsa");
 
         db.retrieveData();
 
@@ -107,8 +108,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                 FragmentManager fragmentManager = getChildFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-
 
                 ProfilWantToWatch wantToWatch = new ProfilWantToWatch();
                 fragmentTransaction.add(R.id.frameLayout_for_something, wantToWatch);

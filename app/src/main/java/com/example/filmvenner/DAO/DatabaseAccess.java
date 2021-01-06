@@ -14,6 +14,8 @@ public class DatabaseAccess {
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference usersDB = database.collection("users");
 
+    private String name;
+
 
     public void retrieveData(){
         DocumentReference docRef = database.collection("users").document("TEST");
@@ -24,6 +26,8 @@ public class DatabaseAccess {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
                         System.out.println("DocumentSnapshot data: "+ document.getData());
+                        System.out.println("document get name: "+ document.get("name"));
+                        name = document.get("name").toString();
                     }else{
                         System.out.println("no such document");
                     }
