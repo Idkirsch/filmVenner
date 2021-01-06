@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.filmvenner.Aktiviteter.CreateUser;
 import com.example.filmvenner.Aktiviteter.MainActivity;
 import com.example.filmvenner.R;
