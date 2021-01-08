@@ -9,13 +9,24 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Map;
+
 public class DatabaseAccess {
 
     FirebaseFirestore database = FirebaseFirestore.getInstance();
-    CollectionReference usersDB = database.collection("users");
 
+
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public DatabaseAccess() {
+    }
 
     public void retrieveData(){
+        //når man skal have fat i et bestemt document
         DocumentReference docRef = database.collection("users").document("TEST");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -24,6 +35,12 @@ public class DatabaseAccess {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
                         System.out.println("DocumentSnapshot data: "+ document.getData());
+                        System.out.println("document get name: "+ document.get("name"));
+                        name = document.getString("name");
+
+                        //create map to save data in
+                        //Map<String, Object> user = document.getData();
+
                     }else{
                         System.out.println("no such document");
                     }
@@ -34,5 +51,7 @@ public class DatabaseAccess {
         });
 
     }
+
+
 
 }
