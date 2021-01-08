@@ -173,7 +173,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.reviewedbutton:
-                startActivity(new Intent(getActivity(), ProfileReviewed.class));
+//                startActivity(new Intent(getActivity(), ProfileReviewed.class));
+                System.out.println("klikkede på to reviewed button");
+
+                FragmentManager fragmentManager3 = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
+
+                ProfilReviewed reviewed = new ProfilReviewed();
+                fragmentTransaction3.add(R.id.frameLayout_for_something, reviewed);
+
+                fragmentTransaction3.commit();
                 break;
 
             case R.id.imageButtonSetting:

@@ -18,10 +18,11 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProfilWatched#newInstance} factory method to
+ * Use the {@link ProfilReviewed#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfilWatched extends Fragment {
+public class ProfilReviewed extends Fragment {
+
 
     private RecyclerView mRecyclerview;
     private RecyclerView.Adapter mAdapter;
@@ -29,14 +30,14 @@ public class ProfilWatched extends Fragment {
 
 
 
-    public static ProfilWatched newInstance(String param1, String param2) {
-        ProfilWatched fragment = new ProfilWatched();
+
+    public static ProfilReviewed newInstance(String param1, String param2) {
+        ProfilReviewed fragment = new ProfilReviewed();
         Bundle args = new Bundle();
 
         return fragment;
     }
 
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Pga vi arbejder i fragments, skrives logik i onCreateView.
@@ -44,11 +45,11 @@ public class ProfilWatched extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profil_watched, container, false);
+        View view = inflater.inflate(R.layout.fragment_profil_reviewed, container, false);
 
         ArrayList<ListmovieItem> listmovieItems = new ArrayList<>();
 
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1watched", "Linje 2w"));
+        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje reviewed", "Linje 2r"));
         listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
         listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
         listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
@@ -69,7 +70,7 @@ public class ProfilWatched extends Fragment {
         listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
         listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
 
-        mRecyclerview = view.findViewById(R.id.recyclerviewWatched);
+        mRecyclerview = view.findViewById(R.id.recyclerviewReviewed);
         //mRecyclerview.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
 
