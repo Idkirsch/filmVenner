@@ -36,6 +36,16 @@
             android:layout_marginLeft="8dp"
             android:id="@+id/listTV2"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="film title"
+            android:textSize="15sp"
+            android:layout_below="@+id/mImageview"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/listTV3"/>
+
 
     </RelativeLayout>
 
