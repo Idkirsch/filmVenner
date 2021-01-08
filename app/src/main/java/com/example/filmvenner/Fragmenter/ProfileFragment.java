@@ -144,7 +144,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.watchedbutton:
-                startActivity(new Intent(getActivity(), ProfileWatched.class));
+//                startActivity(new Intent(getActivity(), ProfileWatched.class));
+                System.out.println("klikkede på to watched button");
+
+                FragmentManager fragmentManager2 = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+
+                ProfilWatched watched = new ProfilWatched();
+                fragmentTransaction2.add(R.id.frameLayout_for_something, watched);
+
+
+                fragmentTransaction2.commit();
                 break;
 
             case R.id.towatchbutton:
