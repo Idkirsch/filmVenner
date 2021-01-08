@@ -46,6 +46,15 @@
             android:layout_marginLeft="8dp"
             android:id="@+id/listTV3"/>
 
+        <Button
+            android:id="@+id/moreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="more"
+
+            />
+
 
     </RelativeLayout>
 
