@@ -11,9 +11,18 @@
         android:id="@+id/recyclerviewReviewed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:padding="4dp"
         android:background="@color/backgroundRed"
         android:scrollbars="vertical"
         />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="40dp"
+        android:text="Reviewed"
+        android:gravity="center_horizontal" />
 
 </RelativeLayout>
