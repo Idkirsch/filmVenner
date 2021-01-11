@@ -45,26 +45,8 @@ public class ProfilWantToWatch extends Fragment {
 
         ArrayList<ListmovieItem> listmovieItems = new ArrayList<>();
 
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
+//        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
+
 
         mRecyclerview = view.findViewById(R.id.recyclerviewWanttowatch);
         //mRecyclerview.setHasFixedSize(true);

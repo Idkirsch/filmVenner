@@ -43,6 +43,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata"
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
     implementation 'com.google.firebase:firebase-firestore'

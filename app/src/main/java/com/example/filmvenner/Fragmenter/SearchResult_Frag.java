@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.filmvenner.DAO.Movie;
-import com.example.filmvenner.DAO.MovieItem;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.R;
 import com.example.filmvenner.SearchResultViewModel;
@@ -29,7 +28,7 @@ public class SearchResult_Frag extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Movie> movies;
-    ArrayList<MovieItem> exampleList = new ArrayList<>();
+    ArrayList<Movie> exampleList = new ArrayList<>();
 
     public SearchResult_Frag() {
         // Required empty public constructor
@@ -69,7 +68,7 @@ public class SearchResult_Frag extends Fragment {
             System.out.println(movies.get(0).getTitle().toString());
             for(int i=0;i<moviesJson.length();i++){
                 String title = movies.get(i).getTitle().toString();
-                MovieItem movieItem = new MovieItem(R.drawable.film, "_", "release date", title);
+                Movie movieItem = new Movie(); // TODo
                 exampleList.add(movieItem);
             }
             mAdapter = new MovieRecyclerAdapter(exampleList);
