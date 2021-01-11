@@ -10,6 +10,7 @@
     android:background="@color/backgroundRed">
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewHome"
         android:layout_width="match_parent"
