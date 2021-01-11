@@ -30,7 +30,6 @@ public class SearchResult_Frag extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Movie> movies;
-    ArrayList<Movie> exampleList = new ArrayList<>();
 
     public SearchResult_Frag() {
         // Required empty public constructor
@@ -84,10 +83,9 @@ public class SearchResult_Frag extends Fragment {
             for(int i=0;i<moviesJson.length();i++){
                 String title = movies.get(i).getTitle().toString();
                 Movie movie = new Movie(); // TODo
-                exampleList.add(movie);
             }
 
-            mAdapter = new MovieRecyclerAdapter(exampleList);
+            mAdapter = new MovieRecyclerAdapter(movies);
             mRecyclerView.setAdapter(mAdapter);
 
         });
