@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.filmvenner.Adapter.ListmovieAdapter;
+import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.Adapter.RecyclerViewAdapter;
 import com.example.filmvenner.DAO.ListmovieItem;
+import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
 
 import java.util.ArrayList;
@@ -43,16 +45,29 @@ public class ProfilWantToWatch extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profil_want_to_watch, container, false);
 
-        ArrayList<ListmovieItem> listmovieItems = new ArrayList<>();
+//        ArrayList<ListmovieItem> listmovieItems = new ArrayList<>();
+        ArrayList<Movie> listmovieItems = new ArrayList<>();
 
 //        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
 
 
         mRecyclerview = view.findViewById(R.id.recyclerviewWanttowatch);
         //mRecyclerview.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
 
-        mAdapter = new ListmovieAdapter(listmovieItems);
+        mAdapter = new MovieRecyclerAdapter(listmovieItems);
 
         mRecyclerview.setLayoutManager(mLayoutManager);
         mRecyclerview.setAdapter(mAdapter);
