@@ -51,6 +51,17 @@ public class HomeFragment extends Fragment {
     ArrayList<Movie> exampleList = new ArrayList<>();
     DatabaseAccess db = new DatabaseAccess();
     User user = new User();
+    private String prefixImage = "https://image.tmdb.org/t/p/w500";
+
+
+    public String getPrefixImage() {
+        return prefixImage;
+    }
+
+    public void setPrefixImage(String prefixImage) {
+        this.prefixImage = prefixImage;
+    }
+
 
 //
 //    FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -116,11 +127,20 @@ public class HomeFragment extends Fragment {
 
                             for (int i = 0; i < moviesJson.length(); i++) {
                                 String title = movies.get(i).getTitle().toString();
-                                Movie item = new Movie("releasedate", "_", title, "https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg");
+                                String imagePath = movies.get(i).getmImageResource().toString();
+                                String fullImagePath  = prefixImage + imagePath;
+//                                System.out.println(fullImagePath);
+                                Movie item = new Movie("releasedate", "_", title, fullImagePath);
                                 exampleList.add(item);
                             }
-                            mAdapter = new MovieRecyclerAdapter(getContext(),exampleList); // exampleList:     ArrayList<MovieItem>
-                                                                                // her mangler vi context som argument
+
+                            mAdapter = new MovieRecyclerAdapter(getContext(),exampleList);
+
+
+//                            System.out.println("context fra Home "+ getContext());
+//                            System.out.println("parentcontext fra Home "+ getParentFragment().getContext());
+
+
                             mRecyclerView.setAdapter(mAdapter);
 
                             //addItems();

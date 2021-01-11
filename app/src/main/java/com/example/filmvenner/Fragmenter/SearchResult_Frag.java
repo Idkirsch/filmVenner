@@ -56,24 +56,41 @@ public class SearchResult_Frag extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         SearchResultViewModel model = new ViewModelProvider(requireActivity()).get(SearchResultViewModel.class);
+
         model.getMovie().observe(getViewLifecycleOwner(), item -> {
             System.out.println("Item in resultfrag: "+item);
             JSONObject movieJson = item;
             JSONArray moviesJson = null;
+
+
             try {
                 moviesJson = movieJson.getJSONArray("results");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+
+            /**
+             * Json Array fra API'en konverteres til et array af objekterne Movie
+             * */
+
             movies = Movie.fromJson(moviesJson);
             System.out.println(movies.get(0).getTitle().toString());
             for(int i=0;i<moviesJson.length();i++){
                 String title = movies.get(i).getTitle().toString();
-                Movie movieItem = new Movie(); // TODo
-                exampleList.add(movieItem);
+                Movie movie = new Movie(); // TODo
+                exampleList.add(movie);
             }
-           // mAdapter = new MovieRecyclerAdapter(getContext(),exampleList);
+
+            System.out.println("context fra search result "+ getContext());
+            System.out.println("parentcontext fra search result "+ getParentFragment().getContext());
+
+          //  mAdapter = new MovieRecyclerAdapter(getContext(),exampleList);
+            mAdapter = new MovieRecyclerAdapter(view.getContext(),exampleList);
+
+
             mRecyclerView.setAdapter(mAdapter);
 
         });
