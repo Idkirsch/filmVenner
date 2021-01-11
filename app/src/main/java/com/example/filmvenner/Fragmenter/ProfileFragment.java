@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.filmvenner.Aktiviteter.ProfileEdit;
 import com.example.filmvenner.Aktiviteter.ProfileRated;
@@ -41,6 +43,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button reviewButton;
     ImageButton settingsButton;
     ImageButton editButton;
+    ImageView profilePic;
+    TextView userNameText;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -91,6 +95,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         settingsButton.setOnClickListener(this);
         ImageButton editButton = (ImageButton)view.findViewById(R.id.imageButtonEdit);
         editButton.setOnClickListener(this);
+
+        ImageView profilePic = (ImageView)view.findViewById(R.id.imageProfilePic);
+        profilePic.setOnClickListener(this);
+        TextView userNameText = (TextView)view.findViewById(R.id.ProfileNameTV);
+
 
         return view;
     }

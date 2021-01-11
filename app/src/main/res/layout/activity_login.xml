@@ -54,7 +54,7 @@
         android:textColorHint="@color/darkRedButtonText" />
 
     <com.facebook.login.widget.LoginButton
-        android:id="@+id/login"
+        android:id="@+id/loginFace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
