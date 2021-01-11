@@ -25,6 +25,7 @@ public class ListmovieAdapter extends RecyclerView.Adapter<ListmovieAdapter.List
         public ImageView mImageview;
         public TextView mtextView1;
         public TextView mtextView2;
+        // todo tilføj de ekstra ting (Knap, titel)
 
         public ListmovieViewHolder(@NonNull View itemView) {
             super(itemView);
