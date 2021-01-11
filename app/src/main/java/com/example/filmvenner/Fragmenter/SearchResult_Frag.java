@@ -23,6 +23,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+// TODO: Tilpas denne klasse til Movie istedet for movieItem
+
 public class SearchResult_Frag extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -71,7 +73,7 @@ public class SearchResult_Frag extends Fragment {
                 Movie movieItem = new Movie(); // TODo
                 exampleList.add(movieItem);
             }
-            mAdapter = new MovieRecyclerAdapter(exampleList);
+           // mAdapter = new MovieRecyclerAdapter(getContext(),exampleList);
             mRecyclerView.setAdapter(mAdapter);
 
         });

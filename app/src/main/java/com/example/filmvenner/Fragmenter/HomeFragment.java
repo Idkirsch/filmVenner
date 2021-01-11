@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private  RequestQueue mRequestQueue;
     ArrayList<Movie> movies;
-    ArrayList<MovieItem> exampleList = new ArrayList<>();
+    ArrayList<Movie> exampleList = new ArrayList<>();
     DatabaseAccess db = new DatabaseAccess();
     User user = new User();
 
@@ -116,10 +116,11 @@ public class HomeFragment extends Fragment {
 
                             for (int i = 0; i < moviesJson.length(); i++) {
                                 String title = movies.get(i).getTitle().toString();
-                                MovieItem item = new MovieItem(R.drawable.film, "_", "release date", title);
+                                Movie item = new Movie("releasedate", "_", title, "https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg");
                                 exampleList.add(item);
                             }
-                            mAdapter = new MovieRecyclerAdapter(exampleList);
+                            mAdapter = new MovieRecyclerAdapter(getContext(),exampleList); // exampleList:     ArrayList<MovieItem>
+                                                                                // her mangler vi context som argument
                             mRecyclerView.setAdapter(mAdapter);
 
                             //addItems();

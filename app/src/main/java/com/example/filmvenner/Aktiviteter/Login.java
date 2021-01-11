@@ -113,6 +113,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 startActivity(intent);
 
             }else {
+                username.setText("PippiLangstromp");
                 System.out.println("Inputfeltet til brugernavnet er tomt");
             }
 

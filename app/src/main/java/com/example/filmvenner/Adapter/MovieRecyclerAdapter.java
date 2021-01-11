@@ -52,7 +52,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         Movie currentItem = mExampleList.get(position);
 
 //        holder.mImageview.setImageResource(currentItem.getmImageResource());
-        Picasso.get().load("https://en.wikipedia.org/wiki/Kitten#/media/File:Juvenile_Ragdoll.jpg").into(holder.mImageview);
+        Picasso.get().load(currentItem.getmImageResource()).into(holder.mImageview);
         holder.mName.setText(currentItem.getLanguage());
         holder.mTV2.setText(currentItem.getRelease());
         holder.mTitle.setText(currentItem.getTitle());
