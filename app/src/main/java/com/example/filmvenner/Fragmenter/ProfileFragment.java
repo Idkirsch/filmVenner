@@ -1,6 +1,8 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -53,6 +55,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     ImageButton editButton;
 //    DatabaseAccess db = new DatabaseAccess();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
+    SharedPreferences prefMan;
+
 
     private TextView profilename;
 
@@ -74,6 +78,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Context context = getContext();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -92,41 +97,39 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editButton.setOnClickListener(this);
 
         profilename = view.findViewById(R.id.ProfileNameTV);
+//
+        prefMan = context.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+        System.out.println("prefman get all: "+prefMan.getAll());
 
-//        backgroundThread.execute(() -> {
-//            try {
-//                db.getName();
-//                System.out.println("name from database background: "+db.getName());
-//                uiThread.post(() -> {
-//                });
-//            } catch (Exception e) {
-//                e.printStackTrace();
+        String usernameFromPrefMan = prefMan.getString("currentUserName", "default");
+
+        System.out.println( "Username from preferencemanager"+ usernameFromPrefMan);
+
+
+        profilename.setText(usernameFromPrefMan);
+
+
+//        DocumentReference docRef = database.collection("users").document("TEST");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    if(document.exists()){
+//                        System.out.println("DocumentSnapshot data: "+ document.getData());
+//                        System.out.println("document get name: "+ document.get("name"));
+//                        profilename.setText(document.getString("name"));
+//                        //create map to save data in
+//                        //Map<String, Object> user = document.getData();
+//
+//                    }else{
+//                        System.out.println("no such document");
+//                    }
+//                }else{
+//                    System.out.println("get failed with "+task.getException());
+//                }
 //            }
 //        });
-//
-
-
-        DocumentReference docRef = database.collection("users").document("TEST");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if(document.exists()){
-                        System.out.println("DocumentSnapshot data: "+ document.getData());
-                        System.out.println("document get name: "+ document.get("name"));
-                        profilename.setText(document.getString("name"));
-                        //create map to save data in
-                        //Map<String, Object> user = document.getData();
-
-                    }else{
-                        System.out.println("no such document");
-                    }
-                }else{
-                    System.out.println("get failed with "+task.getException());
-                }
-            }
-        });
 
 
         return view;

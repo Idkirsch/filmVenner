@@ -64,13 +64,6 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
                 System.out.println("yes, the fields have values");
 
 
-
-
-
-
-
-
-
                 addUser(usrname,mail,usrname);
 
                 test_user.setUsername(username.getText().toString());

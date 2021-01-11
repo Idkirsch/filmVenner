@@ -78,18 +78,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
                         if(task.isSuccessful()){
                             DocumentSnapshot document = task.getResult();
                             if(document.exists()){
                                 if(document.getString("username").equals(inputUsername)){
                                     System.out.println("the username equals the username from database");
-//                                    System.out.println("name from database= "+document.get("username"));
+                                     System.out.println("name from database= "+document.get("username"));
 //                                    System.out.println("name from inputfield= "+inputUsername);
 //                                    System.out.println("the users username is: "+user.getUsername());
 //                                    System.out.println("the users email is now set to: "+user.getEmail());
                                     user.setUsername(document.getString("username"));
                                     user.setEmail(document.getString("email"));
-                                    putUserInPreferenceManager();
+                                    //putUserInPreferenceManager();
+
+                                    SharedPreferences.Editor editor = prefMan.edit();
+
+                                    editor.putString("currentUserName", document.getString("username"));
+//                                    editor.putString("currentUserName", "HardCodedBrugernavn");
+                                    editor.apply();
+
 
                                 }
                             }else{
@@ -101,20 +109,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     }
                 });
 
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
             }else {
                 System.out.println("Inputfeltet til brugernavnet er tomt");
             }
 
 
-            if(inputUsername.equals(expected_username) && inputPassword.equals(expected_password)){ // checks if input is equal to expected. TODO: get expected password from database
-                System.out.println("the username and password input was equal to the expected ");
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            }else{
-                //promptes til at oprette en bruger?
-                username.setText("test123");
-                password.setText("1");
-            }
+//            if(inputUsername.equals(expected_username) && inputPassword.equals(expected_password)){ // checks if input is equal to expected. TODO: get expected password from database
+//                System.out.println("the username and password input was equal to the expected ");
+//                Intent intent = new Intent(this, MainActivity.class);
+//                startActivity(intent);
+//            }else{
+//                //promptes til at oprette en bruger?
+//                username.setText("test123");
+//                password.setText("1");
+//            }
         }
         if(view == createUser){
             System.out.println("clicked on create user");
