@@ -44,10 +44,13 @@ public class SearchResult_Frag extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_search_result_, container, false);
         mRecyclerView = view.findViewById(R.id.recyclerviewSearch);
         mRecyclerView.setHasFixedSize(true);
+
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         return view;
@@ -84,13 +87,7 @@ public class SearchResult_Frag extends Fragment {
                 exampleList.add(movie);
             }
 
-            System.out.println("context fra search result "+ getContext());
-            System.out.println("parentcontext fra search result "+ getParentFragment().getContext());
-
-          //  mAdapter = new MovieRecyclerAdapter(getContext(),exampleList);
-            mAdapter = new MovieRecyclerAdapter(view.getContext(),exampleList);
-
-
+            mAdapter = new MovieRecyclerAdapter(exampleList);
             mRecyclerView.setAdapter(mAdapter);
 
         });

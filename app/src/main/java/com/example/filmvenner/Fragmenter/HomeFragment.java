@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment {
                                 exampleList.add(item);
                             }
 
-                            mAdapter = new MovieRecyclerAdapter(getContext(),exampleList);
+                            mAdapter = new MovieRecyclerAdapter(exampleList);
 
 
 //                            System.out.println("context fra Home "+ getContext());

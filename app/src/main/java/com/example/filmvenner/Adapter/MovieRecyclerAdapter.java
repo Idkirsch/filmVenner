@@ -34,9 +34,13 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         }
     }
 
-    public MovieRecyclerAdapter(Context context,ArrayList<Movie> exampleList){
+//    public MovieRecyclerAdapter(Context context,ArrayList<Movie> exampleList){
+//        mExampleList = exampleList;
+//        mContext = context;
+//    }
+
+    public MovieRecyclerAdapter(ArrayList<Movie> exampleList){
         mExampleList = exampleList;
-        mContext = context;
     }
 
     @NonNull
@@ -51,7 +55,6 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
         Movie currentItem = mExampleList.get(position);
 
-//        holder.mImageview.setImageResource(currentItem.getmImageResource());
         Picasso.get().load(currentItem.getmImageResource()).into(holder.mImageview);
         holder.mName.setText(currentItem.getLanguage());
         holder.mTV2.setText(currentItem.getRelease());
