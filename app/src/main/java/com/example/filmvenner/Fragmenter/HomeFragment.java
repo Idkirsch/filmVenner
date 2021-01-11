@@ -21,6 +21,7 @@ import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.DAO.MovieItem;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
+import com.example.filmvenner.DAO.User;
 import com.example.filmvenner.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Movie> movies;
     ArrayList<MovieItem> exampleList = new ArrayList<>();
     DatabaseAccess db = new DatabaseAccess();
+    User user = new User();
 
 //
 //    FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -86,8 +88,6 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        db.retrieveData();
-
         return v;
     }
 
@@ -121,13 +121,14 @@ public class HomeFragment extends Fragment {
                             }
                             mAdapter = new MovieRecyclerAdapter(exampleList);
                             mRecyclerView.setAdapter(mAdapter);
+
                             //addItems();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                }, error -> System.out.println("that didnt work"));
+                }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
         mRequestQueue.add(jsonObjectRequest);
     }
 
