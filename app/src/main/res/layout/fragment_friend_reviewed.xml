@@ -10,40 +10,15 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <!--Titlen på profilsiden-->
-    <TextView
-        android:id="@+id/textView_friend_page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Friend"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Settings knap-->
-    <ImageButton
-        android:id="@+id/imageButton_chat"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/edit_custom_rounded_corners"
-        android:padding="3dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_chat"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--Selve profil iconet-->
+    <!--Selve vens profil iconet-->
     <ImageView
         android:id="@+id/image_friend_pic"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/custom_circle"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
@@ -68,19 +43,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!--Bruger navn-->
 
-    <TextView
-        android:id="@+id/friend_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="20dp"
-        android:text="Reviewd"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/image_friend_pic"
-        app:layout_constraintTop_toBottomOf="@+id/textView_friend_page" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewReviewed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:padding="4dp"
+        android:background="@color/backgroundRed"
+        android:scrollbars="vertical"
+        />
 
     <FrameLayout
         android:id="@+id/frameLayout_for_something"
@@ -89,7 +61,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <!--Vens navn-->
+
+        <TextView
+            android:id="@+id/friend_reviewed_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="45dp"
+            android:text="Friend name"
+            android:textSize="24sp" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp"
+        android:textSize="40dp"
+        android:text="Reviewed"
+        android:gravity="center_horizontal"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
