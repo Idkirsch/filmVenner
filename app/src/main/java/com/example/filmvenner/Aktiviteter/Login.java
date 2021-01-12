@@ -36,7 +36,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     /*
     *Creating an instance of the database in order to check if the username that the user types is in fact in the database.
     */
-    FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+//    FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     /*
      * Instantiaing the preferencemanager to be able to reach the user to other fragments or activities
@@ -72,50 +73,50 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             String inputPassword = password.getText().toString();
 
 
-            if(!inputUsername.isEmpty()){
+//            if(!inputUsername.isEmpty()){
 
-                DocumentReference docRef = database.collection("users").document(inputUsername);
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                        if(task.isSuccessful()){
-                            DocumentSnapshot document = task.getResult();
-                            if(document.exists()){
-                                if(document.getString("username").equals(inputUsername)){
-                                    System.out.println("the username equals the username from database");
-                                     System.out.println("name from database= "+document.get("username"));
-//                                    System.out.println("name from inputfield= "+inputUsername);
-//                                    System.out.println("the users username is: "+user.getUsername());
-//                                    System.out.println("the users email is now set to: "+user.getEmail());
-                                    user.setUsername(document.getString("username"));
-                                    user.setEmail(document.getString("email"));
-                                    //putUserInPreferenceManager();
-
-                                    SharedPreferences.Editor editor = prefMan.edit();
-
-                                    editor.putString("currentUserName", document.getString("username"));
-//                                    editor.putString("currentUserName", "HardCodedBrugernavn");
-                                    editor.apply();
-
-
-                                }
-                            }else{
-                                System.out.println("ingen brugernavne i databasen matcher det inputtede brugernavn");
-                            }
-                        }else{
-                            System.out.println("get failed with "+task.getException());
-                        }
-                    }
-                });
+//                DocumentReference docRef = database.collection("users").document(inputUsername);
+//                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//                        if(task.isSuccessful()){
+//                            DocumentSnapshot document = task.getResult();
+//                            if(document.exists()){
+//                                if(document.getString("username").equals(inputUsername)){
+//                                    System.out.println("the username equals the username from database");
+//                                     System.out.println("name from database= "+document.get("username"));
+////                                    System.out.println("name from inputfield= "+inputUsername);
+////                                    System.out.println("the users username is: "+user.getUsername());
+////                                    System.out.println("the users email is now set to: "+user.getEmail());
+//                                    user.setUsername(document.getString("username"));
+//                                    user.setEmail(document.getString("email"));
+//                                    //putUserInPreferenceManager();
+//
+//                                    SharedPreferences.Editor editor = prefMan.edit();
+//
+//                                    editor.putString("currentUserName", document.getString("username"));
+////                                    editor.putString("currentUserName", "HardCodedBrugernavn");
+//                                    editor.apply();
+//
+//
+//                                }
+//                            }else{
+//                                System.out.println("ingen brugernavne i databasen matcher det inputtede brugernavn");
+//                            }
+//                        }else{
+//                            System.out.println("get failed with "+task.getException());
+//                        }
+//                    }
+//                });
 
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
 
-            }else {
-                username.setText("PippiLangstromp");
-                System.out.println("Inputfeltet til brugernavnet er tomt");
-            }
+//            }else {
+//                username.setText("PippiLangstromp");
+//                System.out.println("Inputfeltet til brugernavnet er tomt");
+//            }
 
 
 //            if(inputUsername.equals(expected_username) && inputPassword.equals(expected_password)){ // checks if input is equal to expected. TODO: get expected password from database

@@ -41,6 +41,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
 
     public MovieRecyclerAdapter(ArrayList<Movie> exampleList){
         mExampleList = exampleList;
+
     }
 
     @NonNull

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,14 +47,19 @@ import java.util.ArrayList;
  */
 public class HomeFragment extends Fragment {
 
+    Executor backgroundThread = Executors.newSingleThreadExecutor();
+    Handler uiThread = new Handler(Looper.getMainLooper());
+
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private  RequestQueue mRequestQueue;
+    private RequestQueue mRequestQueue;
     ArrayList<Movie> movies;
     ArrayList<Movie> exampleList = new ArrayList<>();
-    DatabaseAccess db = new DatabaseAccess();
-    User user = new User();
+
+    // DatabaseAccess db = new DatabaseAccess();
+    // User user = new User();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
 
 
@@ -88,16 +97,26 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        mRequestQueue = Volley.newRequestQueue(getContext());
 
-        callAPI();
+        backgroundThread.execute(() -> {
+            try {
+                mRequestQueue = Volley.newRequestQueue(getContext());
 
-        mRecyclerView = v.findViewById(R.id.recyclerviewHome);
-        mRecyclerView.setHasFixedSize(true);
+                System.out.println("executing backgroundthread");
 
-        mLayoutManager = new LinearLayoutManager(getContext());
+                callAPI();
+                uiThread.post(() -> {
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
+                    mRecyclerView = v.findViewById(R.id.recyclerviewHome);
+                    mRecyclerView.setHasFixedSize(true);
+                    mLayoutManager = new LinearLayoutManager(getContext());
+                    mRecyclerView.setLayoutManager(mLayoutManager);
+
+                });
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        });
 
         return v;
     }
@@ -110,16 +129,22 @@ public class HomeFragment extends Fragment {
 
 
     public void callAPI() {
+        System.out.println("calling API");
         String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+
+                        System.out.println("in onResponse but before try catch");
+
                         try {
                             JSONObject movieJson = response;
                             JSONArray moviesJson = movieJson.getJSONArray("results");
+                            System.out.println(" response: "+response);
 
                             movies = Movie.fromJson(moviesJson);
                             System.out.println(movies.get(0).getTitle().toString());
@@ -128,20 +153,13 @@ public class HomeFragment extends Fragment {
                             for (int i = 0; i < moviesJson.length(); i++) {
                                 String title = movies.get(i).getTitle().toString();
                                 String imagePath = movies.get(i).getmImageResource().toString();
-                                String fullImagePath  = prefixImage + imagePath;
-//                                System.out.println(fullImagePath);
+                                String fullImagePath = prefixImage + imagePath;
                                 Movie item = new Movie("releasedate", "_", title, fullImagePath);
                                 exampleList.add(item);
                             }
 
-                            mAdapter = new MovieRecyclerAdapter(exampleList);
-
-
-//                            System.out.println("context fra Home "+ getContext());
-//                            System.out.println("parentcontext fra Home "+ getParentFragment().getContext());
-
-
-                            mRecyclerView.setAdapter(mAdapter);
+//                            mAdapter = new MovieRecyclerAdapter(exampleList);
+//                            mRecyclerView.setAdapter(mAdapter);
 
                             //addItems();
                         } catch (JSONException e) {
@@ -150,6 +168,10 @@ public class HomeFragment extends Fragment {
                     }
 
                 }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
+
+        mAdapter = new MovieRecyclerAdapter(exampleList);
+        mRecyclerView.setAdapter(mAdapter);
+
         mRequestQueue.add(jsonObjectRequest);
     }
 
@@ -173,7 +195,6 @@ public class HomeFragment extends Fragment {
 //        });
 //
 //    }
-
 
 
 }
