@@ -158,8 +158,8 @@ public class HomeFragment extends Fragment {
                                 exampleList.add(item);
                             }
 
-//                            mAdapter = new MovieRecyclerAdapter(exampleList);
-//                            mRecyclerView.setAdapter(mAdapter);
+                            mAdapter = new MovieRecyclerAdapter(exampleList);
+                            mRecyclerView.setAdapter(mAdapter);
 
                             //addItems();
                         } catch (JSONException e) {
@@ -169,8 +169,8 @@ public class HomeFragment extends Fragment {
 
                 }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
 
-        mAdapter = new MovieRecyclerAdapter(exampleList);
-        mRecyclerView.setAdapter(mAdapter);
+//        mAdapter = new MovieRecyclerAdapter(exampleList);
+//        mRecyclerView.setAdapter(mAdapter);
 
         mRequestQueue.add(jsonObjectRequest);
     }
