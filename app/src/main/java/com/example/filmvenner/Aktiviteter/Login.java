@@ -3,6 +3,9 @@ package com.example.filmvenner.Aktiviteter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,6 +74,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "onSuccess" + loginResult);
                 handleFacebookToken (loginResult.getAccessToken());
+                Intent intent = new Intent(Login.this, MainActivity.class);
+                startActivity(intent);
             }
 
             @Override
