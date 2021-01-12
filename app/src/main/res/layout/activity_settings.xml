@@ -4,15 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Aktiviteter.ProfileRated">
+    tools:context=".Aktiviteter.ProfileRated"
+    android:background="@color/backgroundRed">
 
-    <TextView
-        android:id="@+id/textViewRatedTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Here you'll see the app settings"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <!--Den horizontale divider-->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginBottom="89dp"
+        android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!--Selve profil iconet-->
+    <ImageView
+        android:id="@+id/imageProfilePic"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/custom_circle"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Bruger navn-->
+
+    <TextView
+        android:id="@+id/ProfileNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="100dp"
+        android:text="Peter Pedersen"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- genrevalg -->
+
+    <TextView
+        android:id="@+id/ProfileGenreTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:text="Action, Scifi, thriller"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
+        app:layout_constraintTop_toBottomOf="@+id/ProfileNameTV" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
