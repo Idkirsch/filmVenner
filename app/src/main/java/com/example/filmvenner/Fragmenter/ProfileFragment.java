@@ -1,23 +1,40 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.filmvenner.Aktiviteter.ProfileEdit;
 import com.example.filmvenner.Aktiviteter.ProfileRated;
 import com.example.filmvenner.Aktiviteter.ProfileReviewed;
-import com.example.filmvenner.Aktiviteter.ProfileToWatch;
 import com.example.filmvenner.Aktiviteter.ProfileWatched;
+import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.R;
 import com.example.filmvenner.Aktiviteter.Settings;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,14 +43,9 @@ import com.example.filmvenner.Aktiviteter.Settings;
  */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+//    Executor backgroundThread = Executors.newSingleThreadExecutor();
+//    Handler uiThread = new Handler(Looper.getMainLooper());
 
     Button b1;
     Button watchedButton;
@@ -41,77 +53,136 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button reviewButton;
     ImageButton settingsButton;
     ImageButton editButton;
+//    DatabaseAccess db = new DatabaseAccess();
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+    SharedPreferences prefMan;
+
+
+    private TextView profilename;
+
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Context context = getContext();
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        Button b1 = (Button )view.findViewById(R.id.ratedbutton);
+        Button b1 = (Button) view.findViewById(R.id.ratedbutton);
         b1.setOnClickListener(this);
-        Button watchedButton = (Button)view.findViewById(R.id.watchedbutton);
+        Button watchedButton = (Button) view.findViewById(R.id.watchedbutton);
         watchedButton.setOnClickListener(this);
-        Button watchButton = (Button)view.findViewById(R.id.towatchbutton);
+        Button watchButton = (Button) view.findViewById(R.id.towatchbutton);
         watchButton.setOnClickListener(this);
-        Button reviewedButton = (Button)view.findViewById(R.id.reviewedbutton);
+        Button reviewedButton = (Button) view.findViewById(R.id.reviewedbutton);
         reviewedButton.setOnClickListener(this);
         ImageButton settingsButton = (ImageButton) view.findViewById(R.id.imageButtonSetting);
         settingsButton.setOnClickListener(this);
-        ImageButton editButton = (ImageButton)view.findViewById(R.id.imageButtonEdit);
+        ImageButton editButton = (ImageButton) view.findViewById(R.id.imageButtonEdit);
         editButton.setOnClickListener(this);
+
+        profilename = view.findViewById(R.id.ProfileNameTV);
+//
+        prefMan = context.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+        System.out.println("prefman get all: "+prefMan.getAll());
+
+        String usernameFromPrefMan = prefMan.getString("currentUserName", "default");
+
+        System.out.println( "Username from preferencemanager"+ usernameFromPrefMan);
+
+
+        profilename.setText(usernameFromPrefMan);
+
+
+//        DocumentReference docRef = database.collection("users").document("TEST");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    if(document.exists()){
+//                        System.out.println("DocumentSnapshot data: "+ document.getData());
+//                        System.out.println("document get name: "+ document.get("name"));
+//                        profilename.setText(document.getString("name"));
+//                        //create map to save data in
+//                        //Map<String, Object> user = document.getData();
+//
+//                    }else{
+//                        System.out.println("no such document");
+//                    }
+//                }else{
+//                    System.out.println("get failed with "+task.getException());
+//                }
+//            }
+//        });
+
 
         return view;
     }
 
+
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.ratedbutton:
                 startActivity(new Intent(getActivity(), ProfileRated.class));
                 break;
 
             case R.id.watchedbutton:
-                startActivity(new Intent(getActivity(), ProfileWatched.class));
+//                startActivity(new Intent(getActivity(), ProfileWatched.class));
+                System.out.println("klikkede på to watched button");
+
+                FragmentManager fragmentManager2 = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+
+                ProfilWatched watched = new ProfilWatched();
+                fragmentTransaction2.add(R.id.frameLayout_for_something, watched);
+
+
+                fragmentTransaction2.commit();
                 break;
 
             case R.id.towatchbutton:
-                startActivity(new Intent(getActivity(), ProfileToWatch.class));
+
+                System.out.println("klikkede på to watch button");
+
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                ProfilWantToWatch wantToWatch = new ProfilWantToWatch();
+                fragmentTransaction.add(R.id.frameLayout_for_something, wantToWatch);
+
+
+                fragmentTransaction.commit();
+
                 break;
 
             case R.id.reviewedbutton:
-                startActivity(new Intent(getActivity(), ProfileReviewed.class));
+//                startActivity(new Intent(getActivity(), ProfileReviewed.class));
+                System.out.println("klikkede på to reviewed button");
+
+                FragmentManager fragmentManager3 = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
+
+                ProfilReviewed reviewed = new ProfilReviewed();
+                fragmentTransaction3.add(R.id.frameLayout_for_something, reviewed);
+
+                fragmentTransaction3.commit();
                 break;
 
             case R.id.imageButtonSetting:
@@ -124,6 +195,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
+
 }
 
 

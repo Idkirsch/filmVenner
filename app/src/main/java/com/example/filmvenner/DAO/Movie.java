@@ -9,10 +9,18 @@ import java.util.ArrayList;
 // model of movieclass
 public class Movie {
 
-    private String title;
-    private String release;
+    private String release, language,title,mImageResource;
 
+    public Movie (String release, String language, String title, String mImageResource){
+        this.language = language;
+        this.mImageResource = mImageResource;
+        this.release = release;
+        this.title = title;
+    }
 
+    public Movie (){
+
+    }
 
     // decodes movie json into movie model object
     public static Movie fromJson(JSONObject jsonObject){
@@ -20,14 +28,14 @@ public class Movie {
         try{
             m.title = jsonObject.getString("title");
             m.release = jsonObject.getString("release_date");
+            m.language = jsonObject.getString("original_language");
+            m.mImageResource = jsonObject.getString("poster_path");
         }catch (JSONException e){
             e.printStackTrace();
             return null;
         }
         return m;
     }
-
-
 
 
     //decodes array of Movie json into Movie model objects
@@ -52,26 +60,33 @@ public class Movie {
     }
 
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setRelease(String release) {
+        this.release = release;
+    }
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+    public void setmImageResource(String mImageResource) {
+        this.mImageResource = mImageResource;
+    }
 
-
-
-
-
+    public String getLanguage() {
+        return language;
+    }
+    public String getmImageResource() {
+        return mImageResource;
+    }
+    public String getRelease() {
+        return release;
+    }
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public String getRelease() {
-        return release;
-    }
-
-    public void setRelease(String release) {
-        this.release = release;
-    }
 }
 
 
