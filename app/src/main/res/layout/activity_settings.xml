@@ -10,7 +10,7 @@
 
     <!--Den horizontale divider-->
     <View
-        android:id="@+id/divider"
+        android:id="@+id/dividerSettings"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="220dp"
@@ -24,7 +24,7 @@
 
     <!--Selve profil iconet-->
     <ImageView
-        android:id="@+id/imageProfilePic"
+        android:id="@+id/imageProfilePicSettings"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginStart="32dp"
@@ -43,7 +43,7 @@
     <!--Bruger navn-->
 
     <TextView
-        android:id="@+id/ProfileNameTV"
+        android:id="@+id/ProfileNameTVSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -51,20 +51,41 @@
         android:layout_marginTop="100dp"
         android:text="Peter Pedersen"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
+        app:layout_constraintStart_toEndOf="@+id/imageProfilePicSettings"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- genrevalg -->
 
     <TextView
-        android:id="@+id/ProfileGenreTV"
+        android:id="@+id/ProfileGenreTVSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
         android:text="Action, Scifi, thriller"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
-        app:layout_constraintTop_toBottomOf="@+id/ProfileNameTV" />
+        app:layout_constraintStart_toEndOf="@+id/imageProfilePicSettings"
+        app:layout_constraintTop_toBottomOf="@+id/ProfileNameTVSettings" />
+
+    <!-- radiobutton nr. 1 -->
+
+    <!-- radiobutton nr. 2 -->
+    <RadioButton
+        android:id="@+id/radioButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RadioButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.109"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="336dp" />
+
+    <RadioButton
+        android:id="@+id/radioButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RadioButton"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="419dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
