@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,12 +49,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button login, createUser;
     EditText username, password;
     String expected_username = "test123", expected_password = "1";
+    SharedPreferences prefMan;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        prefMan = this.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -98,6 +102,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user!=null){
                     updateUI(user);
+                    System.out.println("Hej fra state succes");
                 }
                 else {
                     updateUI(null);
@@ -174,10 +179,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(user != null) {
             // navnpåTV.setText(user.getDisplayName());
             if(user.getPhotoUrl() != null){
+
                 String photoUrl = user.getPhotoUrl().toString();
                 photoUrl = photoUrl + "?type=large";
                 //Picasso.get().load(photoUrl).into();// Imageview id på billede skal ind parantes
-                System.out.println(photoUrl);
+                System.out.println("PHOTOURL"+photoUrl);
+
+                SharedPreferences.Editor editor = prefMan.edit();
+
+                editor.putString("currentUserPicture", photoUrl);
+                editor.apply();
             }
         }
         else{

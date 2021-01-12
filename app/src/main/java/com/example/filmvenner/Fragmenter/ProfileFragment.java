@@ -1,6 +1,8 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +22,7 @@ import com.example.filmvenner.Aktiviteter.ProfileToWatch;
 import com.example.filmvenner.Aktiviteter.ProfileWatched;
 import com.example.filmvenner.R;
 import com.example.filmvenner.Aktiviteter.Settings;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +48,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     ImageButton editButton;
     ImageView profilePic;
     TextView userNameText;
+    SharedPreferences prefMan;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -99,6 +103,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         ImageView profilePic = (ImageView)view.findViewById(R.id.imageProfilePic);
         profilePic.setOnClickListener(this);
         TextView userNameText = (TextView)view.findViewById(R.id.ProfileNameTV);
+        Context context = getContext();
+
+        prefMan = context.getSharedPreferences("currentUserPicture", Context.MODE_PRIVATE);
+
+        String userpicFromPrefMan = prefMan.getString("currentUserPicture", "default");
+
+
+        Picasso.get().load(userpicFromPrefMan).into(profilePic);
 
 
         return view;
