@@ -70,22 +70,30 @@
     <!-- radiobutton nr. 1 -->
 
     <!-- radiobutton nr. 2 -->
+
     <RadioButton
         android:id="@+id/radioButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton"
+        android:layout_marginTop="140dp"
+        android:text="Show all movies (default setting)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="336dp" />
+        app:layout_constraintTop_toBottomOf="@+id/dividerSettings" />
 
     <RadioButton
         android:id="@+id/radioButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="419dp" />
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="276dp"
+        android:text="Show only movies from selected streaming sites"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton1"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
