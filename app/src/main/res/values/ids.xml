@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textView_friend_page" type="id" />
+    <item name="imageButton_chat" type="id" />
+    <item name="image_friend_pic" type="id" />
+    <item name="friend_name" type="id" />
+    <item name="friend_genre_TV" type="id" />
+    <item name="linearLayout_friend_rated" type="id" />
+    <item name="img_friend_rated" type="id" />
+    <item name="friend_rated_button" type="id" />
+    <item name="linearLayout_friend_reviewed" type="id" />
+    <item name="img_friend_reviewed" type="id" />
+    <item name="friend_reviewed_button" type="id" />
+    <item name="linearLayout_friend_watched" type="id" />
+    <item name="friend_watched_button" type="id" />
+    <item name="linearLayout_friend_to_watch" type="id" />
+    <item name="friend_to_watch_button" type="id" />
+</resources>

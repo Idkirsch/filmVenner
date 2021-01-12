@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundRed"
+    tools:context=".Fragmenter.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <!--Titlen på profilsiden-->
+    <TextView
+        android:id="@+id/textView_friend_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Profile"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Settings knap-->
+    <ImageButton
+        android:id="@+id/imageButton_chat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/edit_custom_rounded_corners"
+        android:padding="3dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_chat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Selve profil iconet-->
+    <ImageView
+        android:id="@+id/image_friend_pic"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/custom_circle"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Den horizontale divider-->
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginBottom="89dp"
+        android:background="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <!--Bruger navn-->
+
+    <TextView
+        android:id="@+id/friend_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="56dp"
+        android:text="Friend's name"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/image_friend_pic"
+        app:layout_constraintTop_toBottomOf="@+id/textView_friend_page" />
+
+
+    <!-- genrevalg -->
+
+    <TextView
+        android:id="@+id/friend_genre_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:text="Action, Scifi, thriller"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/image_friend_pic"
+        app:layout_constraintTop_toBottomOf="@+id/friend_name" />
+
+
+    <!--Rated knappen-->
+    <LinearLayout
+        android:id="@+id/linearLayout_friend_rated"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/backgroundRed"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/img_friend_rated"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/film" />
+
+
+        <Button
+            android:id="@+id/friend_rated_button"
+            android:layout_width="401dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@drawable/ic_arrow___right_2"
+            android:lines="2"
+            android:text="Rated\n175"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <!--Reviewed knappen-->
+    <LinearLayout
+        android:id="@+id/linearLayout_friend_reviewed"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/backgroundRed"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout_friend_rated"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/img_friend_reviewed"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/film" />
+
+
+        <Button
+            android:id="@+id/friend_reviewed_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@drawable/ic_arrow___right_2"
+            android:lines="2"
+            android:text="Reviewed\n23"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+    <!--Watched knappen-->
+    <LinearLayout
+        android:id="@+id/linearLayout_friend_watched"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/backgroundRed"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout_friend_reviewed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/IMWatched"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/film" />
+
+
+        <Button
+            android:id="@+id/friend_watched_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@drawable/ic_arrow___right_2"
+            android:lines="2"
+            android:text="Watched\n250 movies and series"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+
+    <!--Want to watch knappen-->
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_friend_to_watch"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/backgroundRed"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout_friend_watched"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/IMWatch"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/film" />
+
+        <Button
+            android:id="@+id/friend_to_watch_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@drawable/ic_arrow___right_2"
+            android:lines="2"
+            android:text="Want to watch\n273 movies and series"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout_for_something"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
