@@ -11,6 +11,7 @@ public class Movie {
 
     private String title;
     private String release;
+    private String overview;
 
 
 
@@ -20,6 +21,7 @@ public class Movie {
         try{
             m.title = jsonObject.getString("title");
             m.release = jsonObject.getString("release_date");
+            m.overview = jsonObject.getString("overview");
         }catch (JSONException e){
             e.printStackTrace();
             return null;
@@ -72,6 +74,8 @@ public class Movie {
     public void setRelease(String release) {
         this.release = release;
     }
+
+    public String getOverview(){ return overview;}
 }
 
 

@@ -69,7 +69,9 @@ public class SearchResult_Frag extends Fragment {
             System.out.println(movies.get(0).getTitle().toString());
             for(int i=0;i<moviesJson.length();i++){
                 String title = movies.get(i).getTitle().toString();
-                MovieItem movieItem = new MovieItem(R.drawable.film, "_", "release date", title);
+                String date = movies.get(i).getRelease().toString();
+                String overview = movies.get(i).getOverview().toString();
+                MovieItem movieItem = new MovieItem(R.drawable.film,date,overview, title);
                 exampleList.add(movieItem);
             }
             mAdapter = new MovieRecyclerAdapter(exampleList);
