@@ -113,6 +113,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     public void callAPI() {
         RequestQueue queue = Volley.newRequestQueue(getContext());
        // String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+
         String request = query1+query2+query3;
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
@@ -125,6 +126,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             JSONArray moviesJson = movieJson.getJSONArray("results");
                             movies = Movie.fromJson(moviesJson);
                             System.out.println(movies.get(0).getTitle().toString());
+
                             viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
 
                         } catch (JSONException e) {

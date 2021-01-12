@@ -31,10 +31,10 @@
         <activity android:name=".Aktiviteter.ProfileEdit"></activity>
         <activity android:name=".Aktiviteter.Settings" />
         <activity android:name=".Aktiviteter.ProfileReviewed" />
-        <activity android:name=".Aktiviteter.ProfileToWatch" />
         <activity android:name=".Aktiviteter.ProfileWatched" />
-        <activity android:name=".Aktiviteter.ProfileRated" />
-
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login" />
         <activity android:name=".Aktiviteter.CreateUser" />
         <activity android:name=".Aktiviteter.Login">
             <intent-filter>
