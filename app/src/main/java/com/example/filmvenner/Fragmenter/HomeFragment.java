@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +19,26 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.DAO.MovieItem;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
+import com.example.filmvenner.DAO.User;
 import com.example.filmvenner.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,16 +47,34 @@ import java.util.ArrayList;
  */
 public class HomeFragment extends Fragment {
 
+    Executor backgroundThread = Executors.newSingleThreadExecutor();
+    Handler uiThread = new Handler(Looper.getMainLooper());
+
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    //    APIqueue api = new APIqueue();
-    private  RequestQueue mRequestQueue;
-  //  RequestQueue mRequestQueue = APIqueue.getInstance(getContext()).getRequestQueue();
-
-    // JSONObject movietest = new JSONObject();
+    private RequestQueue mRequestQueue;
     ArrayList<Movie> movies;
-    ArrayList<MovieItem> exampleList = new ArrayList<>();
+    ArrayList<Movie> exampleList = new ArrayList<>();
+
+    // DatabaseAccess db = new DatabaseAccess();
+    // User user = new User();
+    private String prefixImage = "https://image.tmdb.org/t/p/w500";
+
+
+    public String getPrefixImage() {
+        return prefixImage;
+    }
+
+    public void setPrefixImage(String prefixImage) {
+        this.prefixImage = prefixImage;
+    }
+
+
+//
+//    FirebaseFirestore database = FirebaseFirestore.getInstance();
+//    CollectionReference usersDB = database.collection("users");
 
 
     public HomeFragment() {
@@ -65,20 +95,28 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        mRequestQueue = Volley.newRequestQueue(getContext());
 
-        callAPI();
+        backgroundThread.execute(() -> {
+            try {
+                mRequestQueue = Volley.newRequestQueue(getContext());
 
+                System.out.println("executing backgroundthread");
 
-        mRecyclerView = v.findViewById(R.id.recyclerviewHome);
-        mRecyclerView.setHasFixedSize(true);
+                callAPI();
+                uiThread.post(() -> {
 
-        mLayoutManager = new LinearLayoutManager(getContext());
+                    mRecyclerView = v.findViewById(R.id.recyclerviewHome);
+                    mRecyclerView.setHasFixedSize(true);
+                    mLayoutManager = new LinearLayoutManager(getContext());
+                    mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
+                });
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        });
 
         return v;
     }
@@ -87,22 +125,26 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
 
 
     public void callAPI() {
+        System.out.println("calling API");
         String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+
+                        System.out.println("in onResponse but before try catch");
+
                         try {
                             JSONObject movieJson = response;
                             JSONArray moviesJson = movieJson.getJSONArray("results");
+                            System.out.println(" response: "+response);
 
                             movies = Movie.fromJson(moviesJson);
                             System.out.println(movies.get(0).getTitle().toString());
@@ -110,23 +152,50 @@ public class HomeFragment extends Fragment {
 
                             for (int i = 0; i < moviesJson.length(); i++) {
                                 String title = movies.get(i).getTitle().toString();
-                                MovieItem item = new MovieItem(R.drawable.film, "_", "release date", title);
+                                String imagePath = movies.get(i).getmImageResource().toString();
+                                String fullImagePath = prefixImage + imagePath;
+                                Movie item = new Movie("releasedate", "_", title, fullImagePath);
                                 exampleList.add(item);
                             }
+
                             mAdapter = new MovieRecyclerAdapter(exampleList);
                             mRecyclerView.setAdapter(mAdapter);
+
                             //addItems();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                }, error -> System.out.println("that didnt work"));
-        // Add the request to the RequestQueue.
-        mRequestQueue.add(jsonObjectRequest);
-        //APIqueue.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+                }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
 
+//        mAdapter = new MovieRecyclerAdapter(exampleList);
+//        mRecyclerView.setAdapter(mAdapter);
+
+        mRequestQueue.add(jsonObjectRequest);
     }
+
+
+//    public void retrieveData(){
+//        DocumentReference docRef = database.collection("users").document("TEST");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    if(document.exists()){
+//                        System.out.println("DocumentSnapshot data: "+ document.getData());
+//                    }else{
+//                        System.out.println("no such document");
+//                    }
+//                }else{
+//                    System.out.println("get failed with "+task.getException());
+//                }
+//            }
+//        });
+//
+//    }
+
 
 }
 

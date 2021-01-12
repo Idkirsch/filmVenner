@@ -1,5 +1,6 @@
 package com.example.filmvenner.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.filmvenner.DAO.MovieItem;
+import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdapter.ExampleViewHolder> {
-    private ArrayList<MovieItem> mExampleList;
+    private ArrayList<Movie> mExampleList;
+    private Context mContext;
 
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
@@ -31,10 +34,15 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         }
     }
 
-    public MovieRecyclerAdapter(ArrayList<MovieItem> exampleList){
-        mExampleList = exampleList;
-    }
+//    public MovieRecyclerAdapter(Context context,ArrayList<Movie> exampleList){
+//        mExampleList = exampleList;
+//        mContext = context;
+//    }
 
+    public MovieRecyclerAdapter(ArrayList<Movie> exampleList){
+        mExampleList = exampleList;
+
+    }
 
     @NonNull
     @Override
@@ -46,11 +54,11 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
-        MovieItem currentItem = mExampleList.get(position);
+        Movie currentItem = mExampleList.get(position);
 
-        holder.mImageview.setImageResource(currentItem.getImageResource());
-        holder.mName.setText(currentItem.getName());
-        holder.mTV2.setText(currentItem.getText2());
+        Picasso.get().load(currentItem.getmImageResource()).into(holder.mImageview);
+        holder.mName.setText(currentItem.getLanguage());
+        holder.mTV2.setText(currentItem.getRelease());
         holder.mTitle.setText(currentItem.getTitle());
 
     }

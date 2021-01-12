@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "161064966627",
+    "project_id": "filmvenner-6da1a",
+    "storage_bucket": "filmvenner-6da1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161064966627:android:a982c94347c6242ccbe8d6",
+        "android_client_info": {
+          "package_name": "com.example.filmvenner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161064966627-7r8kcl3h8834bie0q971csui2o70pvv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNY22QrkovS26xl8_z8Enmiq0ZEA5DfuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161064966627-7r8kcl3h8834bie0q971csui2o70pvv8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
