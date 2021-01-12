@@ -9,8 +9,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
-
     <!--Selve vens profil iconet-->
     <ImageView
         android:id="@+id/image_friend_pic"
@@ -43,6 +41,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+   <!-- Reviewed RecyclerView -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewReviewed"
