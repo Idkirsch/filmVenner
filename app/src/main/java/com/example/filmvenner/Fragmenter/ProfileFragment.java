@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.filmvenner.Aktiviteter.ProfileEdit;
@@ -32,7 +33,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.squareup.picasso.Picasso;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -56,6 +57,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 //    DatabaseAccess db = new DatabaseAccess();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     SharedPreferences prefMan;
+    ImageView profilePic;
+    TextView userNameText;
 
 
     private TextView profilename;
@@ -97,14 +100,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editButton.setOnClickListener(this);
 
         profilename = view.findViewById(R.id.ProfileNameTV);
-//
+        ImageView profilePic = (ImageView)view.findViewById(R.id.imageProfilePic);profilePic.setOnClickListener(this);
         prefMan = context.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
         System.out.println("prefman get all: "+prefMan.getAll());
 
         String usernameFromPrefMan = prefMan.getString("currentUserName", "default");
 
         System.out.println( "Username from preferencemanager"+ usernameFromPrefMan);
+        String userpicFromPrefMan = prefMan.getString("currentUserPicture", "default");
 
+
+        Picasso.get().load(userpicFromPrefMan).into(profilePic);
 
         profilename.setText(usernameFromPrefMan);
 
