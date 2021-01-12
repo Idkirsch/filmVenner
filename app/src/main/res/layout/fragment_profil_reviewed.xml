@@ -1,25 +1,28 @@
-
-<!--******************forsøg 3******************-->
-<!-- kode inspiration fra https://www.vogella.com/tutorials/AndroidListView/article.html -->
-<!-- kan evt. putte de forskellige elementer ind i en https://api.flutter.dev/flutter/widgets/ListView-class.html -->
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/home_fragment_layout"
+    android:id="@+id/reviewed_fragment_layout"
     android:padding="2dip"
     android:background="@color/backgroundRed">
 
-
-
+    <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerviewHome"
+        android:id="@+id/recyclerviewReviewed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:padding="4dp"
         android:background="@color/backgroundRed"
         android:scrollbars="vertical"
         />
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="40dp"
+        android:text="Reviewed"
+        android:gravity="center_horizontal" />
 
 </RelativeLayout>
