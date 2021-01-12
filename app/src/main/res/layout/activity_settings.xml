@@ -7,7 +7,7 @@
     tools:context=".Aktiviteter.ProfileRated"
     android:background="@color/backgroundRed">
 
-    <!--Settings knap-->
+    <!--Gemme knap nr.1-->
     <ImageButton
         android:id="@+id/imageButtonOK"
         android:layout_width="40dp"
@@ -82,8 +82,6 @@
 
     <!-- radiobutton nr. 1 -->
 
-    <!-- radiobutton nr. 2 -->
-
     <RadioButton
         android:id="@+id/radioButton1"
         android:layout_width="wrap_content"
@@ -94,6 +92,8 @@
         app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dividerSettings" />
+
+    <!-- radiobutton nr. 2 -->
 
     <RadioButton
         android:id="@+id/radioButton2"
