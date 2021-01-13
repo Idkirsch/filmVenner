@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment {
     DatabaseAccess db = new DatabaseAccess();
     User user = new User();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
+    ArrayList<String> venneListe;
 
     ArrayList<String> filmID = new ArrayList<>();
 
@@ -63,9 +65,9 @@ public class HomeFragment extends Fragment {
     }
 
 
-//
-//    FirebaseFirestore database = FirebaseFirestore.getInstance();
-//    CollectionReference usersDB = database.collection("users");
+
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+    CollectionReference usersDB = database.collection("users");
 
 
     public HomeFragment() {
@@ -88,13 +90,13 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+//
+//        filmID.add("299534");
+//        filmID.add("24428");
+//        filmID.add("299536");
 
-        filmID.add("299534");
-        filmID.add("24428");
-        filmID.add("299536");
 
-
-
+        retrieveData();
 
         mRequestQueue = Volley.newRequestQueue(getContext());
 
@@ -106,6 +108,10 @@ public class HomeFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+     //   System.out.println("vores egen venneliste fra databasen: "+venneListe);
+
+
  // set on click listener
         return v;
     }
@@ -152,6 +158,8 @@ public class HomeFragment extends Fragment {
 
                             mRecyclerView.setAdapter(mAdapter);
 
+                            System.out.println("vores egen venneliste fra ");
+
 
                             //addItems();
                         } catch (JSONException e) {
@@ -164,25 +172,55 @@ public class HomeFragment extends Fragment {
     }
 
 
-//    public void retrieveData(){
-//        DocumentReference docRef = database.collection("users").document("TEST");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if(task.isSuccessful()){
-//                    DocumentSnapshot document = task.getResult();
-//                    if(document.exists()){
-//                        System.out.println("DocumentSnapshot data: "+ document.getData());
-//                    }else{
-//                        System.out.println("no such document");
-//                    }
-//                }else{
-//                    System.out.println("get failed with "+task.getException());
-//                }
-//            }
-//        });
-//
-//    }
+    public void retrieveData(){
+        DocumentReference docRef = database.collection("users").document("PippiLangstromp");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        System.out.println("DocumentSnapshot data: "+ document.getData());
+
+                        Map<String, Object> map = document.getData();
+
+                        for(Map.Entry<String, Object> entry : map.entrySet()){
+                            System.out.println("entry: "+ entry.getValue().toString());
+                            //System.out.println("type of entry: "+entry.getValue());
+                            if (entry.getKey().toString().equals("Friends")){
+                                System.out.println("Her er vennelisten");
+                                venneListe= (ArrayList<String>) entry.getValue();
+                                System.out.println("vores egen venneliste: "+venneListe);
+                                loopGennemVenneliste();
+
+                            }
+                        }
+
+
+
+                    }else{
+                        System.out.println("no such document");
+                    }
+                }else{
+                    System.out.println("get failed with "+task.getException());
+                }
+            }
+        });
+
+    }
+
+    public void loopGennemVenneliste(){
+        System.out.println("vores egen venneliste fra databasen2: "+venneListe);
+
+        for (String entry : venneListe) {
+            System.out.println("entry fra vores egen venneliste: "+entry);
+
+            /**
+             * Her kan man gøre noget for hver enkelt bruger (String) der er tilføjet til vennelisten.
+             * */
+        }
+
+    }
 
 
 
