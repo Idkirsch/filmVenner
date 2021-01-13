@@ -55,12 +55,10 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
         Movie currentItem = mExampleList.get(position);
 
-
         Picasso.get().load(currentItem.getmImageResource()).into(holder.mImageview);
         holder.mName.setText(currentItem.getLanguage());
         holder.mTV2.setText(currentItem.getRelease());
         holder.mTitle.setText(currentItem.getTitle());
-
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
