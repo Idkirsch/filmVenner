@@ -57,9 +57,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ArrayList<String> venneListe;
     ArrayList<String> filmID = new ArrayList<>();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
-    CollectionReference usersDB = database.collection("users");
     Button addFriend, removeFriend;
-    DocumentReference docRef = database.collection("users").document("PippiLangstromp");
+    String currentUserName = "PippiLangstromp";
+    DocumentReference docRef = database.collection("users").document(currentUserName);
 
 
     public HomeFragment() {
@@ -130,7 +130,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-
                             JSONObject movieJson = response;
                             JSONArray moviesJson = movieJson.getJSONArray("results");
 
@@ -146,7 +145,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 Movie item = new Movie(releaseDate, language, title, fullImagePath);
                                 exampleList.add(item);
                             }
-
                             mAdapter = new MovieRecyclerAdapter(exampleList);
                             mRecyclerView.setAdapter(mAdapter);
                             //addItems();
@@ -154,7 +152,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
                     }
-
                 }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
         mRequestQueue.add(jsonObjectRequest);
     }
@@ -180,11 +177,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 venneListe = (ArrayList<String>) entry.getValue();
                                 System.out.println("vores egen venneliste: " + venneListe);
                                 loopGennemVenneliste();
-
                             }
                         }
-
-
                     } else {
                         System.out.println("no such document");
                     }
@@ -212,24 +206,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
         if (view == addFriend) {
             System.out.println("clicked on add friend button");
-
             docRef.update("Friends", FieldValue.arrayUnion("newFriend2"));
-
-
         }
         if (view == removeFriend) {
             System.out.println("clicked on add friend button");
-
             docRef.update("Friends", FieldValue.arrayRemove("Marie"));
-
-
         }
-
 //https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
-
 
     }
 }
