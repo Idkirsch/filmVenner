@@ -85,7 +85,16 @@ public class SearchRecycler_frag extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.recyclerView1:
-                startActivity(new Intent (getActivity(), FilmInfoFragment.class));
+                //startActivity(new Intent (getActivity(), FilmInfoFragment.class));
+                /*System.out.println("klikkede på recykler 1");
+                FragmentManager fragmentManager7 = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction7 = fragmentManager7.beginTransaction();
+
+                FilmInfoFragment filmInfo = new FilmInfoFragment();
+                fragmentTransaction7.add(R.id.nestedFragment_Search, filmInfo);
+
+
+                fragmentTransaction7.commit();*/
 
                 break;
 
