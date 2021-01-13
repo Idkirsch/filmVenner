@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment {
     User user = new User();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
 
+    ArrayList<String> filmID = new ArrayList<>();
 
     public String getPrefixImage() {
         return prefixImage;
@@ -87,6 +88,14 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        filmID.add("299534");
+        filmID.add("24428");
+        filmID.add("299536");
+
+
+
+
         mRequestQueue = Volley.newRequestQueue(getContext());
 
         callAPI();
@@ -117,6 +126,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+
                             JSONObject movieJson = response;
                             JSONArray moviesJson = movieJson.getJSONArray("results");
 
