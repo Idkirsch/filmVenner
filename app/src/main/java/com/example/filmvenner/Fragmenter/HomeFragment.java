@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
-
+ // set on click listener
         return v;
     }
 
@@ -151,6 +151,7 @@ public class HomeFragment extends Fragment {
 
 
                             mRecyclerView.setAdapter(mAdapter);
+
 
                             //addItems();
                         } catch (JSONException e) {
