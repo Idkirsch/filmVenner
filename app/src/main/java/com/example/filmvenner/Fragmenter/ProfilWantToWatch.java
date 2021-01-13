@@ -10,10 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.filmvenner.Adapter.ListmovieAdapter;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
-import com.example.filmvenner.Adapter.RecyclerViewAdapter;
-import com.example.filmvenner.DAO.ListmovieItem;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
 
