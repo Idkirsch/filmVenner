@@ -1,8 +1,11 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.filmvenner.Aktiviteter.ProfileEdit;
+import com.example.filmvenner.Aktiviteter.ProfileRated;
+import com.example.filmvenner.Aktiviteter.Settings;
 import com.example.filmvenner.DAO.FilmList;
 import com.example.filmvenner.R;
 import com.example.filmvenner.Adapter.RecyclerViewAdapter;
@@ -19,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchRecycler_frag extends Fragment {
+public class SearchRecycler_frag extends Fragment implements View.OnClickListener {
 
     private List<FilmList> filmLists = new ArrayList<>();
     private RecyclerView recyclerView1, recyclerView2, recyclerView3;
@@ -72,5 +78,34 @@ public class SearchRecycler_frag extends Fragment {
 
 
         return view;
+    }
+
+    // ? vil skift side til film_info leyout ved at trykke på recycleViews
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.recyclerView1:
+                //startActivity(new Intent (getActivity(), FilmInfoFragment.class));
+                /*System.out.println("klikkede på recykler 1");
+                FragmentManager fragmentManager7 = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction7 = fragmentManager7.beginTransaction();
+
+                FilmInfoFragment filmInfo = new FilmInfoFragment();
+                fragmentTransaction7.add(R.id.nestedFragment_Search, filmInfo);
+
+
+                fragmentTransaction7.commit();*/
+
+                break;
+
+            case R.id.recyclerView2:
+                startActivity(new Intent (getActivity(), FilmInfoFragment.class));
+
+
+            case R.id.recyclerView3:
+                startActivity(new Intent (getActivity(), FilmInfoFragment.class));
+
+                break;
+        }
     }
 }

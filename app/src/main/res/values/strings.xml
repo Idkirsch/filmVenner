@@ -13,5 +13,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="facebook_app_id">751705062439075</string>
     <string name="fb_login_protocol_scheme">fb751705062439075</string>
+    <string name="Your_rateing" />
 
 </resources>
