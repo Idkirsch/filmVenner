@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageview;
         public TextView mName, mTV2, mTitle;
+        public ImageButton mAdd, mStar, mComment;
 
         public ExampleViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -31,6 +34,10 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
             mName = itemView.findViewById(R.id.Name);
             mTV2 = itemView.findViewById(R.id.textView2);
             mTitle = itemView.findViewById(R.id.title);
+            mAdd = itemView.findViewById(R.id.addbutton);
+            mStar = itemView.findViewById(R.id.starbutton);
+            mComment = itemView.findViewById(R.id.commentbutton);
+
         }
     }
 
@@ -59,6 +66,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         holder.mName.setText(currentItem.getLanguage());
         holder.mTV2.setText(currentItem.getRelease());
         holder.mTitle.setText(currentItem.getTitle());
+        // TODO tilføj knapper mAdd, mStar, mComment
 
     }
 
