@@ -41,7 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(context, "Test click"+ String.valueOf(vHolder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FilmInfoFragment filmInfo = new FilmInfoFragment();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.nestedFragment_Search, filmInfo).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
 
 
             }

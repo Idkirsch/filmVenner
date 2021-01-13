@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundRed"
-    tools:context=".Fragmenter.FilmInfoFragment">
+    tools:context=".Fragmenter.FilmInfoFragment"
+    android:id="@+id/filmInfo">
 
     <ImageView
         android:id="@+id/profile_img_1"

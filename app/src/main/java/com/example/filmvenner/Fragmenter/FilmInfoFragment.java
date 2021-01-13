@@ -19,7 +19,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
 
 
-    public void ChatFragment() {
+    public FilmInfoFragment() {
         // Required empty public constructor
     }
 
@@ -32,8 +32,8 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
      * @return A new instance of fragment ChatFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ChatFragment newInstance(String param1, String param2) {
-        ChatFragment fragment = new ChatFragment();
+    public static FilmInfoFragment newInstance(String param1, String param2) {
+        FilmInfoFragment fragment = new FilmInfoFragment();
 
         return fragment;
     }
