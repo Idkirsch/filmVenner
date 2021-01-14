@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/AddWatched"
+        android:title="Add movie to 'Watched' list"
+        />
+    <item
+        android:id="@+id/AddWatchLater"
+        android:title="Add movie to 'Want to watch' list"
+        />
+
+
+</menu>

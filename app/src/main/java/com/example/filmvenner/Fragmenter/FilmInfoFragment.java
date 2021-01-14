@@ -7,8 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.filmvenner.Adapter.FriendReviewAdapter;
 import com.example.filmvenner.DAO.FriendReviewList;
@@ -59,8 +64,12 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_film_info, container, false);
 
+
+        ImageButton addmovie = (ImageButton) view.findViewById(R.id.add_button);
+        addmovie.setOnClickListener(this);
+
         ArrayList<FriendReviewList>  friendReviewList = new ArrayList<>();
-        friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, "Mads Nygaard", "jeg synes det her var verdens dårligste film, jeg havde lyst til at græde"));
+        friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, "Louise Nygaard", "jeg synes det her var verdens dårligste film, jeg havde lyst til at græde"));
         friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, "Bent Larsen", "jeg synes det her var verdens bedste fil"));
         friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, "Ole Henriksen", "rtfyguhijgfudtryghjlhlugyiftudryersdtcjvkbhljnkliyuktcrtcfjgvhbjnklbuvtycrfgjvhbjgvkyfcjgvh"));
 
@@ -80,6 +89,35 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+        showPopup(v);
+
+    }
+
+
+    public void showPopup(View v){
+
+        PopupMenu popupMenu = new PopupMenu(getActivity(), v);
+        popupMenu.getMenuInflater().inflate(R.menu.addmovie_menu, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.AddWatchLater:
+                        Toast.makeText(getActivity(), "add to watch later was clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.AddWatched:
+                        Toast.makeText(getActivity(), "add to watched was clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        popupMenu.show();
 
     }
 }
