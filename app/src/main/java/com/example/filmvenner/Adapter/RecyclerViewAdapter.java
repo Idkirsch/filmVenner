@@ -39,7 +39,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         vHolder.item_film.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Test click"+ String.valueOf(vHolder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Test click"+ String.valueOf(vHolder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
+                System.out.println("Sideskift fra film");
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FilmInfoFragment filmInfo = new FilmInfoFragment();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.nestedFragment_Search, filmInfo).addToBackStack(null).commit();

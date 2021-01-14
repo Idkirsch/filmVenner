@@ -34,8 +34,8 @@ import java.util.List;
 
 import static com.android.volley.Request.Method.GET;
 
-
-public class SearchRecycler_frag extends Fragment implements View.OnClickListener {
+// implements View.OnClickListener
+public class SearchRecycler_frag extends Fragment{
 
     private ArrayList<FilmList> genre = new ArrayList<>();
     private ArrayList<FilmList> popular = new ArrayList<>();
@@ -106,33 +106,21 @@ public class SearchRecycler_frag extends Fragment implements View.OnClickListene
     }
 
     // ? vil skift side til film_info leyout ved at trykke på recycleViews
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.recyclerView1:
-                //startActivity(new Intent (getActivity(), FilmInfoFragment.class));
-                /*System.out.println("klikkede på recykler 1");
-                FragmentManager fragmentManager7 = getChildFragmentManager();
-                FragmentTransaction fragmentTransaction7 = fragmentManager7.beginTransaction();
-
-                FilmInfoFragment filmInfo = new FilmInfoFragment();
-                fragmentTransaction7.add(R.id.nestedFragment_Search, filmInfo);
-
-
-                fragmentTransaction7.commit();*/
-
-                break;
-
-            case R.id.recyclerView2:
-                startActivity(new Intent (getActivity(), FilmInfoFragment.class));
-
-
-            case R.id.recyclerView3:
-                startActivity(new Intent (getActivity(), FilmInfoFragment.class));
-
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.recyclerView1:
+//
+//                break;
+//
+//            case R.id.recyclerView2:
+//
+//
+//            case R.id.recyclerView3:
+//
+//                break;
+//        }
+//    }
 
     public void callAPI() {
         String requestPopular = "https://api.themoviedb.org/3/movie/popular?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&page=1";
