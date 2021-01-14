@@ -68,6 +68,12 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         holder.mTitle.setText(currentItem.getTitle());
         // TODO tilføj knapper mAdd, mStar, mComment?
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("someone clicked something in a recyclerview, they clicked on: "+ holder.mTitle.getText());
+            }
+        });
     }
 
     @Override

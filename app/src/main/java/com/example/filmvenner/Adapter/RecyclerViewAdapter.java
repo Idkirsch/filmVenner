@@ -5,11 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.filmvenner.DAO.FilmList;
+import com.example.filmvenner.Fragmenter.FilmInfoFragment;
 import com.example.filmvenner.R;
 
 import java.util.List;
@@ -28,7 +32,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem, parent,false);
+
+        ViewHolder vHolder = new ViewHolder(view);
+
+        vHolder.item_film.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Test click"+ String.valueOf(vHolder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
+                AppCompatActivity activity = (AppCompatActivity)v.getContext();
+                FilmInfoFragment filmInfo = new FilmInfoFragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.nestedFragment_Search, filmInfo).addToBackStack(null).commit();
+
+
+            }
+        });
+
         return new ViewHolder(view);
+
     }
 
     @Override
@@ -45,10 +65,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView image;
+        private RelativeLayout item_film;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image=itemView.findViewById(R.id.image);
+            item_film = (RelativeLayout) itemView.findViewById(R.id.film_item_id);
         }
     }
 }

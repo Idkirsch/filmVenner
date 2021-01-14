@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,6 +28,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
@@ -34,37 +36,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private  RequestQueue mRequestQueue;
+    private RequestQueue mRequestQueue;
     ArrayList<Movie> movies;
     ArrayList<Movie> exampleList = new ArrayList<>();
     DatabaseAccess db = new DatabaseAccess();
-    User user = new User();
+    // User user = new User();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
-
-
-    public String getPrefixImage() {
-        return prefixImage;
-    }
-
-    public void setPrefixImage(String prefixImage) {
-        this.prefixImage = prefixImage;
-    }
-
-
-//
-//    FirebaseFirestore database = FirebaseFirestore.getInstance();
-//    CollectionReference usersDB = database.collection("users");
+    ArrayList<String> venneListe;
+    ArrayList<String> filmID = new ArrayList<>();
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+    Button addFriend, removeFriend;
+    String currentUserName = "PippiLangstromp";
+    DocumentReference docRef = database.collection("users").document(currentUserName);
 
 
     public HomeFragment() {
@@ -87,6 +82,20 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+//
+//        filmID.add("299534");
+//        filmID.add("24428");
+//        filmID.add("299536");
+
+
+        addFriend = v.findViewById(R.id.addFriend);
+        addFriend.setOnClickListener(this);
+
+        removeFriend = v.findViewById(R.id.removeFriend);
+        removeFriend.setOnClickListener(this);
+
+        retrieveData();
+
         mRequestQueue = Volley.newRequestQueue(getContext());
 
         callAPI();
@@ -98,6 +107,10 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        //   System.out.println("vores egen venneliste fra databasen: "+venneListe);
+
+
+        // set on click listener
         return v;
     }
 
@@ -122,60 +135,87 @@ public class HomeFragment extends Fragment {
 
                             movies = Movie.fromJson(moviesJson);
                             System.out.println(movies.get(0).getTitle().toString());
-                            // title0 = movies.get(0).getTitle().toString();
 
                             for (int i = 0; i < moviesJson.length(); i++) {
                                 String title = movies.get(i).getTitle().toString();
                                 String imagePath = movies.get(i).getmImageResource().toString();
-                                String fullImagePath  = prefixImage + imagePath;
-                                String release = movies.get(i).getRelease();
-                                String language = movies.get(i).getLanguage();
-//                                System.out.println(fullImagePath);
-                                Movie item = new Movie(release, language, title, fullImagePath);
+                                String releaseDate = movies.get(i).getRelease().toString();
+                                String language = "language: " + movies.get(i).getLanguage().toString();
+                                String fullImagePath = prefixImage + imagePath;
+                                Movie item = new Movie(releaseDate, language, title, fullImagePath);
                                 exampleList.add(item);
                             }
-
                             mAdapter = new MovieRecyclerAdapter(exampleList);
-
-
-//                            System.out.println("context fra Home "+ getContext());
-//                            System.out.println("parentcontext fra Home "+ getParentFragment().getContext());
-
-
                             mRecyclerView.setAdapter(mAdapter);
-
                             //addItems();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-
                 }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
         mRequestQueue.add(jsonObjectRequest);
     }
 
 
-//    public void retrieveData(){
-//        DocumentReference docRef = database.collection("users").document("TEST");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if(task.isSuccessful()){
-//                    DocumentSnapshot document = task.getResult();
-//                    if(document.exists()){
-//                        System.out.println("DocumentSnapshot data: "+ document.getData());
-//                    }else{
-//                        System.out.println("no such document");
-//                    }
-//                }else{
-//                    System.out.println("get failed with "+task.getException());
-//                }
-//            }
-//        });
-//
-//    }
+    public void retrieveData() {
+        //init docref
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        System.out.println("DocumentSnapshot data: " + document.getData());
+
+                        Map<String, Object> map = document.getData();
+
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+                            System.out.println("entry: " + entry.getValue().toString());
+                            //System.out.println("type of entry: "+entry.getValue());
+                            if (entry.getKey().toString().equals("Friends")) {
+                                System.out.println("Her er vennelisten");
+                                venneListe = (ArrayList<String>) entry.getValue();
+                                System.out.println("vores egen venneliste: " + venneListe);
+                                loopGennemVenneliste();
+                            }
+                        }
+                    } else {
+                        System.out.println("no such document");
+                    }
+                } else {
+                    System.out.println("get failed with " + task.getException());
+                }
+            }
+        });
+
+    }
+
+    public void loopGennemVenneliste() {
+        System.out.println("vores egen venneliste fra databasen2: " + venneListe);
+
+        for (String entry : venneListe) {
+            System.out.println("entry fra vores egen venneliste: " + entry);
+
+            /**
+             * Her kan man gøre noget for hver enkelt bruger (String) der er tilføjet til vennelisten.
+             * */
+        }
+
+    }
 
 
+    @Override
+    public void onClick(View view) {
+        if (view == addFriend) {
+            System.out.println("clicked on add friend button");
+            docRef.update("Friends", FieldValue.arrayUnion("newFriend2"));
+        }
+        if (view == removeFriend) {
+            System.out.println("clicked on add friend button");
+            docRef.update("Friends", FieldValue.arrayRemove("Marie"));
+        }
+//https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
 
+    }
 }
 
