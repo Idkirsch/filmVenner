@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -79,7 +80,7 @@ public class SearchRecycler_frag extends Fragment implements View.OnClickListene
         callAPI();
 
 
-        recyclerView1.setHasFixedSize(true);
+//        recyclerView1.setHasFixedSize(true);
         recyclerView1.setLayoutManager(layoutManager1);
 
 //        recyclerView1.setLayoutManager(layoutManager1);
@@ -148,21 +149,28 @@ public class SearchRecycler_frag extends Fragment implements View.OnClickListene
                     JSONObject movieJson = response;
                     JSONArray moviesJson = movieJson.getJSONArray("results");
 
+
+
                     System.out.println(" convertin from json to movies");
                     movies = Movie.fromJson(moviesJson);
 
                     for (int i = 0; i < moviesJson.length(); i++) {
                         String imagePath = movies.get(i).getmImageResource().toString();
                         String fullImagePath = prefixImage + imagePath;
-                       // System.out.println("full image path: " + fullImagePath);
-                        FilmList item = new FilmList(imagePath);
+                        System.out.println("full image path: " + fullImagePath);
+                        //FilmList item = new FilmList(imagePath);
+                        FilmList item = new FilmList(fullImagePath);
+
                         exampleList.add(item);
                     }
 
+                    recyclerView1.setLayoutManager(layoutManager1);
+                    RecyclerViewAdapter adapter1 = new RecyclerViewAdapter(exampleList, getActivity());
+                    recyclerView1.setAdapter(adapter1);
+
                     System.out.println("exampleList: "+exampleList);
                     System.out.println("attaching adapters");
-                    RecyclerViewAdapter adapter1 = new RecyclerViewAdapter(exampleList, getContext());
-                    recyclerView1.setAdapter(adapter1);
+
 
 
                 } catch (JSONException e) {
