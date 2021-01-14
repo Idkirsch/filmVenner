@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.DAO.FilmList;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
@@ -35,22 +36,26 @@ import static com.android.volley.Request.Method.GET;
 
 public class SearchRecycler_frag extends Fragment implements View.OnClickListener {
 
-    private List<FilmList> genre = new ArrayList<>();
-    private List<FilmList> popular = new ArrayList<>();
-    private List<FilmList> recent = new ArrayList<>();
+    private ArrayList<FilmList> genre = new ArrayList<>();
+    private ArrayList<FilmList> popular = new ArrayList<>();
+    private ArrayList<FilmList> recent = new ArrayList<>();
     private RequestQueue mRequestQueue;
     String key = "fa302bdb2e93149bd69faa350c178b38";
-    ArrayList<FilmList> movies;
+    ArrayList<Movie> movies;
+    ArrayList<FilmList> exampleList = new ArrayList<>();
+    private String prefixImage = "https://image.tmdb.org/t/p/w500";
 
+    LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+    LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+    LinearLayoutManager layoutManager3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
+//    MovieRecyclerAdapter adapter1 = new MovieRecyclerAdapter(genre);
+//    MovieRecyclerAdapter adapter2 = new MovieRecyclerAdapter(popular);
+//    MovieRecyclerAdapter adapter3 = new MovieRecyclerAdapter(recent);
 
 
     private RecyclerView recyclerView1, recyclerView2, recyclerView3;
-
-
     private TextView textview;
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,62 +69,37 @@ public class SearchRecycler_frag extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_search_recycler_frag, container, false);
 
 
-        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager layoutManager3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView1 = view.findViewById(R.id.recyclerView1);
         recyclerView2 = view.findViewById(R.id.recyclerView2);
         recyclerView3 = view.findViewById(R.id.recyclerView3);
 
 
         mRequestQueue = Volley.newRequestQueue(getContext());
+        System.out.println("calling API");
         callAPI();
 
 
+        recyclerView1.setHasFixedSize(true);
         recyclerView1.setLayoutManager(layoutManager1);
-        RecyclerViewAdapter adapter1 = new RecyclerViewAdapter(genre, getActivity());
-        recyclerView1.setAdapter(adapter1);
 
-        recyclerView2.setLayoutManager(layoutManager2);
-        RecyclerViewAdapter adapter2 = new RecyclerViewAdapter(popular, getActivity());
-        recyclerView2.setAdapter(adapter2);
+//        recyclerView1.setLayoutManager(layoutManager1);
+//      MovieRecyclerAdapter adapter1 = new MovieRecyclerAdapter(genre);
+//        recyclerView1.setAdapter(adapter1);
 
-        recyclerView3.setLayoutManager(layoutManager3);
-        RecyclerViewAdapter adapter3 = new RecyclerViewAdapter(recent, getActivity());
-        recyclerView3.setAdapter(adapter3);
+//        recyclerView2.setLayoutManager(layoutManager2);
+//        MovieRecyclerAdapter adapter2 = new MovieRecyclerAdapter(popular);
+//        recyclerView2.setAdapter(adapter2);
+
+//        recyclerView3.setLayoutManager(layoutManager3);
+//        MovieRecyclerAdapter adapter3 = new MovieRecyclerAdapter(recent);
+//        recyclerView3.setAdapter(adapter3);
 
 
 
 
 
-        genre.add(new FilmList(R.drawable.film));
-        genre.add(new FilmList(R.drawable.film));
-        genre.add(new FilmList(R.drawable.film));
-        genre.add(new FilmList(R.drawable.film));
-        genre.add(new FilmList(R.drawable.film));
-        genre.add(new FilmList(R.drawable.film));
-        genre.add(new FilmList(R.drawable.film));
-        genre.add(new FilmList(R.drawable.film));
-        genre.add(new FilmList(R.drawable.film));
+//        genre.add(new FilmList(R.drawable.film));
 
-        popular.add(new FilmList(R.drawable.checkmark));
-        popular.add(new FilmList(R.drawable.checkmark));
-        popular.add(new FilmList(R.drawable.checkmark));
-        popular.add(new FilmList(R.drawable.checkmark));
-        popular.add(new FilmList(R.drawable.checkmark));
-        popular.add(new FilmList(R.drawable.checkmark));
-        popular.add(new FilmList(R.drawable.checkmark));
-        popular.add(new FilmList(R.drawable.checkmark));
-        popular.add(new FilmList(R.drawable.checkmark));
-
-        recent.add(new FilmList(R.drawable.filmrulle));
-        recent.add(new FilmList(R.drawable.filmrulle));
-        recent.add(new FilmList(R.drawable.filmrulle));
-        recent.add(new FilmList(R.drawable.filmrulle));
-        recent.add(new FilmList(R.drawable.filmrulle));
-        recent.add(new FilmList(R.drawable.filmrulle));
-        recent.add(new FilmList(R.drawable.filmrulle));
-        recent.add(new FilmList(R.drawable.filmrulle));
 
         return view;
     }
@@ -153,53 +133,45 @@ public class SearchRecycler_frag extends Fragment implements View.OnClickListene
         }
     }
 
-    public void callAPI(){
+    public void callAPI() {
         String requestPopular = "https://api.themoviedb.org/3/movie/popular?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&page=1";
         String requestTopRated = "https://api.themoviedb.org/3/movie/top_rated?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&page=1";
 
 
+        System.out.println("in Call API method");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method GET, requestPopular, null, new Response.Listener<JSONObject>() {
+                Request.Method.GET, requestPopular, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                try{
+                System.out.println("in onResponse");
+                try {
                     JSONObject movieJson = response;
                     JSONArray moviesJson = movieJson.getJSONArray("results");
 
+                    System.out.println(" convertin from json to movies");
                     movies = Movie.fromJson(moviesJson);
 
-                    for(int i = 0; i < moviesJson.length(); i++){
+                    for (int i = 0; i < moviesJson.length(); i++) {
                         String imagePath = movies.get(i).getmImageResource().toString();
+                        String fullImagePath = prefixImage + imagePath;
+                       // System.out.println("full image path: " + fullImagePath);
+                        FilmList item = new FilmList(imagePath);
+                        exampleList.add(item);
                     }
 
-
-                    /**
-                     * Jeg skal bruge en metode der er i klassen Movie,
-                     * Men det her adapter tager ikke Movies, det tager FilmLists..
-                     *
-                     *
-                     * */
+                    System.out.println("exampleList: "+exampleList);
+                    System.out.println("attaching adapters");
+                    RecyclerViewAdapter adapter1 = new RecyclerViewAdapter(exampleList, getContext());
+                    recyclerView1.setAdapter(adapter1);
 
 
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }
-        )
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }, error -> System.out.println(" couldnt't get answer from API in search recycler frag or couldnt populate views"));
+        mRequestQueue.add(jsonObjectRequest);
+    }
 
 
 
@@ -223,4 +195,3 @@ public class SearchRecycler_frag extends Fragment implements View.OnClickListene
     }
 
 
-}

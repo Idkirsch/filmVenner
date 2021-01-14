@@ -7,8 +7,8 @@
     android:id="@+id/film_item_id">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="123dp"
-        android:layout_height="72dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_centerInParent="true"
         app:cardCornerRadius="4dp"
         app:cardElevation="1dp"
@@ -16,7 +16,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <ImageView
                 android:id="@+id/image"
@@ -24,7 +25,8 @@
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/film" />
+                android:background="@color/colorPrimaryDark"
+                 />
 
 
         </RelativeLayout>

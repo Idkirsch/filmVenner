@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.filmvenner.DAO.FilmList;
 import com.example.filmvenner.Fragmenter.FilmInfoFragment;
 import com.example.filmvenner.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public RecyclerViewAdapter(List<FilmList> filmLists, Context context) {
         this.filmLists = filmLists;
-        this.context = context;
+       // this.context = context;
     }
 
     @NonNull
@@ -42,19 +43,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FilmInfoFragment filmInfo = new FilmInfoFragment();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.nestedFragment_Search, filmInfo).addToBackStack(null).commit();
-
-
             }
         });
 
-        return new ViewHolder(view);
-
+//        return new ViewHolder(view);
+        return vHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FilmList filmList=filmLists.get(position);
-        holder.image.setImageResource(filmList.getImage());
+        Picasso.get().load(filmList.getImage()).into(holder.image);
+
+        //holder.image.setImageResource(filmList.getImage());
 
     }
 
