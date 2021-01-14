@@ -128,8 +128,10 @@ public class HomeFragment extends Fragment {
                                 String title = movies.get(i).getTitle().toString();
                                 String imagePath = movies.get(i).getmImageResource().toString();
                                 String fullImagePath  = prefixImage + imagePath;
+                                String release = movies.get(i).getRelease();
+                                String language = movies.get(i).getLanguage();
 //                                System.out.println(fullImagePath);
-                                Movie item = new Movie("releasedate", "_", title, fullImagePath);
+                                Movie item = new Movie(release, language, title, fullImagePath);
                                 exampleList.add(item);
                             }
 

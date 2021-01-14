@@ -66,7 +66,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         holder.mName.setText(currentItem.getLanguage());
         holder.mTV2.setText(currentItem.getRelease());
         holder.mTitle.setText(currentItem.getTitle());
-        // TODO tilføj knapper mAdd, mStar, mComment
+        // TODO tilføj knapper mAdd, mStar, mComment?
 
     }
 
