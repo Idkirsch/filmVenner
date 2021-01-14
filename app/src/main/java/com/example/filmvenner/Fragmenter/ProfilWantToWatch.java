@@ -46,18 +46,18 @@ public class ProfilWantToWatch extends Fragment {
         ArrayList<Movie> listmovieItems = new ArrayList<>();
 
 //        listmovieItems.add(new ListmovieItem(R.drawable.filmtestpic, "Linje 1", "Linje 2"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
-        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
+        listmovieItems.add(new Movie("noget","noget","noget","https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",""));
 
 
         mRecyclerview = view.findViewById(R.id.recyclerviewWanttowatch);

@@ -79,7 +79,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_film_info, container, false);
 
-        addToList = (ImageButton) view.findViewById(R.id.add_to_list_button);
+        addToList = (ImageButton) view.findViewById(R.id.add_button);
         addToList.setOnClickListener(this);
 
         title = view.findViewById(R.id.film_nama);
