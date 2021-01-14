@@ -142,7 +142,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 String releaseDate = movies.get(i).getRelease().toString();
                                 String language = "language: " + movies.get(i).getLanguage().toString();
                                 String fullImagePath = prefixImage + imagePath;
-                                Movie item = new Movie(releaseDate, language, title, fullImagePath);
+                                Movie item = new Movie(releaseDate, language, title, fullImagePath, "summary"); //todo make summary
                                 exampleList.add(item);
                             }
                             mAdapter = new MovieRecyclerAdapter(exampleList);
