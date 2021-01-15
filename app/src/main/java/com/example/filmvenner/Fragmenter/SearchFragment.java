@@ -121,6 +121,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 (Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        System.out.println(request);
                         try {
                             JSONObject movieJson = response;
                             JSONArray moviesJson = movieJson.getJSONArray("results");

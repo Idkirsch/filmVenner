@@ -41,75 +41,74 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/film_nama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginBottom="10dp"
-        android:text="VAIANA Disney movie"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/film_summary"
-        app:layout_constraintStart_toStartOf="@+id/film_summary"
-        app:layout_constraintTop_toBottomOf="@+id/film_img" />
+        <TextView
+            android:id="@+id/film_nama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:layout_marginLeft="31dp"
+            android:layout_marginBottom="10dp"
+            android:text="VAIANA Disney movie"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/film_summary"
+            app:layout_constraintStart_toStartOf="@+id/film_summary"
+            app:layout_constraintTop_toBottomOf="@+id/film_img" />
 
-    <TextView
-        android:id="@+id/film_summary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:text="Summary:"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/film_info"
-        app:layout_constraintStart_toStartOf="@+id/film_info"
-        app:layout_constraintTop_toBottomOf="@+id/film_nama" />
+        <TextView
+            android:id="@+id/film_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Summary:"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/film_info"
+            app:layout_constraintStart_toStartOf="@+id/film_info" />
 
-    <TextView
-        android:id="@+id/add_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="205dp"
-        android:layout_marginRight="205dp"
-        android:text="Add to list:"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/add_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/add_button" />
+        <TextView
+            android:id="@+id/add_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="205dp"
+            android:layout_marginRight="205dp"
+            android:text="Add to list:"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/add_button" />
 
-    <TextView
-        android:id="@+id/your_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="388dp"
-        android:text="Your rating: ***"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/friends_rating"
-        app:layout_constraintStart_toStartOf="@+id/add_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/your_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="388dp"
+            android:text="Your rating: ***"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/friends_rating"
+            app:layout_constraintStart_toStartOf="@+id/add_button"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/friends_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="19dp"
-        android:text="Friends rating: ****"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/your_review"
-        app:layout_constraintStart_toStartOf="@+id/your_rating"
-        app:layout_constraintTop_toBottomOf="@+id/your_rating" />
+        <TextView
+            android:id="@+id/friends_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="19dp"
+            android:text="Friends rating: ****"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/your_review"
+            app:layout_constraintStart_toStartOf="@+id/your_rating"
+            app:layout_constraintTop_toBottomOf="@+id/your_rating" />
 
-    <TextView
-        android:id="@+id/your_review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:text="Your review:"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/friends_review"
-        app:layout_constraintStart_toStartOf="@+id/friends_review"
-        app:layout_constraintTop_toBottomOf="@+id/friends_rating" />
+        <TextView
+            android:id="@+id/your_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="1dp"
+            android:text="Your review:"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/friends_review"
+            app:layout_constraintStart_toStartOf="@+id/friends_review"
+            app:layout_constraintTop_toBottomOf="@+id/friends_rating" />
 
     <TextView
         android:id="@+id/friends_review"
