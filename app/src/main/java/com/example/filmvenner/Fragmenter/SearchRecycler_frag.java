@@ -52,7 +52,7 @@ public class SearchRecycler_frag extends Fragment{
 //    MovieRecyclerAdapter adapter2 = new MovieRecyclerAdapter(popular);
 //    MovieRecyclerAdapter adapter3 = new MovieRecyclerAdapter(recent);
 
-public class SearchRecycler_frag extends Fragment {
+//public class SearchRecycler_frag extends Fragment {
 
 
     private RecyclerView recyclerView1, recyclerView2, recyclerView3;
