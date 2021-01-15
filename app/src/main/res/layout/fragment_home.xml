@@ -9,18 +9,6 @@
     android:padding="2dip"
     android:background="@color/backgroundRed">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addFriend"
-        android:text="add friend"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/removeFriend"
-        android:text="remove friend"
-        android:layout_toRightOf="@+id/addFriend"/>
-
 
 
 
@@ -28,7 +16,6 @@
         android:id="@+id/recyclerviewHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
         android:padding="4dp"
         android:background="@color/backgroundRed"
         android:scrollbars="vertical"

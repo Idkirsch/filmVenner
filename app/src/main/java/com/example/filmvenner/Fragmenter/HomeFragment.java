@@ -69,8 +69,9 @@ public class HomeFragment extends Fragment  {
     ArrayList<String> filmID = new ArrayList<>();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     Button addFriend, removeFriend;
+
     String currentUserName = new String();
-    //    String currentUserName = "PippiLangstromp";
+//        String currentUserName = "PippiLangstromp";
 
 
     Executor backgroundThread = Executors.newSingleThreadExecutor();
@@ -107,17 +108,19 @@ public class HomeFragment extends Fragment  {
 
         currentUserName = usernameFromPrefMan;
 
-        backgroundThread.execute(() -> {
-            try {
-                retrieveFriends();
-                uiThread.post(() -> {
+        retrieveFriends();
 
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        System.out.println("vennelisten:" + venneListe);
+//        backgroundThread.execute(() -> {
+//            try {
+//                uiThread.post(() -> {
+//
+//                });
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+
+        System.out.println("vennelisten:" + venneListe); // = null
 
 
         mRequestQueue = Volley.newRequestQueue(getContext());
@@ -151,7 +154,7 @@ public class HomeFragment extends Fragment  {
        // String friendsName = "vens navn";
 
         String request = req1 + ID + req2;
-        System.out.println(request);
+//        System.out.println(request);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
@@ -159,7 +162,7 @@ public class HomeFragment extends Fragment  {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject movieJson = response;
-                            System.out.println(movieJson);
+//                            System.out.println(movieJson);
 //                            JSONArray moviesJson = new JSONArray();
 
                             Movie movie = new Movie();
@@ -217,6 +220,7 @@ public class HomeFragment extends Fragment  {
                 } else {
                     System.out.println("get failed with " + task.getException());
                 }
+
                 loopGennemVenneliste();
             }
 
@@ -252,7 +256,7 @@ public class HomeFragment extends Fragment  {
                                     for (String entry2 : Watched) {
                                         System.out.println(currentFriend + " har set filmen " + entry2);
                                         String action = " har set denne film";
-                                        //listForAPI.add(entry2);
+//                                        listForAPI.add(entry2);
                                         callAPI(entry2,currentFriend, action);
 
                                     }
