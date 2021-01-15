@@ -18,6 +18,9 @@ import android.widget.Toast;
 import com.example.filmvenner.Adapter.FriendReviewAdapter;
 import com.example.filmvenner.DAO.FriendReviewList;
 import com.example.filmvenner.R;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -31,7 +34,8 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-
+    // Access a Cloud Firestore instance from your Activity
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public FilmInfoFragment() {
         // Required empty public constructor
@@ -105,10 +109,14 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.AddWatchLater:
-                        Toast.makeText(getActivity(), "add to watch later was clicked", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "you added this movie to your 'Want to watch' list", Toast.LENGTH_LONG).show();
+                        DocumentReference addWatchLater = db.collection("MovieList").document("Sukkerknald");
+                        addWatchLater.update("WantToWatch", FieldValue.arrayUnion("347158"));
                         break;
                     case R.id.AddWatched:
-                        Toast.makeText(getActivity(), "add to watched was clicked", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "you added this movie to your 'Watched' list", Toast.LENGTH_LONG).show();
+                        DocumentReference addWatched = db.collection("MovieList").document("PippiLangstromp");
+                        addWatched.update("Watched", FieldValue.arrayUnion("487555"));
                         break;
                     default:
                         break;
