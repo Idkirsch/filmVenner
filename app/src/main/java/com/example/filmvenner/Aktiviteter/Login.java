@@ -154,9 +154,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 if (document.getString("username").equals(inputUsername)) {
                                     System.out.println("the username equals the username from database");
                                     System.out.println("name from database= " + document.get("username"));
-
-
-
                                     SharedPreferences.Editor editor = prefMan.edit();
                                     editor.putString("currentUserName", inputUsername);
                                     editor.apply();

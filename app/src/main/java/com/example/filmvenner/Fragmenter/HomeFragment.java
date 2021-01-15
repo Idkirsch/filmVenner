@@ -100,12 +100,7 @@ public class HomeFragment extends Fragment  {
         Context hostAct = getActivity();
 
         prefMan= hostAct.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
-
-
-        System.out.println("prefman get all: "+prefMan.getAll());
-
         String usernameFromPrefMan = prefMan.getString("currentUserName", "default");
-
         currentUserName = usernameFromPrefMan;
 
         retrieveFriends();
@@ -199,17 +194,17 @@ public class HomeFragment extends Fragment  {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        System.out.println("DocumentSnapshot data: " + document.getData());
+                      //  System.out.println("DocumentSnapshot data: " + document.getData());
 
                         Map<String, Object> map = document.getData();
 
                         for (Map.Entry<String, Object> entry : map.entrySet()) {
-                            System.out.println("entry: " + entry.getValue().toString());
+//                            System.out.println("entry: " + entry.getValue().toString());
                             //System.out.println("type of entry: "+entry.getValue());
                             if (entry.getKey().toString().equals("Friends")) {
-                                System.out.println("Her er vennelisten");
+//                                System.out.println("Her er vennelisten");
                                 venneListe = (ArrayList<String>) entry.getValue();
-                                System.out.println("vores egen venneliste: " + venneListe);
+//                                System.out.println("vores egen venneliste: " + venneListe);
 
                             }
                         }
@@ -230,7 +225,8 @@ public class HomeFragment extends Fragment  {
 
 
     public void loopGennemVenneliste() {
-        System.out.println("vores egen venneliste fra databasen2: " + venneListe);
+//        System.out.println("vores egen venneliste fra databasen2: " + venneListe);
+
         ArrayList<String> listForAPI = new ArrayList<>();
 
 
@@ -244,9 +240,9 @@ public class HomeFragment extends Fragment  {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             String currentFriend = entry;
-                            System.out.println("entry fra vores egen venneliste: " + currentFriend);
+//                            System.out.println("entry fra vores egen venneliste: " + currentFriend);
 
-                            System.out.println("DocumentSnapshot data: " + document.getData());
+//                            System.out.println("DocumentSnapshot data: " + document.getData());
                             Map<String, Object> map = document.getData();
 
                             //for hver ven i listen
@@ -264,7 +260,7 @@ public class HomeFragment extends Fragment  {
                                 if (entry.getKey().toString().equals("WantToWatch")) {
                                     Watched = (ArrayList<String>) entry.getValue();
                                     for (String entry2 : Watched) {
-                                        System.out.println(currentFriend + " vil gerne se filmen " + entry2);
+//                                        System.out.println(currentFriend + " vil gerne se filmen " + entry2);
                                         String action = " vil gerne se denne film";
                                        // listForAPI.add(entry2);
                                         callAPI(entry2,currentFriend, action);

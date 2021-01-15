@@ -132,20 +132,20 @@ public class SearchRecycler_frag extends Fragment{
                 Request.Method.GET, requestPopular, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("in onResponse");
+//                System.out.println("in onResponse");
                 try {
                     JSONObject movieJson = response;
                     JSONArray moviesJson = movieJson.getJSONArray("results");
 
 
 
-                    System.out.println(" convertin from json to movies");
+//                    System.out.println(" convertin from json to movies");
                     movies = Movie.fromJson(moviesJson);
 
                     for (int i = 0; i < moviesJson.length(); i++) {
                         String imagePath = movies.get(i).getmImageResource().toString();
                         String fullImagePath = prefixImage + imagePath;
-                        System.out.println("full image path: " + fullImagePath);
+//                        System.out.println("full image path: " + fullImagePath);
                         //FilmList item = new FilmList(imagePath);
                         FilmList item = new FilmList(fullImagePath);
 
@@ -156,8 +156,8 @@ public class SearchRecycler_frag extends Fragment{
                     RecyclerViewAdapter adapter1 = new RecyclerViewAdapter(exampleList, getActivity());
                     recyclerView1.setAdapter(adapter1);
 
-                    System.out.println("exampleList: "+exampleList);
-                    System.out.println("attaching adapters");
+//                    System.out.println("exampleList: "+exampleList);
+//                    System.out.println("attaching adapters");
 
 
 
