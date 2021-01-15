@@ -132,10 +132,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public void callAPI(String ID) {
+    public void callAPI(String ID, String friendsName, String action) {
 
         String req1 = "https://api.themoviedb.org/3/movie/";
         String req2 = "?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US";
+
+       // String friendsName = "vens navn";
 
         String request = req1 + ID + req2;
         System.out.println(request);
@@ -157,7 +159,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             String fullImagePath = prefixImage + imagePath;
                             String language = movie.getLanguage();
                             String releaseDate = movie.getRelease();
-                            Movie item = new Movie(releaseDate, language, title, fullImagePath);
+                            Movie item = new Movie(releaseDate, language, title, fullImagePath, friendsName+action);
 
                             exampleList.add(item);
 
@@ -236,8 +238,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                     Watched = (ArrayList<String>) entry.getValue();
                                     for (String entry2 : Watched) {
                                         System.out.println(currentFriend + " har set filmen " + entry2);
+                                        String action = " har set denne film";
                                         //listForAPI.add(entry2);
-                                        callAPI(entry2);
+                                        callAPI(entry2,currentFriend, action);
 
                                     }
                                 }
@@ -245,8 +248,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                     Watched = (ArrayList<String>) entry.getValue();
                                     for (String entry2 : Watched) {
                                         System.out.println(currentFriend + " vil gerne se filmen " + entry2);
+                                        String action = " vil gerne se denne film";
                                        // listForAPI.add(entry2);
-                                        callAPI(entry2);
+                                        callAPI(entry2,currentFriend, action);
 
                                     }
                                 }

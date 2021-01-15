@@ -25,7 +25,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageview;
-        public TextView mName, mTV2, mTitle;
+        public TextView mName, mTV2, mTitle, mFriend;
         public ImageButton mAdd, mStar, mComment;
 
         public ExampleViewHolder(@NonNull View itemView) {
@@ -37,7 +37,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
             mAdd = itemView.findViewById(R.id.addbutton);
             mStar = itemView.findViewById(R.id.starbutton);
             mComment = itemView.findViewById(R.id.commentbutton);
-
+            mFriend = itemView.findViewById(R.id.friendsName);
         }
     }
 
@@ -66,6 +66,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         holder.mName.setText(currentItem.getLanguage());
         holder.mTV2.setText(currentItem.getRelease());
         holder.mTitle.setText(currentItem.getTitle());
+        holder.mFriend.setText(currentItem.getFriend());
         // TODO tilføj knapper mAdd, mStar, mComment?
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
