@@ -130,7 +130,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                                 System.out.println ("summaryFraAPI"+summary);
                                 film_summary.setText (summary);
 
-                                Movie item = new Movie(releaseDate, language, title, fullImagePath, summary);
+                                Movie item = new Movie(releaseDate, language, title, fullImagePath, "friendhere",summary);
                                 example.add(item);
 
                             //addItems();
