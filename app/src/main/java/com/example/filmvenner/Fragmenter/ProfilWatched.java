@@ -49,13 +49,13 @@ public class ProfilWatched extends Fragment {
     Movie listmovieItems = new Movie();
     ArrayList<Movie> viewList = new ArrayList<>();
     ArrayList<String> idList = new ArrayList<>();
+    ArrayList<String> watchedList = new ArrayList<>();
 
 
     DatabaseAccess db = new DatabaseAccess();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp"); // database adgang til den liste vi skal bruge
 
-    ArrayList<String> watchedList;
 
 
 
@@ -80,7 +80,17 @@ public class ProfilWatched extends Fragment {
 
         mRequestqueue = Volley.newRequestQueue(getContext());
 
-        callAPI();
+
+//        System.out.println("watchedlist før for loop" + watchedList);
+//        int i=0;
+//        for (String id : watchedList){
+//            String currentMovieID = watchedList.get(i);
+//            callAPI(currentMovieID);
+//            System.out.println("Current moview id from for loop: " +currentMovieID);
+//            i++;
+//
+//        }
+
 
 //        ArrayList<ListmovieItem> listmovieItems = new ArrayList<>();
 
@@ -108,9 +118,9 @@ public class ProfilWatched extends Fragment {
         return view;
     }
 
-    public void callAPI() {
+    public void callAPI(String movieId) {
         String key = "fa302bdb2e93149bd69faa350c178b38";
-        String request = "https://api.themoviedb.org/3/movie/24428?api_key=fa302bdb2e93149bd69faa350c178b38"; // get movie by id
+        String request = "https://api.themoviedb.org/3/movie/"+movieId+"?api_key=fa302bdb2e93149bd69faa350c178b38"; // get movie by id
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -197,6 +207,8 @@ public class ProfilWatched extends Fragment {
 
         for (String entry : watchedList) {
             System.out.println("entry fra watchedliste: " + entry);
+            callAPI(entry);
+
             ;
 
             /**
