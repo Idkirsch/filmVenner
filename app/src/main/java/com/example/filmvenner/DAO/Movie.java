@@ -19,9 +19,7 @@ public class Movie {
         this.friend = friend;
     }
 
-    public Movie (){
-
-    }
+    public Movie (){ }
 
     // decodes movie json into movie model object
     public static Movie fromJson(JSONObject jsonObject){
