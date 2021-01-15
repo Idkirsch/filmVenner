@@ -1,6 +1,5 @@
 package com.example.filmvenner.Fragmenter;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -49,10 +48,11 @@ public class SearchRecycler_frag extends Fragment{
     LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
     LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
     LinearLayoutManager layoutManager3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-
-//    MovieRecyclerAdapter adapter1 = new MovieRecyclerAdapter(genre);
+    //    MovieRecyclerAdapter adapter1 = new MovieRecyclerAdapter(genre);
 //    MovieRecyclerAdapter adapter2 = new MovieRecyclerAdapter(popular);
 //    MovieRecyclerAdapter adapter3 = new MovieRecyclerAdapter(recent);
+
+//public class SearchRecycler_frag extends Fragment {
 
 
     private RecyclerView recyclerView1, recyclerView2, recyclerView3;

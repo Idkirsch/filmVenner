@@ -173,7 +173,7 @@ public class HomeFragment extends Fragment  {
                             String fullImagePath = prefixImage + imagePath;
                             String language = movie.getLanguage();
                             String releaseDate = movie.getRelease();
-                            Movie item = new Movie(releaseDate, language, title, fullImagePath, friendsName+action);
+                            Movie item = new Movie(releaseDate, language, title, fullImagePath, friendsName+action, "summary");
 
                             exampleList.add(item);
 

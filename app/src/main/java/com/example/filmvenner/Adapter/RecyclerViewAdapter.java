@@ -43,12 +43,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 System.out.println("Sideskift fra film");
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FilmInfoFragment filmInfo = new FilmInfoFragment();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.nestedFragment_Search, filmInfo).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
+
+
             }
         });
 
-//        return new ViewHolder(view);
-        return vHolder;
+        return new ViewHolder(view);
+
     }
 
     @Override
