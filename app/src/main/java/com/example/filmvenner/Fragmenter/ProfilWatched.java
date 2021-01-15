@@ -2,6 +2,7 @@ package com.example.filmvenner.Fragmenter;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,14 +17,23 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
+import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,8 +46,17 @@ public class ProfilWatched extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RequestQueue mRequestqueue;
-    ArrayList<Movie> listmovieItems = new ArrayList<>();
+    Movie listmovieItems = new Movie();
     ArrayList<Movie> viewList = new ArrayList<>();
+    ArrayList<String> idList = new ArrayList<>();
+
+
+    DatabaseAccess db = new DatabaseAccess();
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+    DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp"); // database adgang til den liste vi skal bruge
+
+    ArrayList<String> watchedList;
+
 
 
     public static ProfilWatched newInstance(String param1, String param2) {
@@ -56,6 +75,8 @@ public class ProfilWatched extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profil_watched, container, false);
+
+        retrieveData();
 
         mRequestqueue = Volley.newRequestQueue(getContext());
 
@@ -88,33 +109,33 @@ public class ProfilWatched extends Fragment {
     }
 
     public void callAPI() {
-        String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+        String key = "fa302bdb2e93149bd69faa350c178b38";
+        String request = "https://api.themoviedb.org/3/movie/24428?api_key=fa302bdb2e93149bd69faa350c178b38"; // get movie by id
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject movieJson = response;
-                            JSONArray moviesJson = movieJson.getJSONArray("results");
+//                            JSONArray moviesJson = movieJson.getJSONArray("results");
+                            System.out.println("Json from response, movieJson"+movieJson);
 
-                            listmovieItems = Movie.fromJson(moviesJson);
-                            System.out.println(listmovieItems.get(0).getTitle().toString());
+                            listmovieItems = Movie.fromJson(movieJson);
+                            System.out.println(listmovieItems.getTitle().toString());
                             // title0 = movies.get(0).getTitle().toString();
                             String prefixImage = "https://image.tmdb.org/t/p/w500";
 
-
-                            for (int i = 0; i < moviesJson.length(); i++) {
-                                String title = listmovieItems.get(i).getTitle().toString();
-                                String imagePath = listmovieItems.get(i).getmImageResource().toString();
+                                String title = listmovieItems.getTitle().toString();
+                                String imagePath = listmovieItems.getmImageResource().toString();
                                 String fullImagePath  = prefixImage + imagePath;
-                                String release = listmovieItems.get(i).getRelease();
-                                String language = listmovieItems.get(i).getLanguage();
+                                String release = listmovieItems.getRelease();
+                                String language = listmovieItems.getLanguage();
 //                                System.out.println(fullImagePath);
                                 Movie item = new Movie(release, language, title, fullImagePath, null, "");
                                 viewList.add(item);
-                            }
+
 
                             mAdapter = new MovieRecyclerAdapter(viewList);
 
@@ -126,12 +147,63 @@ public class ProfilWatched extends Fragment {
                             mRecyclerview.setAdapter(mAdapter);
 
                             //addItems();
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
 
-                }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
+                }, error -> System.out.println("no answer from API in watched Fragment or couldnt populate recyclerview in watched"));
         mRequestqueue.add(jsonObjectRequest);
+        System.out.println("JASON 1 moview" + jsonObjectRequest);
+    }
+
+    public void retrieveData() {
+        System.out.println("retrieve called");
+        //init docref
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                System.out.println("Oncomplete called");
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        System.out.println("Doc exists :) DocumentSnapshot data: " + document.getData());
+
+                        Map<String, Object> map = document.getData();
+
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+                            System.out.println("entry: " + entry.getValue().toString());
+                            //System.out.println("type of entry: "+entry.getValue());
+                            if (entry.getKey().toString().equals("Watched")) {
+                                System.out.println("Her er Watched");
+                                watchedList = (ArrayList<String>) entry.getValue(); // array over strings med film id'er
+                                System.out.println("vores egen watchedliste: " + watchedList);
+                                loopGennemWatchedliste();
+                            }
+                        }
+                    } else {
+                        System.out.println("no such document");
+                    }
+                } else {
+                    System.out.println("get failed with " + task.getException());
+                }
+            }
+        });
+
+    }
+
+    public void loopGennemWatchedliste() {
+        System.out.println("loop called");
+
+        for (String entry : watchedList) {
+            System.out.println("entry fra watchedliste: " + entry);
+            ;
+
+            /**
+             * Her kan man gøre noget for hver enkelt film (String) der er tilføjet til watchedListen.
+             * */
+        }
+        System.out.println("Fuld liste af id'er"+idList);
+
     }
 }
