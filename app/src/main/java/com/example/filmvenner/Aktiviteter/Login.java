@@ -47,8 +47,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button login, createUser;
     EditText username, password;
-    String expected_username = "test123", expected_password = "1";
-    User user = new User();
+   // String expected_username = "test123", expected_password = "1";
+   // User user = new User();
 
     /*
     *Creating an instance of the database in order to check if the username that the user types is in fact in the database.
@@ -155,11 +155,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     System.out.println("the username equals the username from database");
                                     System.out.println("name from database= " + document.get("username"));
 
+
+
+                                    SharedPreferences.Editor editor = prefMan.edit();
+                                    editor.putString("currentUserName", inputUsername);
+                                    editor.apply();
+
                                     Intent intent = new Intent(getApplication(), MainActivity.class);
                                     startActivity(intent);
-
-
-                                }
+                           }
                             } else {
                                 System.out.println("ingen brugernavne i databasen matcher det inputtede brugernavn");
                                 Toast toast = new Toast(getApplication());
@@ -173,6 +177,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 });
 
 
+            }else{
+                Toast toast = new Toast(getApplication());
+                toast.setText("Hov, du, feltet er tomt");
+                toast.show();
             }
 
         }
@@ -224,7 +232,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 System.out.println("PHOTOURL"+photoUrl);
 
                 SharedPreferences.Editor editor = prefMan.edit();
-
                 editor.putString("currentUserPicture", photoUrl);
                 editor.apply();
             }
@@ -252,28 +259,28 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
     public void putUserInPreferenceManager(){
-        SharedPreferences.Editor editor = prefMan.edit();
-        ExclusionStrategy ex = new ExclusionStrategy() {
-            @Override
-            public boolean shouldSkipField(FieldAttributes f) {
-                return false;
-            }
-
-            @Override
-            public boolean shouldSkipClass(Class<?> clazz) {
-                return false;
-            }
-        };
+//        SharedPreferences.Editor editor = prefMan.edit();
+//        ExclusionStrategy ex = new ExclusionStrategy() {
+//            @Override
+//            public boolean shouldSkipField(FieldAttributes f) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean shouldSkipClass(Class<?> clazz) {
+//                return false;
+//            }
+//        };
 
         /*
         * Transforming the user object to Json to be able to sent it through the preference manager
         * */
 
-        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
-        String userJson = gson.toJson(user);
-        editor.putString("user",userJson);
-        editor.commit();
-
+//        Gson gson = new GsonBuilder().addDeserializationExclusionStrategy(ex).addSerializationExclusionStrategy(ex).create();
+//        String userJson = gson.toJson(user);
+//        editor.putString("user",userJson);
+//        editor.commit();
+//
 
  //        System.out.println("user: "+userJson);
     }

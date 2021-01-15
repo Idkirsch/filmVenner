@@ -1,5 +1,8 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -47,7 +50,7 @@ import java.util.concurrent.Executors;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment  {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -57,13 +60,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ArrayList<Movie> exampleList = new ArrayList<>();
     DatabaseAccess db = new DatabaseAccess();
     // User user = new User();
+   SharedPreferences prefMan;
+
+
+
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
     ArrayList<String> venneListe, WantToWatch, Watched;
     ArrayList<String> filmID = new ArrayList<>();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     Button addFriend, removeFriend;
-    String currentUserName = "PippiLangstromp";
-    DocumentReference docRef = database.collection("users").document(currentUserName);
+    String currentUserName = new String();
+    //    String currentUserName = "PippiLangstromp";
 
 
     Executor backgroundThread = Executors.newSingleThreadExecutor();
@@ -89,12 +96,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        addFriend = v.findViewById(R.id.addFriend);
-        addFriend.setOnClickListener(this);
+        Context hostAct = getActivity();
 
-        removeFriend = v.findViewById(R.id.removeFriend);
-        removeFriend.setOnClickListener(this);
+        prefMan= hostAct.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
 
+
+        System.out.println("prefman get all: "+prefMan.getAll());
+
+        String usernameFromPrefMan = prefMan.getString("currentUserName", "default");
+
+        currentUserName = usernameFromPrefMan;
 
         backgroundThread.execute(() -> {
             try {
@@ -177,6 +188,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     public void retrieveFriends() {
         //init docref
+        DocumentReference docRef = database.collection("users").document(currentUserName);
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -264,19 +277,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    @Override
-    public void onClick(View view) {
-        if (view == addFriend) {
-            System.out.println("clicked on add friend button");
-            docRef.update("Friends", FieldValue.arrayUnion("newFriend2"));
-        }
-        if (view == removeFriend) {
-            System.out.println("clicked on add friend button");
-            docRef.update("Friends", FieldValue.arrayRemove("Marie"));
-        }
-//https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
 
-    }
 }
 
 

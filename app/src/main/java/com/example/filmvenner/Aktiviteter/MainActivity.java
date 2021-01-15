@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     BottomNavigationView bottomNavigationView;
     Deque<Integer> integerDeque = new ArrayDeque<>(4);
     boolean flag = true;
+    //SharedPreferences prefMan;
 
 
     @Override
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottom_nav);
+
 
         //ad home frag in deque
         integerDeque.push(R.id.home);
