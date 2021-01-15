@@ -2,20 +2,19 @@
 
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollViewFilmInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/filmInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundRed"
-        tools:context=".Fragmenter.FilmInfoFragment"
-        android:id="@+id/filmInfo">
+        tools:context=".Fragmenter.FilmInfoFragment">
 
         <ImageButton
             android:id="@+id/profile_img_1"
@@ -89,12 +88,11 @@
             android:id="@+id/film_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="8dp"
             android:text="Summary:"
-            android:textSize="24sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/film_info"
-            app:layout_constraintStart_toStartOf="@+id/film_info"
-            app:layout_constraintTop_toBottomOf="@+id/film_nama" />
+            app:layout_constraintStart_toStartOf="@+id/film_info" />
 
         <TextView
             android:id="@+id/add_list"

@@ -43,18 +43,23 @@ import java.util.ArrayList;
  */
 public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
+
     ImageButton addToList;
     TextView title;
     String currentTitle = "Moana";
     String movieID = "277834";
 
     private RequestQueue requestQueue;
-    ArrayList<Movie> movies;
+    Movie movies = new Movie ();
     ArrayList<Movie> example = new ArrayList<> ();
-    DatabaseAccess db = new DatabaseAccess ();
-    ArrayList<String> filmSummary;
-    TextView film_summary;
+    DatabaseAccess databaseAccess = new DatabaseAccess ();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
+    String summary_1 = "1234";
+
+    ArrayList<String> filmSummary;
+    ArrayList<String> film_id = new ArrayList<> ();
+
+    TextView film_summary;
 
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp");
@@ -88,7 +93,10 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
         callAPI();
 
-        film_summary = view.findViewById(R.id.film_info);
+        film_summary = view.findViewById(R.id.film_summary);
+        film_summary.setText(summary_1);
+        System.out.println ("testSummary" + summary_1);
+
 
         return view;
     }
@@ -99,7 +107,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     }
 
     public void callAPI() {
-        String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+        String request = "https://api.themoviedb.org/3/movie/"+"24428"+"?api_key=fa302bdb2e93149bd69faa350c178b38";
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -108,23 +116,25 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject movieJson = response;
-                            JSONArray moviesJson = movieJson.getJSONArray("results");
+                            //JSONArray moviesJson = movieJson.getJSONArray("results");
 
-                            movies = Movie.fromJson(moviesJson);
-                            System.out.println(movies.get(0).getTitle().toString());
+                            movies = Movie.fromJson(movieJson);
+                            System.out.println(movies.getTitle().toString());
 
-                            for (int i = 0; i < moviesJson.length(); i++) {
-                                String title = movies.get(i).getTitle().toString();
-                                String imagePath = movies.get(i).getmImageResource().toString();
-                                String releaseDate = movies.get(i).getRelease().toString();
-                                String language = "language: " + movies.get(i).getLanguage().toString();
+                                String title = movies.getTitle().toString();
+                                String imagePath = movies.getmImageResource().toString();
+                                String releaseDate = movies.getRelease().toString();
+                                String language = "language: " + movies.getLanguage().toString();
                                 String fullImagePath = prefixImage + imagePath;
-                                String summary = movies.get (i).getSummary ().toString ();
+                                String summary = movies.getSummary ().toString ();
+                                System.out.println ("summaryFraAPI"+summary);
+                                film_summary.setText (summary);
+
                                 Movie item = new Movie(releaseDate, language, title, fullImagePath, summary);
                                 example.add(item);
-                            }
+
                             //addItems();
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -139,5 +149,12 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
             System.out.println("klikkede på add to list knap");
             docRef.update("WantToWatch", FieldValue.arrayUnion(movieID));
         }
+       /*
+        if (v == film_summary){
+            //System.out.println ("klikkede på summary");
+            docRef.update ("MovieList", FieldValue.arrayUnion (movieID));
+        }
+
+        */
     }
 }
