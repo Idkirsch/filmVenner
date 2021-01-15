@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,12 +58,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     DatabaseAccess db = new DatabaseAccess();
     // User user = new User();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
-    ArrayList<String> venneListe;
+    ArrayList<String> venneListe, WantToWatch, Watched;
     ArrayList<String> filmID = new ArrayList<>();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     Button addFriend, removeFriend;
     String currentUserName = "PippiLangstromp";
     DocumentReference docRef = database.collection("users").document(currentUserName);
+
+
+    Executor backgroundThread = Executors.newSingleThreadExecutor();
+    Handler uiThread = new Handler(Looper.getMainLooper());
 
 
     public HomeFragment() {
@@ -81,24 +89,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
-//
-//        filmID.add("299534");
-//        filmID.add("24428");
-//        filmID.add("299536");
-
-
         addFriend = v.findViewById(R.id.addFriend);
         addFriend.setOnClickListener(this);
 
         removeFriend = v.findViewById(R.id.removeFriend);
         removeFriend.setOnClickListener(this);
 
-        retrieveData();
+
+        backgroundThread.execute(() -> {
+            try {
+                retrieveFriends();
+                uiThread.post(() -> {
+
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        System.out.println("vennelisten:" + venneListe);
+
 
         mRequestQueue = Volley.newRequestQueue(getContext());
 
-        callAPI();
+        //  callAPI();
 
         mRecyclerView = v.findViewById(R.id.recyclerviewHome);
         mRecyclerView.setHasFixedSize(true);
@@ -106,8 +119,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mLayoutManager = new LinearLayoutManager(getContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-        //   System.out.println("vores egen venneliste fra databasen: "+venneListe);
 
 
         // set on click listener
@@ -121,34 +132,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public void callAPI() {
-        String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+    public void callAPI(String ID, String friendsName, String action) {
 
-        //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
+        String req1 = "https://api.themoviedb.org/3/movie/";
+        String req2 = "?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US";
+
+       // String friendsName = "vens navn";
+
+        String request = req1 + ID + req2;
+        System.out.println(request);
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject movieJson = response;
-                            JSONArray moviesJson = movieJson.getJSONArray("results");
+                            System.out.println(movieJson);
+//                            JSONArray moviesJson = new JSONArray();
 
-                            movies = Movie.fromJson(moviesJson);
-                            System.out.println(movies.get(0).getTitle().toString());
+                            Movie movie = new Movie();
+                            movie = Movie.fromJson(movieJson);
 
-                            for (int i = 0; i < moviesJson.length(); i++) {
-                                String title = movies.get(i).getTitle().toString();
-                                String imagePath = movies.get(i).getmImageResource().toString();
-                                String releaseDate = movies.get(i).getRelease().toString();
-                                String language = "language: " + movies.get(i).getLanguage().toString();
-                                String fullImagePath = prefixImage + imagePath;
-                                Movie item = new Movie(releaseDate, language, title, fullImagePath, "summary"); //todo make summary
-                                exampleList.add(item);
-                            }
+                            String title = movie.getTitle();
+                            String imagePath = movie.getmImageResource();
+                            String fullImagePath = prefixImage + imagePath;
+                            String language = movie.getLanguage();
+                            String releaseDate = movie.getRelease();
+                            Movie item = new Movie(releaseDate, language, title, fullImagePath, friendsName+action, "summary");
+
+                            exampleList.add(item);
+
                             mAdapter = new MovieRecyclerAdapter(exampleList);
                             mRecyclerView.setAdapter(mAdapter);
-                            //addItems();
-                        } catch (JSONException e) {
+
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -157,7 +175,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public void retrieveData() {
+    public void retrieveFriends() {
         //init docref
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -176,31 +194,73 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 System.out.println("Her er vennelisten");
                                 venneListe = (ArrayList<String>) entry.getValue();
                                 System.out.println("vores egen venneliste: " + venneListe);
-                                loopGennemVenneliste();
+
                             }
                         }
+
                     } else {
                         System.out.println("no such document");
                     }
                 } else {
                     System.out.println("get failed with " + task.getException());
                 }
+                loopGennemVenneliste();
             }
+
         });
 
     }
 
+
     public void loopGennemVenneliste() {
         System.out.println("vores egen venneliste fra databasen2: " + venneListe);
+        ArrayList<String> listForAPI = new ArrayList<>();
+
 
         for (String entry : venneListe) {
-            System.out.println("entry fra vores egen venneliste: " + entry);
 
-            /**
-             * Her kan man gøre noget for hver enkelt bruger (String) der er tilføjet til vennelisten.
-             * */
+            DocumentReference docRefToUsersFriend = database.collection("MovieList").document(entry);
+            docRefToUsersFriend.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String currentFriend = entry;
+                            System.out.println("entry fra vores egen venneliste: " + currentFriend);
+
+                            System.out.println("DocumentSnapshot data: " + document.getData());
+                            Map<String, Object> map = document.getData();
+
+                            //for hver ven i listen
+                            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                                if (entry.getKey().toString().equals("Watched")) {
+                                    Watched = (ArrayList<String>) entry.getValue();
+                                    for (String entry2 : Watched) {
+                                        System.out.println(currentFriend + " har set filmen " + entry2);
+                                        String action = " har set denne film";
+                                        //listForAPI.add(entry2);
+                                        callAPI(entry2,currentFriend, action);
+
+                                    }
+                                }
+                                if (entry.getKey().toString().equals("WantToWatch")) {
+                                    Watched = (ArrayList<String>) entry.getValue();
+                                    for (String entry2 : Watched) {
+                                        System.out.println(currentFriend + " vil gerne se filmen " + entry2);
+                                        String action = " vil gerne se denne film";
+                                       // listForAPI.add(entry2);
+                                        callAPI(entry2,currentFriend, action);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
-
+        System.out.println("listForAPI: " + listForAPI);
     }
 
 
@@ -218,4 +278,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 }
+
 

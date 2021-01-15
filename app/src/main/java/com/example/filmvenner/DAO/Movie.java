@@ -9,14 +9,15 @@ import java.util.ArrayList;
 // model of movieclass
 public class Movie {
 
-    private String release, language,title,mImageResource, summary;
+    private String release, language,title,mImageResource, friend, summary;
 
-    public Movie (String release, String language, String title, String mImageResource, String summary){
+    public Movie (String release, String language, String title, String mImageResource, String friend, String summary){
         this.language = language;
         this.mImageResource = mImageResource;
         this.release = release;
         this.title = title;
         this.summary = summary;
+        this.friend = friend;
     }
 
     public Movie (){
@@ -61,6 +62,13 @@ public class Movie {
         return movies;
     }
 
+    public String getFriend() {
+        return friend;
+    }
+
+    public void setFriend(String friend) {
+        this.friend = friend;
+    }
 
     public void setTitle(String title) {
         this.title = title;
