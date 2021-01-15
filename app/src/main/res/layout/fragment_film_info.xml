@@ -1,48 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewFilmInfo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundRed"
-    tools:context=".Fragmenter.FilmInfoFragment">
+    tools:context=".Fragmenter.FilmInfoFragment"
+    android:id="@+id/filmInfo">
 
-    <ImageView
-        android:id="@+id/profile_img_1"
-        android:layout_width="44dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="548dp"
-        android:background="@drawable/custom_circle"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/profile_img_2"
-        android:layout_width="44dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="608dp"
-        android:background="@drawable/custom_circle"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageButton
-        android:id="@+id/add_to_list_button"
+        android:id="@+id/add_button"
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_marginStart="36dp"
@@ -55,7 +33,7 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-
+        android:onClick="showPopup"
         android:scaleType="fitXY"
         android:src="@drawable/ic_plus"
         app:layout_constraintEnd_toStartOf="@+id/add_list"
@@ -63,75 +41,74 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/film_nama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginBottom="10dp"
-        android:text="title"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/film_summary"
-        app:layout_constraintStart_toStartOf="@+id/film_summary"
-        app:layout_constraintTop_toBottomOf="@+id/film_img" />
+        <TextView
+            android:id="@+id/film_nama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:layout_marginLeft="31dp"
+            android:layout_marginBottom="10dp"
+            android:text="VAIANA Disney movie"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/film_summary"
+            app:layout_constraintStart_toStartOf="@+id/film_summary"
+            app:layout_constraintTop_toBottomOf="@+id/film_img" />
 
-    <TextView
-        android:id="@+id/film_summary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:text="Summary:"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/film_info"
-        app:layout_constraintStart_toStartOf="@+id/film_info"
-        app:layout_constraintTop_toBottomOf="@+id/film_nama" />
+        <TextView
+            android:id="@+id/film_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Summary:"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/film_info"
+            app:layout_constraintStart_toStartOf="@+id/film_info" />
 
-    <TextView
-        android:id="@+id/add_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="205dp"
-        android:layout_marginRight="205dp"
-        android:text="Add to list:"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/add_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/add_button" />
+        <TextView
+            android:id="@+id/add_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="205dp"
+            android:layout_marginRight="205dp"
+            android:text="Add to list:"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/add_button" />
 
-    <TextView
-        android:id="@+id/your_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="388dp"
-        android:text="Your rating: ***"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/friends_rating"
-        app:layout_constraintStart_toStartOf="@+id/add_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/your_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="388dp"
+            android:text="Your rating: ***"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/friends_rating"
+            app:layout_constraintStart_toStartOf="@+id/add_button"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/friends_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="19dp"
-        android:text="Friends rating: ****"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/your_review"
-        app:layout_constraintStart_toStartOf="@+id/your_rating"
-        app:layout_constraintTop_toBottomOf="@+id/your_rating" />
+        <TextView
+            android:id="@+id/friends_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="19dp"
+            android:text="Friends rating: ****"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/your_review"
+            app:layout_constraintStart_toStartOf="@+id/your_rating"
+            app:layout_constraintTop_toBottomOf="@+id/your_rating" />
 
-    <TextView
-        android:id="@+id/your_review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:text="Your review:"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/friends_review"
-        app:layout_constraintStart_toStartOf="@+id/friends_review"
-        app:layout_constraintTop_toBottomOf="@+id/friends_rating" />
+        <TextView
+            android:id="@+id/your_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="1dp"
+            android:text="Your review:"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/friends_review"
+            app:layout_constraintStart_toStartOf="@+id/friends_review"
+            app:layout_constraintTop_toBottomOf="@+id/friends_rating" />
 
     <TextView
         android:id="@+id/friends_review"
@@ -139,6 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginBottom="4dp"
         android:text="Friends review:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,8 +130,7 @@
         android:text="Info:"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="@+id/profile_img_1"
-        app:layout_constraintStart_toEndOf="@+id/profile_img_1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/film_summary" />
 
     <ImageView
@@ -167,4 +144,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewFilmInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:padding="4dp"
+        android:background="@color/backgroundRed"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/friends_review"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

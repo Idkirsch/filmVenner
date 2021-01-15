@@ -143,7 +143,7 @@ public class ProfilWatched extends Fragment {
                                 String release = listmovieItems.getRelease();
                                 String language = listmovieItems.getLanguage();
 //                                System.out.println(fullImagePath);
-                                Movie item = new Movie(release, language, title, fullImagePath);
+                                Movie item = new Movie(release, language, title, fullImagePath, null, "");
                                 viewList.add(item);
 
 
