@@ -80,22 +80,15 @@ public class skalSlettes extends AppCompatActivity {
                     String currentReview = new String();
                     String currentRating = new String();
 
-
                     Map<String, Object> map = documentSnapshot.getData();
-
                     for (Map.Entry<String, Object> entry : map.entrySet()) {
                         currentReviewsRatings = (ArrayList<String>) entry.getValue();
 
                         currentReview = currentReviewsRatings.get(0);
                         currentRating = currentReviewsRatings.get(1);
-
-
                     }
-
                     newReviewsRatings.add(newreview);
                     newReviewsRatings.add(currentRating);
-
-
                     map.put("Pis", newReviewsRatings);
                     System.out.println("map pippi: " + map);
 

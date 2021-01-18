@@ -1,5 +1,7 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,10 +10,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -28,6 +33,7 @@ import com.example.filmvenner.Adapter.FriendReviewAdapter;
 import com.example.filmvenner.DAO.FriendReviewList;
 import com.example.filmvenner.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,6 +44,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -69,6 +76,8 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     DocumentReference docRef = database.collection("Film").document(ID);
 
+
+    private String newReview = "";
 
 
 //    ArrayList<String> filmSummary;
@@ -115,6 +124,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
         film_summary.setText(summary_1);
 
         poster = view.findViewById(R.id.film_img);
+
 
 
         requestQueue = Volley.newRequestQueue(getContext());
@@ -184,12 +194,16 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    System.out.println("DocumentSnapshot data: " + documentSnapshot.getData());
-                    ArrayList<FriendReviewList> friendReviewList = new ArrayList<>();
 
-                    Map<String, Object> map = documentSnapshot.getData();
+
+
+                    DocumentSnapshot documentSnapshot = task.getResult();
+
+
+
                     if(documentSnapshot.exists()){
+                        ArrayList<FriendReviewList> friendReviewList = new ArrayList<>();
+                        Map<String, Object> map = documentSnapshot.getData();
                         for (Map.Entry<String, Object> entry : map.entrySet()) {
 //                        System.out.println("entrykey: " + entry.getKey());
 //                        System.out.println("entryvalue: " + entry.getValue());
@@ -202,11 +216,12 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                             //add to recyclerview
                             friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, entry.getKey(), review));
 
+
+                            mAdapter = new FriendReviewAdapter(friendReviewList);
+                            mRecyclerview.setLayoutManager(mLayoutManager);
+                            mRecyclerview.setAdapter(mAdapter);
                         }
 
-                        mAdapter = new FriendReviewAdapter(friendReviewList);
-                        mRecyclerview.setLayoutManager(mLayoutManager);
-                        mRecyclerview.setAdapter(mAdapter);
                     }
 
                 }
@@ -222,8 +237,90 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
             showPopup(v);
         }if (v == addReview) {
             System.out.println("clicked on add review");
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Your review");
+
+            final EditText input = new EditText(getContext());
+
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setSingleLine(false);  //add this
+            input.setLines(4);
+            input.setMaxLines(5);
+            input.setGravity(Gravity.LEFT | Gravity.TOP);
+            input.setHorizontalScrollBarEnabled(false); //this
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    newReview = input.getText().toString();
+                    //addReview(newReview);
+
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+
         }
 
+    }
+
+
+    public void addReview(String newreview){
+        DocumentReference docRef = database.collection("Film").document(ID);
+
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    System.out.println("DocumentSnapshot data: " + document.getData());
+                    if(!document.exists()){
+                        System.out.println("this movie is not in the database yet");
+                    }else{
+
+
+                        ArrayList<String> currentReviewsRatings = new ArrayList<>();
+                        ArrayList<String> newReviewsRatings = new ArrayList<>();
+
+                        String newreview = "test her er et review3";
+                        String currentReview = new String();
+                        String currentRating = new String();
+
+                        Map<String, Object> map = document.getData();
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+                            currentReviewsRatings = (ArrayList<String>) entry.getValue();
+
+                            currentReview = currentReviewsRatings.get(0);
+                            currentRating = currentReviewsRatings.get(1);
+                        }
+                        newReviewsRatings.add(newreview);
+                        newReviewsRatings.add(currentRating);
+                        map.put("current user", newReviewsRatings);
+                        // System.out.println("map pippi: " + map);
+
+                        docRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                System.out.println("review succesfully altered");
+                            }
+                        });
+
+
+
+                    }
+
+                }
+            }
+        });
     }
 
 
