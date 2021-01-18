@@ -12,22 +12,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
-import com.example.filmvenner.Adapter.RecyclerViewAdapter;
-import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.Adapter.FriendReviewAdapter;
 import com.example.filmvenner.DAO.FriendReviewList;
@@ -38,9 +33,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -60,9 +54,11 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ImageButton addToList, addReview;
-    TextView title;
-    String currentTitle = "Moana";
-    String ID = "24428";
+    ImageView poster;
+    TextView movieTitle;
+    String currentTitle;
+//    String ID = "24428";
+    String ID = "464052";
     TextView film_summary;
     private RequestQueue requestQueue;
     Movie movies = new Movie();
@@ -112,11 +108,13 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
         ImageButton addmovie = view.findViewById(R.id.add_button);
         addmovie.setOnClickListener(this);
 
-        title = view.findViewById(R.id.film_nama);
-        title.setText(currentTitle);
+        movieTitle = view.findViewById(R.id.film_nama);
+        movieTitle.setText(currentTitle);
 
         film_summary = view.findViewById(R.id.film_summary);
         film_summary.setText(summary_1);
+
+        poster = view.findViewById(R.id.film_img);
 
 
         requestQueue = Volley.newRequestQueue(getContext());
@@ -124,9 +122,6 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
         callAPI(ID);
         retrievereviews();
-
-
-
 
 
         mRecyclerview = view.findViewById(R.id.recyclerviewFilmInfo);
@@ -166,6 +161,9 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                             String summary = movies.getSummary().toString();
                             System.out.println("summaryFraAPI" + summary);
                             film_summary.setText(summary);
+                            movieTitle.setText(title);
+                            Picasso.get().load(fullImagePath).into(poster);
+
 
                             Movie item = new Movie(releaseDate, language, title, fullImagePath, "friendhere", summary, ID);
                             example.add(item);
@@ -191,22 +189,26 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                     ArrayList<FriendReviewList> friendReviewList = new ArrayList<>();
 
                     Map<String, Object> map = documentSnapshot.getData();
-                    for (Map.Entry<String, Object> entry : map.entrySet()) {
+                    if(documentSnapshot.exists()){
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
 //                        System.out.println("entrykey: " + entry.getKey());
 //                        System.out.println("entryvalue: " + entry.getValue());
-                        ArrayList<String> reviewsRatings = (ArrayList<String>) entry.getValue();
+                            ArrayList<String> reviewsRatings = (ArrayList<String>) entry.getValue();
 //                        System.out.println("reviwsratings : " + reviewsRatings);
-                        String review = reviewsRatings.get(0);
-                        String rating = reviewsRatings.get(1);
-                        System.out.println("review: " + review);
-                        System.out.println("rating: " + rating);
-                        //add to recyclerview
-                        friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, entry.getKey(), review));
+                            String review = reviewsRatings.get(0);
+                            String rating = reviewsRatings.get(1);
+                            System.out.println("review: " + review);
+                            System.out.println("rating: " + rating);
+                            //add to recyclerview
+                            friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, entry.getKey(), review));
 
+                        }
+
+                        mAdapter = new FriendReviewAdapter(friendReviewList);
+                        mRecyclerview.setLayoutManager(mLayoutManager);
+                        mRecyclerview.setAdapter(mAdapter);
                     }
-                    mAdapter = new FriendReviewAdapter(friendReviewList);
-                    mRecyclerview.setLayoutManager(mLayoutManager);
-                    mRecyclerview.setAdapter(mAdapter);
+
                 }
             }
         });
