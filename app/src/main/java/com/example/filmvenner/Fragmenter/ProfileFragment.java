@@ -108,8 +108,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         System.out.println( "Username from preferencemanager"+ usernameFromPrefMan);
         String userpicFromPrefMan = prefMan.getString("currentUserPicture", "default");
-
-
         Picasso.get().load(userpicFromPrefMan).into(profilePic);
 
         profilename.setText(usernameFromPrefMan);
