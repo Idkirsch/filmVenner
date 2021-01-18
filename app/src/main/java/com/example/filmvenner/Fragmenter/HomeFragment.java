@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment  {
     ArrayList<Movie> exampleList = new ArrayList<>();
     DatabaseAccess db = new DatabaseAccess();
     // User user = new User();
+
    SharedPreferences prefMan;
 
 
@@ -98,6 +99,7 @@ public class HomeFragment extends Fragment  {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         Context hostAct = getActivity();
+
 
         prefMan= hostAct.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
         String usernameFromPrefMan = prefMan.getString("currentUserName", "default");

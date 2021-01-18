@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bottom_nav"
-        android:background="@color/backgroundRed"
+        android:background="@color/goldButton"
         app:itemBackground="@color/goldButton"
         app:itemTextColor="@color/buttonText"
         app:menu="@menu/bn_menu"
