@@ -55,25 +55,24 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    ImageButton addToList;
+    ImageButton addToList, addReview;
     TextView title;
     String currentTitle = "Moana";
-    String movieID = "277834";
-
+    TextView film_summary;
     private RequestQueue requestQueue;
     Movie movies = new Movie ();
     ArrayList<Movie> example = new ArrayList<> ();
-    DatabaseAccess databaseAccess = new DatabaseAccess ();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
     String summary_1 = "1234";
 
-    ArrayList<String> filmSummary;
-    ArrayList<String> film_id = new ArrayList<> ();
+//    ArrayList<String> filmSummary;
+//    ArrayList<String> film_id = new ArrayList<> ();
+//    DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp");
+//    DatabaseAccess databaseAccess = new DatabaseAccess ();
+//    String movieID = "277834";
+//    FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-    TextView film_summary;
 
-    FirebaseFirestore database = FirebaseFirestore.getInstance();
-    DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp");
 
     public FilmInfoFragment() {
         // Required empty public constructor
@@ -93,10 +92,13 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_film_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_film_info2, container, false);
 
         addToList = (ImageButton) view.findViewById(R.id.add_button);
         addToList.setOnClickListener(this);
+
+        addReview = (ImageButton) view.findViewById(R.id.add_review);
+        addReview.setOnClickListener(this);
 
         title = view.findViewById(R.id.film_nama);
         title.setText(currentTitle);
@@ -123,9 +125,6 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
         mRecyclerview.setLayoutManager(mLayoutManager);
         mRecyclerview.setAdapter(mAdapter);
-
-
-
 
         return view;
     }
@@ -175,7 +174,13 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        showPopup(v);
+        if(v == addToList){
+            showPopup(v);
+        }
+
+        if(v == addReview){
+            System.out.println("clicked on add review");
+        }
 
     }
 

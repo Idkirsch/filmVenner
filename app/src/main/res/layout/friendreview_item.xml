@@ -3,14 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="4dp"
+    android:background="@color/goldButton"
+    android:layout_margin="5dp"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp"
-        android:background="@color/backgroundRed">
-        
+        android:background="@color/cardViewBackground"
+        android:padding="4dp"
+        >
+
+
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -24,21 +29,21 @@
             android:layout_height="wrap_content"
             android:text="Friend's username"
             android:textSize="20sp"
+            android:textColor="@color/goldFiller"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/friendProfilePic"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/listTVfriendName"/>
 
         <TextView
+            android:textColor="@color/goldButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Friend's review"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:layout_below="@+id/listTVfriendName"
             android:layout_toRightOf="@id/friendProfilePic"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/listTVreview"/>
 
 
