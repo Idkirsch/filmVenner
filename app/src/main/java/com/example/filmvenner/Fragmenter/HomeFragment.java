@@ -227,7 +227,6 @@ public class HomeFragment extends Fragment  {
 
 
     public void loopGennemVenneliste() {
-//        System.out.println("vores egen venneliste fra databasen2: " + venneListe);
 
         ArrayList<String> listForAPI = new ArrayList<>();
 

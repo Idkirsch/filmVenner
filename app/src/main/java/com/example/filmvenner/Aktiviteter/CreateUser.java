@@ -3,7 +3,9 @@ package com.example.filmvenner.Aktiviteter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +33,10 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     Button create;
     private static final String KEY_NAME = "username";
     private static final String KEY_EMAIL = "email";
+    private static final String KEY_FRIEND = "Friends";
+
+    SharedPreferences prefMan;
+
 
 
     //database
@@ -41,6 +48,9 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
+
+        prefMan = this.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+
 
         create = (Button) findViewById(R.id.createUserButton);
         create.setOnClickListener(this);
@@ -59,12 +69,17 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         if(view == create){
             String usrname = username.getText().toString();
             String mail = email.getText().toString();
+            ArrayList<String> Friends = new ArrayList<>();
 
             if(FieldsHasValues()){
                 System.out.println("yes, the fields have values");
 
 
-                addUser(usrname,mail,usrname);
+                addUser(usrname,mail,usrname, Friends);
+
+                SharedPreferences.Editor editor = prefMan.edit();
+                editor.putString("currentUserName", usrname);
+                editor.apply();
 
                 test_user.setUsername(username.getText().toString());
                 test_user.setEmail(email.getText().toString());
@@ -79,10 +94,11 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    public void addUser(String name, String email, String documentName){
+    public void addUser(String name, String email, String documentName, ArrayList<String> Friends){
         Map<String,Object> user = new HashMap<>();
         user.put(KEY_NAME, name);
         user.put(KEY_EMAIL, email);
+        user.put(KEY_FRIEND, Friends);
         users.document(documentName).set(user);
 
         database.collection("users")
@@ -138,19 +154,20 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
     }
 
     public boolean checkPasswords(){
-        String input = password.getText().toString();
-        String confirm = confirmPassword.getText().toString();
-        if (input.length() < 2){
-            username.setHint("please, longer than 2 letters");
-        }else{
-            //make check if it already exists
-            // username is accepted
-            if(input.equals(confirm)){
-                return true;
-            }else{
-                System.out.println("passwords matcher ikke");
-            }
-        }
-        return false;
+//        String input = password.getText().toString();
+////        String confirm = confirmPassword.getText().toString();
+////        if (input.length() < 2){
+////            username.setHint("please, longer than 2 letters");
+////        }else{
+////            //make check if it already exists
+////            // username is accepted
+////            if(input.equals(confirm)){
+////                return true;
+////            }else{
+////                System.out.println("passwords matcher ikke");
+////            }
+////        }
+////        return false;
+    return true;
     }
 }

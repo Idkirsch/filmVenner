@@ -95,10 +95,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onCancel() {
-                Log.d(TAG, "onCancel");
-
-
-            }
+                Log.d(TAG, "onCancel"); }
 
             @Override
             public void onError(FacebookException error) {
@@ -161,6 +158,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                                     Intent intent = new Intent(getApplication(), MainActivity.class);
                                     startActivity(intent);
+
                            }
                             } else {
                                 System.out.println("ingen brugernavne i databasen matcher det inputtede brugernavn");
