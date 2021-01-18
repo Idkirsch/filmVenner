@@ -2,6 +2,7 @@ package com.example.filmvenner.Fragmenter;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,12 +17,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.DAO.FilmList;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
 import com.example.filmvenner.Adapter.RecyclerViewAdapter;
+import com.example.filmvenner.RecyclerItemClickListener;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -74,6 +77,35 @@ public class SearchRecycler_frag extends Fragment{
         recyclerView1 = view.findViewById(R.id.recyclerView1);
         recyclerView2 = view.findViewById(R.id.recyclerView2);
         recyclerView3 = view.findViewById(R.id.recyclerView3);
+
+
+
+        recyclerView1.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), recyclerView1, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        System.out.println("clicked on reyclerview, position = "+position);
+                        System.out.println("clicked on reyclerview, title = "+ exampleList.get(position).getTitle());
+                        System.out.println("clicked on reyclerview, ID = "+ exampleList.get(position).getID());
+
+                        System.out.println("Sideskift fra film");
+                        AppCompatActivity activity = (AppCompatActivity)getContext();
+                        FilmInfoFragment filmInfo = new FilmInfoFragment();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
+
+                        //  System.out.println("clicked on recyclerview, title = "+exampleList.get(position).getID());
+
+                        // preferencemanager (eller send titel med over til nyt fragment på en anden måde)
+                        // ovre i nyt fragment: kald API med titlen
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
 
 
         mRequestQueue = Volley.newRequestQueue(getContext());
@@ -143,9 +175,11 @@ public class SearchRecycler_frag extends Fragment{
                     for (int i = 0; i < moviesJson.length(); i++) {
                         String imagePath = movies.get(i).getmImageResource().toString();
                         String fullImagePath = prefixImage + imagePath;
+                        String title = movies.get(i).getTitle();
+                        String ID = movies.get(i).getID();
 //                        System.out.println("full image path: " + fullImagePath);
                         //FilmList item = new FilmList(imagePath);
-                        FilmList item = new FilmList(fullImagePath);
+                        FilmList item = new FilmList(fullImagePath,title,ID);
 
                         exampleList.add(item);
                     }

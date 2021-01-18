@@ -23,11 +23,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.filmvenner.Aktiviteter.Settings;
+import com.example.filmvenner.Aktiviteter.skalSlettes;
 import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.DAO.User;
 import com.example.filmvenner.R;
+import com.example.filmvenner.RecyclerItemClickListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -50,26 +53,24 @@ import java.util.concurrent.Executors;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment  {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RequestQueue mRequestQueue;
-    ArrayList<Movie> movies;
+//    ArrayList<Movie> movies;
     ArrayList<Movie> exampleList = new ArrayList<>();
     DatabaseAccess db = new DatabaseAccess();
     // User user = new User();
 
    SharedPreferences prefMan;
 
-
-
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
     ArrayList<String> venneListe, WantToWatch, Watched;
-    ArrayList<String> filmID = new ArrayList<>();
+//    ArrayList<String> filmID = new ArrayList<>();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
-    Button addFriend, removeFriend;
+    Button addFriend, removeFriend, videre;
 
     String currentUserName = new String();
 //        String currentUserName = "PippiLangstromp";
@@ -101,6 +102,9 @@ public class HomeFragment extends Fragment  {
         Context hostAct = getActivity();
 
 
+        Button videre = (Button) v.findViewById(R.id.videre);
+        videre.setOnClickListener(this);
+
         prefMan= hostAct.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
         String usernameFromPrefMan = prefMan.getString("currentUserName", "default");
         currentUserName = usernameFromPrefMan;
@@ -127,9 +131,29 @@ public class HomeFragment extends Fragment  {
         mRecyclerView = v.findViewById(R.id.recyclerviewHome);
         mRecyclerView.setHasFixedSize(true);
 
+
         mLayoutManager = new LinearLayoutManager(getContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        System.out.println("clicked on reyclerview, position = "+position);
+                        System.out.println("clicked on recyclerview, title = "+exampleList.get(position).getTitle());
+
+                        // preferencemanager (eller send titel med over til nyt fragment på en anden måde)
+                        // ovre i nyt fragment: kald API med titlen
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
 
 
         // set on click listener
@@ -170,7 +194,7 @@ public class HomeFragment extends Fragment  {
                             String fullImagePath = prefixImage + imagePath;
                             String language = movie.getLanguage();
                             String releaseDate = movie.getRelease();
-                            Movie item = new Movie(releaseDate, language, title, fullImagePath, friendsName+action, "summary");
+                            Movie item = new Movie(releaseDate, language, title, fullImagePath, friendsName+action, "summary",ID);
 
                             exampleList.add(item);
 
@@ -279,7 +303,18 @@ public class HomeFragment extends Fragment  {
     }
 
 
+    @Override
+    public void onClick(View view) {
 
+        if(view == videre){
+            startActivity(new Intent(getActivity(), Settings.class));
+            System.out.println("someone clicked");
+
+
+
+        }
+
+    }
 }
 
 

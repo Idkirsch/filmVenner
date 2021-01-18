@@ -138,12 +138,13 @@ public class ProfilWatched extends Fragment {
                             String prefixImage = "https://image.tmdb.org/t/p/w500";
 
                                 String title = listmovieItems.getTitle().toString();
+                                String ID = listmovieItems.getID().toString();
                                 String imagePath = listmovieItems.getmImageResource().toString();
                                 String fullImagePath  = prefixImage + imagePath;
                                 String release = listmovieItems.getRelease();
                                 String language = listmovieItems.getLanguage();
 //                                System.out.println(fullImagePath);
-                                Movie item = new Movie(release, language, title, fullImagePath, null, "");
+                                Movie item = new Movie(release, language, title, fullImagePath, null, "",ID);
                                 viewList.add(item);
 
 
