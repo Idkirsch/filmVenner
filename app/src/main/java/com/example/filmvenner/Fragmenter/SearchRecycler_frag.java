@@ -44,7 +44,6 @@ public class SearchRecycler_frag extends Fragment{
     ArrayList<Movie> movies;
     ArrayList<FilmList> exampleList = new ArrayList<>();
     ArrayList<FilmList> exampleList2 = new ArrayList<>();
-    ArrayList<FilmList> exampleList3 = new ArrayList<>();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
 
     LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -124,9 +123,6 @@ public class SearchRecycler_frag extends Fragment{
     public void callAPI() {
         String requestPopular = "https://api.themoviedb.org/3/movie/popular?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&page=1";
         String requestTopRated = "https://api.themoviedb.org/3/movie/top_rated?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&page=1";
-        String requestTopRatedDK = "https://api.themoviedb.org/3/movie/top_rated?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&page=1&region=DK";
-//        String requestRecent = "https://api.themoviedb.org/3/movie/latest?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&page=1";
-
 
 
         System.out.println("in Call API method, Search recyc frag");
@@ -194,39 +190,6 @@ public class SearchRecycler_frag extends Fragment{
                     recyclerView2.setLayoutManager(layoutManager2);
                     RecyclerViewAdapter adapter2 = new RecyclerViewAdapter(exampleList2, getActivity());
                     recyclerView2.setAdapter(adapter2);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, error -> System.out.println(" couldnt't get answer from API in search recycler frag or couldnt populate views"));
-        mRequestQueue.add(jsonObjectRequest);
-
-        jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, requestTopRatedDK, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-//                System.out.println("in onResponse");
-                try {
-                    JSONObject movieJson = response;
-                    JSONArray moviesJson = movieJson.getJSONArray("results");
-
-                    movies = Movie.fromJson(moviesJson);
-
-                    for (int i = 0; i < moviesJson.length(); i++) {
-                        String imagePath = movies.get(i).getmImageResource().toString();
-                        String fullImagePath = prefixImage + imagePath;
-//                        System.out.println("full image path: " + fullImagePath);
-                        //FilmList item = new FilmList(imagePath);
-                        FilmList item = new FilmList(fullImagePath);
-
-                        exampleList3.add(item);
-                    }
-
-                    recyclerView3.setLayoutManager(layoutManager3);
-                    RecyclerViewAdapter adapter3 = new RecyclerViewAdapter(exampleList3, getActivity());
-                    recyclerView3.setAdapter(adapter3);
 
 
                 } catch (JSONException e) {
