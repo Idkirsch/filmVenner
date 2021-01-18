@@ -9,10 +9,16 @@
     android:padding="2dip"
     android:background="@color/backgroundRed">
 
-
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="tag mig videre"
+    android:id="@+id/videre"
+    />
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="60dp"
         android:id="@+id/recyclerviewHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

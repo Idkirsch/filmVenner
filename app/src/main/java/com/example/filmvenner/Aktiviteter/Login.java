@@ -46,6 +46,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "FacebookAuth";
 
     Button login, createUser;
+    Button videre;
     EditText username, password;
    // String expected_username = "test123", expected_password = "1";
    // User user = new User();
@@ -77,6 +78,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         createUser = (Button) findViewById(R.id.createUserButtonLoginFrag);
         createUser.setOnClickListener(this);
+
+        videre = (Button) findViewById(R.id.videre2);
+        videre.setOnClickListener(this);
 
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
@@ -185,6 +189,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(view == createUser){
             System.out.println("clicked on create user");
             Intent intent = new Intent(this, CreateUser.class);
+            startActivity(intent);
+        }
+
+        if(view == videre){
+            Intent intent = new Intent(this, skalSlettes.class);
             startActivity(intent);
         }
 

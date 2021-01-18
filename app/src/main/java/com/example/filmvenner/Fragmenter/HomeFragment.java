@@ -23,6 +23,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.filmvenner.Aktiviteter.Settings;
+import com.example.filmvenner.Aktiviteter.skalSlettes;
 import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
@@ -50,7 +52,7 @@ import java.util.concurrent.Executors;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment  {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -69,7 +71,7 @@ public class HomeFragment extends Fragment  {
     ArrayList<String> venneListe, WantToWatch, Watched;
     ArrayList<String> filmID = new ArrayList<>();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
-    Button addFriend, removeFriend;
+    Button addFriend, removeFriend, videre;
 
     String currentUserName = new String();
 //        String currentUserName = "PippiLangstromp";
@@ -100,6 +102,9 @@ public class HomeFragment extends Fragment  {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         Context hostAct = getActivity();
 
+
+        Button videre = (Button) v.findViewById(R.id.videre);
+        videre.setOnClickListener(this);
 
         prefMan= hostAct.getSharedPreferences("currentUser", Context.MODE_PRIVATE);
         String usernameFromPrefMan = prefMan.getString("currentUserName", "default");
@@ -279,7 +284,18 @@ public class HomeFragment extends Fragment  {
     }
 
 
+    @Override
+    public void onClick(View view) {
 
+        if(view == videre){
+            startActivity(new Intent(getActivity(), Settings.class));
+            System.out.println("someone clicked");
+
+
+
+        }
+
+    }
 }
 
 
