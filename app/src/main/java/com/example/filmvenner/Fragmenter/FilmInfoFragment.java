@@ -32,7 +32,10 @@ import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.Adapter.FriendReviewAdapter;
 import com.example.filmvenner.DAO.FriendReviewList;
 import com.example.filmvenner.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -41,6 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,12 +62,18 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     ImageButton addToList, addReview;
     TextView title;
     String currentTitle = "Moana";
+    String ID = "24428";
     TextView film_summary;
     private RequestQueue requestQueue;
-    Movie movies = new Movie ();
-    ArrayList<Movie> example = new ArrayList<> ();
+    Movie movies = new Movie();
+    ArrayList<Movie> example = new ArrayList<>();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
     String summary_1 = "1234";
+
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+    DocumentReference docRef = database.collection("Film").document(ID);
+
+
 
 //    ArrayList<String> filmSummary;
 //    ArrayList<String> film_id = new ArrayList<> ();
@@ -71,7 +81,6 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 //    DatabaseAccess databaseAccess = new DatabaseAccess ();
 //    String movieID = "277834";
 //    FirebaseFirestore database = FirebaseFirestore.getInstance();
-
 
 
     public FilmInfoFragment() {
@@ -94,37 +103,36 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_film_info2, container, false);
 
-        addToList = (ImageButton) view.findViewById(R.id.add_button);
+        addToList = view.findViewById(R.id.add_button);
         addToList.setOnClickListener(this);
 
-        addReview = (ImageButton) view.findViewById(R.id.add_review);
+        addReview = view.findViewById(R.id.add_review);
         addReview.setOnClickListener(this);
+
+        ImageButton addmovie = view.findViewById(R.id.add_button);
+        addmovie.setOnClickListener(this);
 
         title = view.findViewById(R.id.film_nama);
         title.setText(currentTitle);
-        requestQueue = Volley.newRequestQueue(getContext());
-
-        callAPI();
 
         film_summary = view.findViewById(R.id.film_summary);
         film_summary.setText(summary_1);
-        System.out.println ("testSummary" + summary_1);
 
-        ImageButton addmovie = (ImageButton) view.findViewById(R.id.add_button);
-        addmovie.setOnClickListener(this);
 
-        ArrayList<FriendReviewList>  friendReviewList = new ArrayList<>();
-        friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, "Louise Nygaard", "jeg synes det her var verdens dårligste film, jeg havde lyst til at græde"));
-        friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, "Bent Larsen", "jeg synes det her var verdens bedste fil"));
-        friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, "Ole Henriksen", "rtfyguhijgfudtryghjlhlugyiftudryersdtcjvkbhljnkliyuktcrtcfjgvhbjnklbuvtycrfgjvhbjgvkyfcjgvh"));
+        requestQueue = Volley.newRequestQueue(getContext());
+
+
+        callAPI(ID);
+        retrievereviews();
+
+
+
+
 
         mRecyclerview = view.findViewById(R.id.recyclerviewFilmInfo);
 
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new FriendReviewAdapter(friendReviewList);
 
-        mRecyclerview.setLayoutManager(mLayoutManager);
-        mRecyclerview.setAdapter(mAdapter);
 
         return view;
     }
@@ -134,8 +142,8 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void callAPI() {
-        String request = "https://api.themoviedb.org/3/movie/"+"24428"+"?api_key=fa302bdb2e93149bd69faa350c178b38";
+    public void callAPI(String ID) {
+        String request = "https://api.themoviedb.org/3/movie/" + ID + "?api_key=fa302bdb2e93149bd69faa350c178b38";
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -149,18 +157,18 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                             movies = Movie.fromJson(movieJson);
                             System.out.println(movies.getTitle().toString());
 
-                                String title = movies.getTitle().toString();
-                                String ID = movies.getTitle().toString();
-                                String imagePath = movies.getmImageResource().toString();
-                                String releaseDate = movies.getRelease().toString();
-                                String language = "language: " + movies.getLanguage().toString();
-                                String fullImagePath = prefixImage + imagePath;
-                                String summary = movies.getSummary ().toString ();
-                                System.out.println ("summaryFraAPI"+summary);
-                                film_summary.setText (summary);
+                            String title = movies.getTitle().toString();
+                            String ID = movies.getTitle().toString();
+                            String imagePath = movies.getmImageResource().toString();
+                            String releaseDate = movies.getRelease().toString();
+                            String language = "language: " + movies.getLanguage().toString();
+                            String fullImagePath = prefixImage + imagePath;
+                            String summary = movies.getSummary().toString();
+                            System.out.println("summaryFraAPI" + summary);
+                            film_summary.setText(summary);
 
-                                Movie item = new Movie(releaseDate, language, title, fullImagePath, "friendhere",summary,ID);
-                                example.add(item);
+                            Movie item = new Movie(releaseDate, language, title, fullImagePath, "friendhere", summary, ID);
+                            example.add(item);
 
                             //addItems();
                         } catch (Exception e) {
@@ -171,21 +179,53 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
         requestQueue.add(jsonObjectRequest);
     }
 
+
+
+    public void retrievereviews() {
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    System.out.println("DocumentSnapshot data: " + documentSnapshot.getData());
+                    ArrayList<FriendReviewList> friendReviewList = new ArrayList<>();
+
+                    Map<String, Object> map = documentSnapshot.getData();
+                    for (Map.Entry<String, Object> entry : map.entrySet()) {
+//                        System.out.println("entrykey: " + entry.getKey());
+//                        System.out.println("entryvalue: " + entry.getValue());
+                        ArrayList<String> reviewsRatings = (ArrayList<String>) entry.getValue();
+//                        System.out.println("reviwsratings : " + reviewsRatings);
+                        String review = reviewsRatings.get(0);
+                        String rating = reviewsRatings.get(1);
+                        System.out.println("review: " + review);
+                        System.out.println("rating: " + rating);
+                        //add to recyclerview
+                        friendReviewList.add(new FriendReviewList(R.drawable.ic_profile, entry.getKey(), review));
+
+                    }
+                    mAdapter = new FriendReviewAdapter(friendReviewList);
+                    mRecyclerview.setLayoutManager(mLayoutManager);
+                    mRecyclerview.setAdapter(mAdapter);
+                }
+            }
+        });
+    }
+
+
     @Override
     public void onClick(View v) {
 
-        if(v == addToList){
+        if (v == addToList) {
             showPopup(v);
-        }
-
-        if(v == addReview){
+        }if (v == addReview) {
             System.out.println("clicked on add review");
         }
 
     }
 
 
-    public void showPopup(View v){
+    public void showPopup(View v) {
 
         PopupMenu popupMenu = new PopupMenu(getActivity(), v);
         popupMenu.getMenuInflater().inflate(R.menu.addmovie_menu, popupMenu.getMenu());
@@ -193,7 +233,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.AddWatchLater:
                         Toast.makeText(getActivity(), "you added this movie to your 'Want to watch' list", Toast.LENGTH_LONG).show();
                         DocumentReference addWatchLater = db.collection("MovieList").document("Sukkerknald");
@@ -215,18 +255,5 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    /*public void onClick(View v) {
 
-        if(v == addToList){
-            System.out.println("klikkede på add to list knap");
-            docRef.update("WantToWatch", FieldValue.arrayUnion(movieID));
-        }
-       /*
-        if (v == film_summary){
-            //System.out.println ("klikkede på summary");
-            docRef.update ("MovieList", FieldValue.arrayUnion (movieID));
-        }
-
-
-    }*/
 }
