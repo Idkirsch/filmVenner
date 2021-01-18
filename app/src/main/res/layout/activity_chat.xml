@@ -4,6 +4,7 @@
 xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundRed"
     tools:context=".Aktiviteter.ChatActivity">
 android:id="@+id/chat_frag">
 
@@ -28,7 +29,7 @@ android:id="@+id/chat_frag">
   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="#fff"
+      android:background="#b01e38"
       android:orientation="horizontal">
 
     <EditText
@@ -38,6 +39,8 @@ android:id="@+id/chat_frag">
         android:layout_weight="2"
         android:ems="10"
         android:hint="Write a message"
+        android:textColorHint="@color/backgroundRed"
+        android:textColorLink="@color/backgroundRed"
         android:inputType="text"
         android:paddingHorizontal="10dp"
         android:text="" />
