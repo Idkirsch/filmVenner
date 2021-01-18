@@ -9,15 +9,16 @@ import java.util.ArrayList;
 // model of movieclass
 public class Movie {
 
-    private String release, language,title,mImageResource, friend, summary;
+    private String release, language,title,mImageResource, friend, summary, ID;
 
-    public Movie (String release, String language, String title, String mImageResource, String friend, String summary){
+    public Movie (String release, String language, String title, String mImageResource, String friend, String summary, String ID){
         this.language = language;
         this.mImageResource = mImageResource;
         this.release = release;
         this.title = title;
         this.summary = summary;
         this.friend = friend;
+        this.ID = ID;
     }
 
     public Movie (){ }
@@ -26,6 +27,7 @@ public class Movie {
     public static Movie fromJson(JSONObject jsonObject){
         Movie m = new Movie();
         try{
+            m.ID = jsonObject.getString("id");
             m.title = jsonObject.getString("title");
             m.release = jsonObject.getString("release_date");
             m.language = jsonObject.getString("original_language");
@@ -82,6 +84,14 @@ public class Movie {
     }
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getLanguage() {

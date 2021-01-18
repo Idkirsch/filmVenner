@@ -151,6 +151,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                             System.out.println(movies.getTitle().toString());
 
                                 String title = movies.getTitle().toString();
+                                String ID = movies.getTitle().toString();
                                 String imagePath = movies.getmImageResource().toString();
                                 String releaseDate = movies.getRelease().toString();
                                 String language = "language: " + movies.getLanguage().toString();
@@ -159,7 +160,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                                 System.out.println ("summaryFraAPI"+summary);
                                 film_summary.setText (summary);
 
-                                Movie item = new Movie(releaseDate, language, title, fullImagePath, "friendhere",summary);
+                                Movie item = new Movie(releaseDate, language, title, fullImagePath, "friendhere",summary,ID);
                                 example.add(item);
 
                             //addItems();
