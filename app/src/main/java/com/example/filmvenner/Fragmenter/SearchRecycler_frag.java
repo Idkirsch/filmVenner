@@ -216,7 +216,7 @@ public class SearchRecycler_frag extends Fragment{
                         String fullImagePath = prefixImage + imagePath;
 //                        System.out.println("full image path: " + fullImagePath);
                         //FilmList item = new FilmList(imagePath);
-                        FilmList item = new FilmList(fullImagePath);
+                        FilmList item = new FilmList(fullImagePath,"","");
 
                         exampleList2.add(item);
                     }
