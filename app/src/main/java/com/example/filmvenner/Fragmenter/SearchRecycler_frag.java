@@ -43,11 +43,12 @@ public class SearchRecycler_frag extends Fragment{
     String key = "fa302bdb2e93149bd69faa350c178b38";
     ArrayList<Movie> movies;
     ArrayList<FilmList> exampleList = new ArrayList<>();
+    ArrayList<FilmList> exampleList2 = new ArrayList<>();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
 
     LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-    LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-    LinearLayoutManager layoutManager3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+    LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+    LinearLayoutManager layoutManager3 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
     //    MovieRecyclerAdapter adapter1 = new MovieRecyclerAdapter(genre);
 //    MovieRecyclerAdapter adapter2 = new MovieRecyclerAdapter(popular);
 //    MovieRecyclerAdapter adapter3 = new MovieRecyclerAdapter(recent);
@@ -80,18 +81,15 @@ public class SearchRecycler_frag extends Fragment{
         callAPI();
 
 
-//        recyclerView1.setHasFixedSize(true);
         recyclerView1.setLayoutManager(layoutManager1);
-
-//        recyclerView1.setLayoutManager(layoutManager1);
-//      MovieRecyclerAdapter adapter1 = new MovieRecyclerAdapter(genre);
+//        MovieRecyclerAdapter adapter1 = new MovieRecyclerAdapter(genre);
 //        recyclerView1.setAdapter(adapter1);
 
-//        recyclerView2.setLayoutManager(layoutManager2);
+        recyclerView2.setLayoutManager(layoutManager2);
 //        MovieRecyclerAdapter adapter2 = new MovieRecyclerAdapter(popular);
 //        recyclerView2.setAdapter(adapter2);
 
-//        recyclerView3.setLayoutManager(layoutManager3);
+        recyclerView3.setLayoutManager(layoutManager3);
 //        MovieRecyclerAdapter adapter3 = new MovieRecyclerAdapter(recent);
 //        recyclerView3.setAdapter(adapter3);
 
@@ -127,7 +125,7 @@ public class SearchRecycler_frag extends Fragment{
         String requestTopRated = "https://api.themoviedb.org/3/movie/top_rated?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&page=1";
 
 
-        System.out.println("in Call API method");
+        System.out.println("in Call API method, Search recyc frag");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, requestPopular, null, new Response.Listener<JSONObject>() {
             @Override
@@ -159,6 +157,39 @@ public class SearchRecycler_frag extends Fragment{
 //                    System.out.println("exampleList: "+exampleList);
 //                    System.out.println("attaching adapters");
 
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, error -> System.out.println(" couldnt't get answer from API in search recycler frag or couldnt populate views"));
+        mRequestQueue.add(jsonObjectRequest);
+
+        jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, requestTopRated, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+//                System.out.println("in onResponse");
+                try {
+                    JSONObject movieJson = response;
+                    JSONArray moviesJson = movieJson.getJSONArray("results");
+
+                    movies = Movie.fromJson(moviesJson);
+
+                    for (int i = 0; i < moviesJson.length(); i++) {
+                        String imagePath = movies.get(i).getmImageResource().toString();
+                        String fullImagePath = prefixImage + imagePath;
+//                        System.out.println("full image path: " + fullImagePath);
+                        //FilmList item = new FilmList(imagePath);
+                        FilmList item = new FilmList(fullImagePath);
+
+                        exampleList2.add(item);
+                    }
+
+                    recyclerView2.setLayoutManager(layoutManager2);
+                    RecyclerViewAdapter adapter2 = new RecyclerViewAdapter(exampleList2, getActivity());
+                    recyclerView2.setAdapter(adapter2);
 
 
                 } catch (JSONException e) {
