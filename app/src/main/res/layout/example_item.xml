@@ -5,13 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="4dp"
     android:layout_marginBottom="20dp"
+    android:background="@color/cardViewBackground"
+
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp"
-        android:layout_marginTop="2dp"
+
+        android:padding="5dp"
+        android:background="@color/cardViewBackground"
+
         android:layout_marginBottom="2dp">
 
 
@@ -29,8 +33,9 @@
             android:layout_height="wrap_content"
             android:text="movietitle"
             android:textSize="25sp"
+
             style="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/goldFiller"
             />
 
         <TextView
@@ -38,9 +43,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Line 1"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorAccent"
+            android:textSize="15sp"
+
+            android:textColor="@color/goldButton"
             android:layout_toRightOf="@id/imageView1"
             android:layout_below="@+id/title"
             android:layout_marginLeft="8dp"/>
@@ -64,6 +69,11 @@
             android:layout_below="@id/textView2"
             android:layout_toRightOf="@id/imageView1"
             android:layout_marginLeft="8dp"
+
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            android:textColor="@color/goldButton"
             android:id="@+id/friendsName"
             />
 

@@ -131,7 +131,7 @@
             android:id="@+id/IMRated"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@drawable/film" />
+            android:src="@drawable/shrek" />
 
 
         <Button
@@ -164,7 +164,7 @@
             android:id="@+id/IMReviewed"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@drawable/film" />
+            android:src="@drawable/charlie" />
 
 
         <Button
@@ -236,7 +236,7 @@
             android:id="@+id/IMWatch"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@drawable/film" />
+            android:src="@drawable/film2" />
 
         <Button
             android:id="@+id/towatchbutton"
