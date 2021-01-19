@@ -147,7 +147,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ratedbutton:
-                startActivity(new Intent(getActivity(), ProfileRated.class));
                 break;
 
             case R.id.watchedbutton:

@@ -1,5 +1,7 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -51,10 +53,12 @@ public class ProfilWatched extends Fragment {
     ArrayList<String> idList = new ArrayList<>();
     ArrayList<String> watchedList = new ArrayList<>();
 
+    String currentUser;
+    SharedPreferences prefMan;
 
     DatabaseAccess db = new DatabaseAccess();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
-    DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp"); // database adgang til den liste vi skal bruge
+    DocumentReference docRef;
 
 
 
@@ -75,6 +79,11 @@ public class ProfilWatched extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profil_watched, container, false);
+
+        prefMan = getContext().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+        currentUser = prefMan.getString("currentUserName", "default");
+
+        docRef = database.collection("MovieList").document(currentUser); // database adgang til den liste vi skal bruge
 
         retrieveData();
 
