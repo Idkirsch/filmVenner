@@ -81,6 +81,8 @@ public class ProfilWatched extends Fragment {
         mRequestqueue = Volley.newRequestQueue(getContext());
 
 
+
+
 //        System.out.println("watchedlist før for loop" + watchedList);
 //        int i=0;
 //        for (String id : watchedList){
