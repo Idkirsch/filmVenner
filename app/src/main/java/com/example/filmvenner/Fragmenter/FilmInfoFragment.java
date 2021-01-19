@@ -346,13 +346,13 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                 switch (item.getItemId()){
                     case R.id.AddWatchLater:
                         Toast.makeText(getActivity(), "you added this movie to your 'Want to watch' list", Toast.LENGTH_LONG).show();
-                        DocumentReference addWatchLater = db.collection("MovieList").document("Sukkerknald");
-                        addWatchLater.update("WantToWatch", FieldValue.arrayUnion("347158"));
+                        DocumentReference addWatchLater = db.collection("MovieList").document(currentUser);
+                        addWatchLater.update("WantToWatch", FieldValue.arrayUnion(movieidet));
                         break;
                     case R.id.AddWatched:
                         Toast.makeText(getActivity(), "you added this movie to your 'Watched' list", Toast.LENGTH_LONG).show();
-                        DocumentReference addWatched = db.collection("MovieList").document("PippiLangstromp");
-                        addWatched.update("Watched", FieldValue.arrayUnion("487555"));
+                        DocumentReference addWatched = db.collection("MovieList").document(currentUser);
+                        addWatched.update("Watched", FieldValue.arrayUnion(movieidet));
                         break;
                     default:
                         break;
