@@ -1,7 +1,9 @@
 package com.example.filmvenner.Fragmenter;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,12 +35,16 @@ import com.example.filmvenner.Adapter.FriendReviewAdapter;
 import com.example.filmvenner.DAO.FriendReviewList;
 import com.example.filmvenner.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -65,13 +71,17 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     TextView movieTitle;
     String currentTitle;
 //    String ID = "24428";
-    String ID = "464052";
+        String ID = "464052";
     TextView film_summary;
     private RequestQueue requestQueue;
     Movie movies = new Movie();
     ArrayList<Movie> example = new ArrayList<>();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
     String summary_1 = "1234";
+    String currentUser;
+    SharedPreferences prefMan;
+
+
 
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     DocumentReference docRef = database.collection("Film").document(ID);
@@ -119,24 +129,35 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
         movieTitle = view.findViewById(R.id.film_nama);
         movieTitle.setText(currentTitle);
-
         film_summary = view.findViewById(R.id.film_summary);
         film_summary.setText(summary_1);
-
         poster = view.findViewById(R.id.film_img);
-
-
-
         requestQueue = Volley.newRequestQueue(getContext());
-
-
         callAPI(ID);
         retrievereviews();
-
-
         mRecyclerview = view.findViewById(R.id.recyclerviewFilmInfo);
 
+        prefMan = getContext().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+
+        currentUser = prefMan.getString("currentUserName", "default");
+
+        System.out.println( "Username from preferencemanager"+ currentUser);
+
         mLayoutManager = new LinearLayoutManager(getContext());
+
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                if (error != null){
+                    System.out.println("listen failed" + error);
+                    return;
+                }
+                if(snapshot != null && snapshot.exists()){
+                    System.out.println("current data: "+ snapshot.getData());
+                    retrievereviews();
+                }
+            }
+        });
 
 
         return view;
@@ -163,7 +184,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                             System.out.println(movies.getTitle().toString());
 
                             String title = movies.getTitle().toString();
-                            String ID = movies.getTitle().toString();
+                            String ID = movies.getID().toString();
                             String imagePath = movies.getmImageResource().toString();
                             String releaseDate = movies.getRelease().toString();
                             String language = "language: " + movies.getLanguage().toString();
@@ -188,20 +209,16 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     }
 
 
-
     public void retrievereviews() {
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
 
-
-
                     DocumentSnapshot documentSnapshot = task.getResult();
 
-
-
-                    if(documentSnapshot.exists()){
+                    if (documentSnapshot.exists()) {
                         ArrayList<FriendReviewList> friendReviewList = new ArrayList<>();
                         Map<String, Object> map = documentSnapshot.getData();
                         for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -235,7 +252,8 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
         if (v == addToList) {
             showPopup(v);
-        }if (v == addReview) {
+        }
+        if (v == addReview) {
             System.out.println("clicked on add review");
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Your review");
@@ -254,7 +272,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     newReview = input.getText().toString();
-                    //addReview(newReview);
+                    addReview(newReview);
 
                 }
             });
@@ -272,55 +290,27 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public void addReview(String newreview){
+    public void addReview(String newreview) {
         DocumentReference docRef = database.collection("Film").document(ID);
 
 
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        ArrayList<String> newReviewsRatings = new ArrayList<>();
+
+
+        Map<String, Object> map = new HashMap<>();
+
+        newReviewsRatings.add(newreview);
+        newReviewsRatings.add("*");
+        map.put(currentUser, newReviewsRatings);
+
+
+        docRef.set(map, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    System.out.println("DocumentSnapshot data: " + document.getData());
-                    if(!document.exists()){
-                        System.out.println("this movie is not in the database yet");
-                    }else{
-
-
-                        ArrayList<String> currentReviewsRatings = new ArrayList<>();
-                        ArrayList<String> newReviewsRatings = new ArrayList<>();
-
-                        String newreview = "test her er et review3";
-                        String currentReview = new String();
-                        String currentRating = new String();
-
-                        Map<String, Object> map = document.getData();
-                        for (Map.Entry<String, Object> entry : map.entrySet()) {
-                            currentReviewsRatings = (ArrayList<String>) entry.getValue();
-
-                            currentReview = currentReviewsRatings.get(0);
-                            currentRating = currentReviewsRatings.get(1);
-                        }
-                        newReviewsRatings.add(newreview);
-                        newReviewsRatings.add(currentRating);
-                        map.put("current user", newReviewsRatings);
-                        // System.out.println("map pippi: " + map);
-
-                        docRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                System.out.println("review succesfully altered");
-                            }
-                        });
-
-
-
-                    }
-
-                }
+            public void onSuccess(Void aVoid) {
+                System.out.println("review succesfully altered or written");
             }
         });
+
     }
 
 
