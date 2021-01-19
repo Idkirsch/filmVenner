@@ -1,8 +1,11 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.R;
+import com.example.filmvenner.RecyclerItemClickListener;
 import com.example.filmvenner.SearchResultViewModel;
 
 import org.json.JSONArray;
@@ -52,6 +56,41 @@ public class SearchResult_Frag extends Fragment {
 
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        System.out.println("clicked on mReyclerview, position = "+position);
+                        System.out.println("clicked on mReyclerview, title = "+ movies.get(position).getTitle());
+                        System.out.println("clicked on mReyclerview, ID = "+ movies.get(position).getID());
+
+                        String currentIdmRV = movies.get(position).getID();
+
+                        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("currentMovieID", currentIdmRV);
+                        editor.commit();
+
+                        System.out.println("Sideskift fra film");
+                        AppCompatActivity activity = (AppCompatActivity)getContext();
+                        FilmInfoFragment filmInfo = new FilmInfoFragment();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
+
+                        //  System.out.println("clicked on recyclerview, title = "+exampleList.get(position).getID());
+
+                        // preferencemanager (eller send titel med over til nyt fragment på en anden måde)
+                        // ovre i nyt fragment: kald API med titlen
+
+                    }
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+
+                })
+        );
+
         return view;
     }
 
