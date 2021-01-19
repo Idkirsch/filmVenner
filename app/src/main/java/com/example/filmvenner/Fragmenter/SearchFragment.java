@@ -26,8 +26,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
 import com.example.filmvenner.SearchResultViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
@@ -35,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
@@ -57,6 +60,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     ArrayList<Movie> movies;
     JSONObject movietest = new JSONObject();
 
+    String B = new String();
+    ArrayList<String> friendListe;
 
 
     @Override
@@ -70,7 +75,79 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         addFriend = (ImageButton) view.findViewById (R.id.friendButton);
         addFriend.setOnClickListener (this);
         addRecyclerFragment(); // This method does the getChildFragmentManager() stuff.
+
+        addFriend();
+
+
         return view;
+    }
+
+    private void addFriend() {
+        //init docref
+        DocumentReference docRef = database.collection("users").document("B");
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot> () {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        //  System.out.println("DocumentSnapshot data: " + document.getData());
+
+                        Map<String, Object> map = document.getData();
+
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+//                            System.out.println("entry: " + entry.getValue().toString());
+                            //System.out.println("type of entry: "+entry.getValue());
+                            if (entry.getKey().toString().equals("Friends")) {
+                                System.out.println("Her er friendlisten");
+                                friendListe = (ArrayList<String>) entry.getValue();
+//                                System.out.println("vores egen friendListe: " + friendListe);
+
+                            }
+                        }
+
+                    } else {
+                        System.out.println("no such document");
+                    }
+                } else {
+                    System.out.println("get failed with " + task.getException());
+                }
+
+                //loopGennemVenneliste();
+            }
+
+            /*
+            private void loopGennemVenneliste() {
+                ArrayList<String> listForAPI = new ArrayList<>();
+
+                if(friendListe != null) {
+                    for (String entry : friendListe) {
+
+                        DocumentReference docRefToUsersFriend = database.collection("MovieList").document(entry);
+                        docRefToUsersFriend.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        String currentFriend = entry;
+//                            System.out.println("entry fra vores egen venneliste: " + currentFriend);
+
+//                            System.out.println("DocumentSnapshot data: " + document.getData());
+                                        Map<String, Object> map = document.getData();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    System.out.println("listForAPI: " + listForAPI);
+                }
+            }
+            */
+
+        });
+
     }
 
     @Override
@@ -103,7 +180,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        showPopup(view);
 
         System.out.println("clicked search");
         System.out.println(searchField.getText().toString());
@@ -120,6 +196,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         } else {
             System.out.println("search field is empty ");
 
+        } if (view == addFriend) {
+            showPopup(view);
         }
     }
 
@@ -176,7 +254,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
     }
-
 
 }
 
