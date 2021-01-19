@@ -18,7 +18,7 @@
         android:layout_marginEnd="50dp"
         android:textAlignment="center"
         android:textSize="18dp"
-        android:text="du kan trykke på chat-knappen for at gå videre til en gruppechatside"
+        android:text="Du kan trykke på chat-knappen for at gå videre til en gruppechatside"
         android:textColor="@color/goldButton"
         android:gravity="center_horizontal" />
 
