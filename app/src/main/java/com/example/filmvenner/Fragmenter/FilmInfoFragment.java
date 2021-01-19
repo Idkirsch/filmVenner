@@ -130,6 +130,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
         SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
         movieidet = pref.getString("currentMovieID", "default");
+        System.out.println("Movie Id overført til filminfo "+movieidet);
 
         docRef = database.collection("Film").document(movieidet);
 
