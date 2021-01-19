@@ -255,51 +255,52 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         ArrayList<String> listForAPI = new ArrayList<>();
 
+        if(venneListe != null) {
+            for (String entry : venneListe) {
 
-        for (String entry : venneListe) {
-
-            DocumentReference docRefToUsersFriend = database.collection("MovieList").document(entry);
-            docRefToUsersFriend.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            String currentFriend = entry;
+                DocumentReference docRefToUsersFriend = database.collection("MovieList").document(entry);
+                docRefToUsersFriend.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                String currentFriend = entry;
 //                            System.out.println("entry fra vores egen venneliste: " + currentFriend);
 
 //                            System.out.println("DocumentSnapshot data: " + document.getData());
-                            Map<String, Object> map = document.getData();
+                                Map<String, Object> map = document.getData();
 
-                            //for hver ven i listen
-                            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                                if (entry.getKey().toString().equals("Watched")) {
-                                    Watched = (ArrayList<String>) entry.getValue();
-                                    for (String entry2 : Watched) {
-                                        System.out.println(currentFriend + " har set filmen " + entry2);
-                                        String action = " har set denne film";
+                                //for hver ven i listen
+                                for (Map.Entry<String, Object> entry : map.entrySet()) {
+                                    if (entry.getKey().toString().equals("Watched")) {
+                                        Watched = (ArrayList<String>) entry.getValue();
+                                        for (String entry2 : Watched) {
+                                            System.out.println(currentFriend + " har set filmen " + entry2);
+                                            String action = " har set denne film";
 //                                        listForAPI.add(entry2);
-                                        callAPI(entry2,currentFriend, action);
+                                            callAPI(entry2, currentFriend, action);
 
+                                        }
                                     }
-                                }
-                                if (entry.getKey().toString().equals("WantToWatch")) {
-                                    Watched = (ArrayList<String>) entry.getValue();
-                                    for (String entry2 : Watched) {
+                                    if (entry.getKey().toString().equals("WantToWatch")) {
+                                        Watched = (ArrayList<String>) entry.getValue();
+                                        for (String entry2 : Watched) {
 //                                        System.out.println(currentFriend + " vil gerne se filmen " + entry2);
-                                        String action = " vil gerne se denne film";
-                                       // listForAPI.add(entry2);
-                                        callAPI(entry2,currentFriend, action);
+                                            String action = " vil gerne se denne film";
+                                            // listForAPI.add(entry2);
+                                            callAPI(entry2, currentFriend, action);
 
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
+            System.out.println("listForAPI: " + listForAPI);
         }
-        System.out.println("listForAPI: " + listForAPI);
     }
 
 

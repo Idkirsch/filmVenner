@@ -1,5 +1,7 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +51,7 @@ public class SearchRecycler_frag extends Fragment{
     ArrayList<FilmList> exampleList2 = new ArrayList<>();
     ArrayList<FilmList> exampleList3 = new ArrayList<>();
     private String prefixImage = "https://image.tmdb.org/t/p/w500";
+    SharedPreferences prefMana;
 
     LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
     LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -89,7 +92,48 @@ public class SearchRecycler_frag extends Fragment{
                         System.out.println("clicked on reyclerview, title = "+ exampleList.get(position).getTitle());
                         System.out.println("clicked on reyclerview, ID = "+ exampleList.get(position).getID());
 
+                        String currentIdRV1 = exampleList.get(position).getID();
+                        
+                        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("currentMovieID", currentIdRV1);
+                        editor.commit();
+
                         System.out.println("Sideskift fra film");
+                        AppCompatActivity activity = (AppCompatActivity)getContext();
+                        FilmInfoFragment filmInfo = new FilmInfoFragment();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
+
+                        //  System.out.println("clicked on recyclerview, title = "+exampleList.get(position).getID());
+
+                        // preferencemanager (eller send titel med over til nyt fragment på en anden måde)
+                        // ovre i nyt fragment: kald API med titlen
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
+
+        recyclerView2.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), recyclerView2, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        System.out.println("clicked on reyclerview2, position = "+position);
+                        System.out.println("clicked on reyclerview2, title = "+ exampleList2.get(position).getTitle());
+                        System.out.println("clicked on reyclerview2, ID = "+ exampleList2.get(position).getID());
+
+                        String currentIdRV2 = exampleList2.get(position).getID();
+
+                        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("currentMovieID", currentIdRV2);
+                        editor.commit();
+
+                        System.out.println("Sideskift fra film2");
                         AppCompatActivity activity = (AppCompatActivity)getContext();
                         FilmInfoFragment filmInfo = new FilmInfoFragment();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
@@ -216,9 +260,11 @@ public class SearchRecycler_frag extends Fragment{
                     for (int i = 0; i < moviesJson.length(); i++) {
                         String imagePath = movies.get(i).getmImageResource().toString();
                         String fullImagePath = prefixImage + imagePath;
+                        String title = movies.get(i).getTitle();
+                        String ID = movies.get(i).getID();
 //                        System.out.println("full image path: " + fullImagePath);
                         //FilmList item = new FilmList(imagePath);
-                        FilmList item = new FilmList(fullImagePath,"","");
+                        FilmList item = new FilmList(fullImagePath,title,ID);
 
                         exampleList2.add(item);
                     }
