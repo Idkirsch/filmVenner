@@ -16,11 +16,11 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:id="@+id/bottom_nav"
         android:background="@color/goldButton"
         app:itemBackground="@color/goldButton"
-        app:itemTextColor="@color/buttonText"
+        app:itemTextColor="@color/black"
         app:menu="@menu/bn_menu"
         android:elevation="8dp"
         />
