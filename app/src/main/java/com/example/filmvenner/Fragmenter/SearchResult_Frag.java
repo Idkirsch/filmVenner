@@ -77,10 +77,6 @@ public class SearchResult_Frag extends Fragment {
                         FilmInfoFragment filmInfo = new FilmInfoFragment();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
 
-                        //  System.out.println("clicked on recyclerview, title = "+exampleList.get(position).getID());
-
-                        // preferencemanager (eller send titel med over til nyt fragment på en anden måde)
-                        // ovre i nyt fragment: kald API med titlen
 
                     }
                     @Override
