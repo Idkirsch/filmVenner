@@ -234,19 +234,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             if(user.getPhotoUrl() != null){
 
                 String photoUrl = user.getPhotoUrl().toString();
+                System.out.println("username from facbook: "+user.getDisplayName().replace(" ",""));
+
                 photoUrl = photoUrl + "?type=large";
                 //Picasso.get().load(photoUrl).into();// Imageview id på billede skal ind parantes
                 System.out.println("PHOTOURL"+photoUrl);
 
                 SharedPreferences.Editor editor = prefMan.edit();
                 editor.putString("currentUserPicture", photoUrl);
+                editor.putString("currentUserName", user.getDisplayName());
                 editor.apply();
             }
         }
-        else{
-            // navnpåTV.setText("");
-            // navnpåIM.setImageResource(R.drawable.ic_profile)
-        }
+
     }
 
     @Override

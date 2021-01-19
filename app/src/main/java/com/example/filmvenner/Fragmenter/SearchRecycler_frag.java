@@ -108,6 +108,7 @@ public class SearchRecycler_frag extends Fragment{
         );
 
 
+
         mRequestQueue = Volley.newRequestQueue(getContext());
         System.out.println("calling API");
         callAPI();
@@ -126,6 +127,33 @@ public class SearchRecycler_frag extends Fragment{
 //        recyclerView3.setAdapter(adapter3);
 
 
+
+        recyclerView2.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), recyclerView2, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        System.out.println("clicked on reyclerview, position = "+position);
+                        System.out.println("clicked on reyclerview, title = "+ exampleList.get(position).getTitle());
+                        System.out.println("clicked on reyclerview, ID = "+ exampleList.get(position).getID());
+
+//                        System.out.println("Sideskift fra film");
+//                        AppCompatActivity activity = (AppCompatActivity)getContext();
+//                        FilmInfoFragment filmInfo = new FilmInfoFragment();
+//                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
+
+                        //  System.out.println("clicked on recyclerview, title = "+exampleList.get(position).getID());
+
+                        // preferencemanager (eller send titel med over til nyt fragment på en anden måde)
+                        // ovre i nyt fragment: kald API med titlen
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
 
 
 
