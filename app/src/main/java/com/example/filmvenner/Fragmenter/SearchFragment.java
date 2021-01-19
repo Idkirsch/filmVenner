@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
@@ -113,38 +114,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 } else {
                     System.out.println("get failed with " + task.getException());
                 }
-
-                //loopGennemVenneliste();
             }
-
-            /*
-            private void loopGennemVenneliste() {
-                ArrayList<String> listForAPI = new ArrayList<>();
-
-                if(friendListe != null) {
-                    for (String entry : friendListe) {
-
-                        DocumentReference docRefToUsersFriend = database.collection("MovieList").document(entry);
-                        docRefToUsersFriend.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        String currentFriend = entry;
-//                            System.out.println("entry fra vores egen venneliste: " + currentFriend);
-
-//                            System.out.println("DocumentSnapshot data: " + document.getData());
-                                        Map<String, Object> map = document.getData();
-                                    }
-                                }
-                            }
-                        });
-                    }
-                    System.out.println("listForAPI: " + listForAPI);
-                }
-            }
-            */
 
         });
 
@@ -201,33 +171,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void showPopup(View view) {
-        PopupMenu popupMenu = new PopupMenu(getActivity(), view);
-        popupMenu.getMenuInflater().inflate(R.menu.addfriend_menu, popupMenu.getMenu());
-
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.AddFriend:
-                        Toast.makeText(getActivity(), "you added this friend to your 'friend' list", Toast.LENGTH_LONG).show();
-                        DocumentReference addWatchLater = database.collection("FriendList").document("venven");
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-
-        popupMenu.show();
-
-    }
-
-
-    public void callAPI() {
+    private void callAPI() {
         RequestQueue queue = Volley.newRequestQueue(getContext());
-       // String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
+        // String request = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=avengers&page=1&include_adult=false";
 
         String request = query1+query2+query3;
 
@@ -253,6 +199,30 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 }, error -> System.out.println("that didnt work"));
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
+    }
+
+    private void showPopup(View view) {
+        PopupMenu popupMenu = new PopupMenu (getActivity (), view);
+        popupMenu.getMenuInflater ().inflate (R.menu.addfriend_menu, popupMenu.getMenu ());
+
+        popupMenu.setOnMenuItemClickListener (new PopupMenu.OnMenuItemClickListener () {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId ()) {
+                    case R.id.AddFriend:
+                        Toast.makeText (getActivity (), "you added this friend to your 'friend' list", Toast.LENGTH_LONG).show ();
+                        DocumentReference addFriend = database.collection ("users").document ("B");
+                        addFriend.update ("Friends", FieldValue.arrayUnion ("B"));
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        addFriend ();
+        popupMenu.show ();
     }
 
 }
