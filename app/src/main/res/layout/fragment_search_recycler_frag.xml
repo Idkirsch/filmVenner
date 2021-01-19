@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/buttonText"
-        android:text="Genre" />
+        android:textColor="@color/goldButton"
+        android:text="Popular" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView1"
@@ -27,8 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/buttonText"
-        android:text="Popular" />
+        android:textColor="@color/goldButton"
+        android:text="Top Rated World" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
@@ -42,8 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/buttonText"
-        android:text="Recent" />
+        android:textColor="@color/goldButton"
+        android:text="Top Rated Denmark" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView3"
