@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -145,6 +146,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                         // preferencemanager (eller send titel med over til nyt fragment på en anden måde)
                         // ovre i nyt fragment: kald API med titlen
+
+                        String currentIdRVhome = exampleList.get(position).getID();
+
+                        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("currentMovieID", currentIdRVhome);
+                        editor.commit();
+
+                        System.out.println("Sideskift fra home til filmside");
+                        AppCompatActivity activity = (AppCompatActivity)getContext();
+                        FilmInfoFragment filmInfo = new FilmInfoFragment();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
 
                     }
 
