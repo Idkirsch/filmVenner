@@ -66,6 +66,7 @@
     android:layout_height="wrap_content"
     android:text="videre"
     android:id="@+id/videre2"
+    android:visibility="invisible"
     />
 
 
