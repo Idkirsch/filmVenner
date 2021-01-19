@@ -111,7 +111,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         System.out.println( "Usernpicture from preferencemanager"+ userpicFromPrefMan);
 
 
-        Picasso.get().load(userpicFromPrefMan).into(profilePic);
+      //  Picasso.get().load(userpicFromPrefMan).into(profilePic);
 
         profilename.setText(usernameFromPrefMan);
 

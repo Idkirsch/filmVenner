@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Profile"
-        android:textSize="24sp"
+        android:textSize="35sp"
+        android:textColor="@color/goldFiller"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -93,6 +94,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="56dp"
+        android:textColor="@color/goldFiller"
         android:text="Peter Pedersen"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
@@ -108,6 +110,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
         android:text="Action, Scifi, thriller"
+        android:textColor="@color/goldFiller"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageProfilePic"
         app:layout_constraintTop_toBottomOf="@+id/ProfileNameTV" />
@@ -139,6 +142,7 @@
             android:background="@null"
             android:drawableRight="@drawable/ic_arrow___right_2"
             android:lines="2"
+            android:textColor="@color/goldFiller"
             android:text="Rated\n175"
             android:textAllCaps="false"
             android:textSize="20sp" />
@@ -171,6 +175,7 @@
             android:background="@null"
             android:drawableRight="@drawable/ic_arrow___right_2"
             android:lines="2"
+            android:textColor="@color/goldFiller"
             android:text="Reviewed\n23"
             android:textAllCaps="false"
             android:textSize="20sp" />
@@ -201,6 +206,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textColor="@color/goldFiller"
             android:background="@null"
             android:drawableRight="@drawable/ic_arrow___right_2"
             android:lines="2"
@@ -241,6 +247,7 @@
             android:drawableRight="@drawable/ic_arrow___right_2"
             android:lines="2"
             android:text="Want to watch\n273 movies and series"
+            android:textColor="@color/goldFiller"
             android:textAllCaps="false"
             android:textSize="20sp" />
 
