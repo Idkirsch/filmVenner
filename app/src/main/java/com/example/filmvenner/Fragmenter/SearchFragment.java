@@ -10,11 +10,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +26,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
 import com.example.filmvenner.SearchResultViewModel;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,13 +41,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     private SearchResultViewModel viewModel;
 
+    // Access a Cloud Firestore instance from your Activity
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+
   //  String url = "https://www.omdbapi.com/?t=";
   //  String apikey = "&apikey=3e1a983d";
     String apiKeyFromTMDB = "fa302bdb2e93149bd69faa350c178b38";
     String query1 = "https://api.themoviedb.org/3/search/movie?api_key=fa302bdb2e93149bd69faa350c178b38&language=en-US&query=";
     String query2;
     String query3 = "&page=1&include_adult=false";
-    private ImageButton searchButton;
+    private ImageButton searchButton, addFriend;
     private EditText searchField;
     SearchResult_Frag fragmentResult = new SearchResult_Frag();
     Movie movie = new Movie();
@@ -56,7 +64,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         searchButton = view.findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
+
         searchField = view.findViewById(R.id.search);
+
+        addFriend = (ImageButton) view.findViewById (R.id.friendButton);
+        addFriend.setOnClickListener (this);
         addRecyclerFragment(); // This method does the getChildFragmentManager() stuff.
         return view;
     }
@@ -91,6 +103,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        showPopup(view);
+
         System.out.println("clicked search");
         System.out.println(searchField.getText().toString());
 
@@ -107,6 +121,29 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             System.out.println("search field is empty ");
 
         }
+    }
+
+    private void showPopup(View view) {
+        PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+        popupMenu.getMenuInflater().inflate(R.menu.addfriend_menu, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.AddFriend:
+                        Toast.makeText(getActivity(), "you added this friend to your 'friend' list", Toast.LENGTH_LONG).show();
+                        DocumentReference addWatchLater = database.collection("FriendList").document("venven");
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        popupMenu.show();
+
     }
 
 
@@ -139,6 +176,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
     }
+
+
 }
 
 
