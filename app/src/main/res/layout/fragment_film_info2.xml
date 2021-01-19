@@ -23,7 +23,6 @@
         android:id="@+id/film_img"
         android:layout_width="500dp"
         android:layout_height="300dp"
-        android:src="@drawable/film"
         android:layout_centerHorizontal="true"
         />
 
