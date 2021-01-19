@@ -117,7 +117,7 @@ public class SearchResult_Frag extends Fragment {
             System.out.println(movies.get(0).getTitle().toString());
             for(int i=0;i<moviesJson.length();i++){
                 String title = movies.get(i).getTitle().toString();
-                Movie movie = new Movie(); // TODo
+                Movie movie = new Movie();
             }
 
             mAdapter = new MovieRecyclerAdapter(movies);

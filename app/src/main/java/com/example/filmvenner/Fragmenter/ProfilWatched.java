@@ -55,10 +55,12 @@ public class ProfilWatched extends Fragment {
     ArrayList<String> idList = new ArrayList<>();
     ArrayList<String> watchedList = new ArrayList<>();
 
+    String currentUser;
+    SharedPreferences prefMan;
 
     DatabaseAccess db = new DatabaseAccess();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
-    DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp"); // database adgang til den liste vi skal bruge
+    DocumentReference docRef;
 
 
 
@@ -79,6 +81,11 @@ public class ProfilWatched extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profil_watched, container, false);
+
+        prefMan = getContext().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+        currentUser = prefMan.getString("currentUserName", "default");
+
+        docRef = database.collection("MovieList").document(currentUser); // database adgang til den liste vi skal bruge
 
         retrieveData();
 
@@ -180,8 +187,11 @@ public class ProfilWatched extends Fragment {
                                 String fullImagePath  = prefixImage + imagePath;
                                 String release = listmovieItems.getRelease();
                                 String language = listmovieItems.getLanguage();
+                                String summary = listmovieItems.getSummary();
+                                summary = summary.substring(0,80) + " ...";
+
 //                                System.out.println(fullImagePath);
-                                Movie item = new Movie(release, language, title, fullImagePath, null, "",ID);
+                                Movie item = new Movie(release, language, title, fullImagePath, summary, "",ID);
                                 viewList.add(item);
 
 
