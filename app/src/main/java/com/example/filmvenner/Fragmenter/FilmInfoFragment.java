@@ -1,5 +1,7 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.LinearLayout;
@@ -35,6 +38,7 @@ import com.example.filmvenner.R;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,21 +60,19 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ImageButton addToList;
-    TextView title;
-    String currentTitle = "Moana";
-    String movieID = "277834";
+    TextView film_summary;
+    TextView film_title;
+    ImageView film_poster;
 
     private RequestQueue requestQueue;
     Movie movies = new Movie ();
     ArrayList<Movie> example = new ArrayList<> ();
     DatabaseAccess databaseAccess = new DatabaseAccess ();
-    private String prefixImage = "https://image.tmdb.org/t/p/w500";
-    String summary_1 = "1234";
 
     ArrayList<String> filmSummary;
     ArrayList<String> film_id = new ArrayList<> ();
 
-    TextView film_summary;
+
 
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp");
@@ -92,21 +94,29 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Context context = getContext();
         View view = inflater.inflate(R.layout.fragment_film_info, container, false);
 
         addToList = (ImageButton) view.findViewById(R.id.add_button);
         addToList.setOnClickListener(this);
 
-        title = view.findViewById(R.id.film_nama);
-        title.setText(currentTitle);
+        //title = view.findViewById(R.id.film_nama);
+        //title.setText(currentTitle);
         requestQueue = Volley.newRequestQueue(getContext());
 
-        callAPI();
+
+        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String movieidet = pref.getString("currentMovieID", "default");
+
+
+        System.out.println("movieID from preferencemanager"+ movieidet);
+
+        callAPI(movieidet);
 
         film_summary = view.findViewById(R.id.film_summary);
-        film_summary.setText(summary_1);
-        System.out.println ("testSummary" + summary_1);
+        film_title= view.findViewById(R.id.film_nama);
+        film_poster= view.findViewById(R.id.film_img);
+
 
         ImageButton addmovie = (ImageButton) view.findViewById(R.id.add_button);
         addmovie.setOnClickListener(this);
@@ -135,8 +145,8 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void callAPI() {
-        String request = "https://api.themoviedb.org/3/movie/"+"24428"+"?api_key=fa302bdb2e93149bd69faa350c178b38";
+    public void callAPI(String movieidet) {
+        String request = "https://api.themoviedb.org/3/movie/"+movieidet+"?api_key=fa302bdb2e93149bd69faa350c178b38";
 
         //StringRequest stringRequest = new StringRequest(Request.Method.GET, request,new Response.Listener<String>()
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -149,13 +159,16 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
 
                             movies = Movie.fromJson(movieJson);
                             System.out.println(movies.getTitle().toString());
+                            String prefixImage = "https://image.tmdb.org/t/p/w500";
 
                                 String title = movies.getTitle().toString();
+                                film_title.setText(title);
                                 String ID = movies.getTitle().toString();
                                 String imagePath = movies.getmImageResource().toString();
                                 String releaseDate = movies.getRelease().toString();
                                 String language = "language: " + movies.getLanguage().toString();
                                 String fullImagePath = prefixImage + imagePath;
+                                Picasso.get().load(fullImagePath).into(film_poster);
                                 String summary = movies.getSummary ().toString ();
                                 System.out.println ("summaryFraAPI"+summary);
                                 film_summary.setText (summary);
