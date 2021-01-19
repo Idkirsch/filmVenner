@@ -2,8 +2,10 @@ package com.example.filmvenner.Aktiviteter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,7 +42,7 @@ import com.google.gson.GsonBuilder;
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private CallbackManager mCallBackManager;
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
+  //  private FirebaseAuth.AuthStateListener authStateListener;
     private LoginButton loginButton;
     private AccessTokenTracker accessTokenTracker;
     private static final String TAG = "FacebookAuth";
@@ -84,10 +86,45 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
+        mCallBackManager = CallbackManager.Factory.create();
+
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();;
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        System.out.println("is logged in: "+isLoggedIn);
+        if(isLoggedIn){
+            System.out.println("a user is logged into facebook");
+            // setup the alert builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("My title");
+            builder.setMessage("du er allerede logget ind på facebook.");
+
+
+            builder.setPositiveButton("fortsæt", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("log ud", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+
+
+            // create and show the alert dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+
 
         loginButton = findViewById(R.id.loginFace);
         loginButton.setReadPermissions("email", "public_profile");
-        mCallBackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(mCallBackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -110,21 +147,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             }
         });
-            //when authentification is changed such as logged in or out it will update
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    updateUI(user);
-                    System.out.println("Hej fra state succes");
-                }
-                else {
-                    updateUI(null);
-                }
-
-            }
-        };
+//            //when authentification is changed such as logged in or out it will update
+//        authStateListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if(user!=null){
+//                    updateUI(user);
+//                    System.out.println("Hej fra state succes");
+//                }
+//                else {
+//                    updateUI(null);
+//                }
+//
+//            }
+//        };
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -248,21 +285,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mFirebaseAuth.addAuthStateListener(authStateListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(authStateListener != null) {
-            mFirebaseAuth.removeAuthStateListener(authStateListener);
-
-        }
-    }
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mFirebaseAuth.addAuthStateListener(authStateListener);
+//        System.out.println("ON START");
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        if(authStateListener != null) {
+//            mFirebaseAuth.removeAuthStateListener(authStateListener);
+//            System.out.println(" ON STOP");
+//
+//        }
+//    }
 
 
     public void putUserInPreferenceManager(){
