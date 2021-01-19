@@ -88,6 +88,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         password = (EditText) findViewById(R.id.password);
         mCallBackManager = CallbackManager.Factory.create();
 
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();;
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
@@ -97,7 +99,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             // setup the alert builder
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("My title");
-            builder.setMessage("du er allerede logget ind på facebook.");
+            builder.setMessage("du er allerede logget ind på facebook som "+ user.getDisplayName());
 
 
             builder.setPositiveButton("fortsæt", new DialogInterface.OnClickListener() {
