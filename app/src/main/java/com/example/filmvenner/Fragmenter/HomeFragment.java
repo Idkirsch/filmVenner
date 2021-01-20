@@ -49,6 +49,8 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import io.sentry.Sentry;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -112,15 +114,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         retrieveFriends();
 
-//        backgroundThread.execute(() -> {
-//            try {
-//                uiThread.post(() -> {
-//
-//                });
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
+        try {
+            throw new Exception("This is a test.");
+        } catch (Exception e) {
+            Sentry.captureException(e);
+            System.out.println("skulle gerne have fanget en sentryhalløj");
+        }
+
 
         System.out.println("vennelisten:" + venneListe); // = null
 
@@ -216,6 +216,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Sentry.captureException(e);
                         }
                     }
                 }, error -> System.out.println("couldn't get answer from API in Home Fragment or couldnt populate recyclerview in home"));
