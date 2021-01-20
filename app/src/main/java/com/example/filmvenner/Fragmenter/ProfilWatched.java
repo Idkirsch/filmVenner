@@ -1,8 +1,11 @@
 package com.example.filmvenner.Fragmenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +23,7 @@ import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.DAO.DatabaseAccess;
 import com.example.filmvenner.DAO.Movie;
 import com.example.filmvenner.R;
+import com.example.filmvenner.RecyclerItemClickListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -51,10 +55,12 @@ public class ProfilWatched extends Fragment {
     ArrayList<String> idList = new ArrayList<>();
     ArrayList<String> watchedList = new ArrayList<>();
 
+    String currentUser;
+    SharedPreferences prefMan;
 
     DatabaseAccess db = new DatabaseAccess();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
-    DocumentReference docRef = database.collection("MovieList").document("PippiLangstromp"); // database adgang til den liste vi skal bruge
+    DocumentReference docRef;
 
 
 
@@ -76,9 +82,16 @@ public class ProfilWatched extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profil_watched, container, false);
 
+        prefMan = getContext().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+        currentUser = prefMan.getString("currentUserName", "default");
+
+        docRef = database.collection("MovieList").document(currentUser); // database adgang til den liste vi skal bruge
+
         retrieveData();
 
         mRequestqueue = Volley.newRequestQueue(getContext());
+
+
 
 
 //        System.out.println("watchedlist før for loop" + watchedList);
@@ -115,6 +128,37 @@ public class ProfilWatched extends Fragment {
 
         mRecyclerview.setLayoutManager(mLayoutManager);
         mRecyclerview.setAdapter(mAdapter);
+
+        mRecyclerview.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), mRecyclerview, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        System.out.println("clicked on reyclerview, position = "+position);
+                        System.out.println("clicked on recyclerview, title = "+viewList.get(position).getTitle());
+
+                        // preferencemanager (eller send titel med over til nyt fragment på en anden måde)
+                        // ovre i nyt fragment: kald API med titlen
+
+                        String currentIdRVwatched = viewList.get(position).getID();
+
+                        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("currentMovieID", currentIdRVwatched);
+                        editor.commit();
+
+                        System.out.println("Sideskift fra watched til filmside");
+                        AppCompatActivity activity = (AppCompatActivity)getContext();
+                        FilmInfoFragment filmInfo = new FilmInfoFragment();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
         return view;
     }
 
@@ -143,8 +187,11 @@ public class ProfilWatched extends Fragment {
                                 String fullImagePath  = prefixImage + imagePath;
                                 String release = listmovieItems.getRelease();
                                 String language = listmovieItems.getLanguage();
+                                String summary = listmovieItems.getSummary();
+                                summary = summary.substring(0,80) + " ...";
+
 //                                System.out.println(fullImagePath);
-                                Movie item = new Movie(release, language, title, fullImagePath, null, "",ID);
+                                Movie item = new Movie(release, language, title, fullImagePath, summary, "",ID);
                                 viewList.add(item);
 
 

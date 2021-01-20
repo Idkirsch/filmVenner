@@ -14,11 +14,11 @@
     android:layout_height="wrap_content"
     android:text="tag mig videre"
     android:id="@+id/videre"
+    android:visibility="invisible"
     />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="60dp"
         android:id="@+id/recyclerviewHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

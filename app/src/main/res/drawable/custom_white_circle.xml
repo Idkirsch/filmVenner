@@ -4,11 +4,11 @@
 
     <stroke
         android:width="3dp"
-        android:color="#FFFFFF"
-        />
+        android:color="#FFC5A964"/>
+
 
     <solid
-        android:color="#FFFFFF"/>
+        android:color="#FFC5A964"/>
 
     <size
         android:width="120dp"
