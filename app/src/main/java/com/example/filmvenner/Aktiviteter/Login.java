@@ -60,6 +60,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
      * Instantiaing the preferencemanager to be able to reach the user to other fragments or activities
      */
      SharedPreferences prefMan;
+     /*Kilde brugt til facebook integration: https://youtu.be/ImbuK35vmzs?t=14*/
 
 
 
