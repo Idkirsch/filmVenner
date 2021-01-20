@@ -19,6 +19,9 @@ import com.example.filmvenner.R;
  * Use the {@link ChatFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+// (kildekode) her er link til tutorial, der blev brugt til at implementere chat: https://www.scaledrone.com/blog/android-chat-tutorial/
+
 public class ChatFragment extends Fragment implements View.OnClickListener{
 
     Button chat_button;

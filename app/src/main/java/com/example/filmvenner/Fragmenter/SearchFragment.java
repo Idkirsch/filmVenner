@@ -212,7 +212,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     case R.id.AddFriend:
                         Toast.makeText (getActivity (), "you added this friend to your 'friend' list", Toast.LENGTH_LONG).show ();
                         DocumentReference addFriend = database.collection ("users").document ("B");
-                        addFriend.update ("Friends", FieldValue.arrayUnion ("B"));
+                        addFriend.update ("Friends", FieldValue.arrayUnion ("newFriend"));
                         break;
                     default:
                         break;
