@@ -250,6 +250,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
+
+
     public void loopGennemVenneliste() {
 //        System.out.println("vores egen venneliste fra databasen2: " + venneListe);
 

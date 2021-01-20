@@ -293,7 +293,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     newReview = input.getText().toString();
-                    addReview(newReview);
+                 //   addReview(newReview);
 
                 }
             });
@@ -347,12 +347,12 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
                     case R.id.AddWatchLater:
                         Toast.makeText(getActivity(), "you added this movie to your 'Want to watch' list", Toast.LENGTH_LONG).show();
                         DocumentReference addWatchLater = db.collection("MovieList").document("Sukkerknald");
-                        addWatchLater.update("WantToWatch", FieldValue.arrayUnion("347158"));
+                     //   addWatchLater.update("WantToWatch", FieldValue.arrayUnion("347158"));
                         break;
                     case R.id.AddWatched:
                         Toast.makeText(getActivity(), "you added this movie to your 'Watched' list", Toast.LENGTH_LONG).show();
                         DocumentReference addWatched = db.collection("MovieList").document("PippiLangstromp");
-                        addWatched.update("Watched", FieldValue.arrayUnion("487555"));
+                    //    addWatched.update("Watched", FieldValue.arrayUnion("487555"));
                         break;
                     default:
                         break;
