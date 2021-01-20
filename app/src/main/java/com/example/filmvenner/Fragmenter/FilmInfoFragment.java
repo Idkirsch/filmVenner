@@ -314,10 +314,7 @@ public class FilmInfoFragment extends Fragment implements View.OnClickListener {
     public void addReview(String newreview) {
         DocumentReference docRef = database.collection("Film").document(movieidet);
 
-
         ArrayList<String> newReviewsRatings = new ArrayList<>();
-
-
         Map<String, Object> map = new HashMap<>();
 
         newReviewsRatings.add(newreview);
