@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             System.out.println("a user is logged into facebook");
             // setup the alert builder
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("My title");
+            //builder.setTitle("My title");
             builder.setMessage("du er allerede logget ind på facebook som "+ user.getDisplayName());
 
 
