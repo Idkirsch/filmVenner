@@ -86,6 +86,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         videre.setOnClickListener(this);
 
         username = (EditText) findViewById(R.id.username);
+        username.setText("PippiLangstromp");
         password = (EditText) findViewById(R.id.password);
         mCallBackManager = CallbackManager.Factory.create();
 
