@@ -34,6 +34,9 @@ public class SearchResult_Frag extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Movie> movies;
+    private String prefixImage = "https://image.tmdb.org/t/p/w500";
+    ArrayList<Movie> exampleList = new ArrayList<>();
+
 
     public SearchResult_Frag() {
         // Required empty public constructor
@@ -117,10 +120,18 @@ public class SearchResult_Frag extends Fragment {
             System.out.println(movies.get(0).getTitle().toString());
             for(int i=0;i<moviesJson.length();i++){
                 String title = movies.get(i).getTitle().toString();
-                Movie movie = new Movie();
+                String imagePath = movies.get(i).getmImageResource();
+                String fullImagePath = prefixImage + imagePath;
+                String language = movies.get(i).getLanguage();
+                String releaseDate = movies.get(i).getRelease();
+                String summary = movies.get(i).getSummary();
+                String id = movies.get(i).getID();
+                Movie movie = new Movie(releaseDate, language, title, fullImagePath, "", summary,id);
+                exampleList.add(movie);
+
             }
 
-            mAdapter = new MovieRecyclerAdapter(movies);
+            mAdapter = new MovieRecyclerAdapter(exampleList);
             mRecyclerView.setAdapter(mAdapter);
 
         });
