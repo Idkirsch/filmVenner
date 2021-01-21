@@ -119,7 +119,6 @@ public class SearchResult_Frag extends Fragment {
              * */
 
             movies = Movie.fromJson(moviesJson);
-            System.out.println(movies.get(0).getTitle().toString());
             for (int i = 0; i < moviesJson.length(); i++) {
                 try {
 

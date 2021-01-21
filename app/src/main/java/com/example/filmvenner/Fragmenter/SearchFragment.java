@@ -187,7 +187,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                             JSONObject movieJson = response;
                             JSONArray moviesJson = movieJson.getJSONArray("results");
                             movies = Movie.fromJson(moviesJson);
-                            System.out.println(movies.get(0).getTitle().toString());
 
                             viewModel.setMovie(response); //transfers some text into viewmodel to be used in child fragment
 
