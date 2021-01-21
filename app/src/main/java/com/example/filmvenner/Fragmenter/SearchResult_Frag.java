@@ -20,6 +20,7 @@ import com.example.filmvenner.Adapter.MovieRecyclerAdapter;
 import com.example.filmvenner.R;
 import com.example.filmvenner.RecyclerItemClickListener;
 import com.example.filmvenner.SearchResultViewModel;
+import com.google.firestore.v1.MapValue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +54,7 @@ public class SearchResult_Frag extends Fragment {
 
 
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_search_result_, container, false);
+        View view = inflater.inflate(R.layout.fragment_search_result_, container, false);
         mRecyclerView = view.findViewById(R.id.recyclerviewSearch);
         mRecyclerView.setHasFixedSize(true);
 
@@ -61,12 +62,12 @@ public class SearchResult_Frag extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener(){
+                new RecyclerItemClickListener(getContext(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        System.out.println("clicked on mReyclerview, position = "+position);
-                        System.out.println("clicked on mReyclerview, title = "+ movies.get(position).getTitle());
-                        System.out.println("clicked on mReyclerview, ID = "+ movies.get(position).getID());
+                        System.out.println("clicked on mReyclerview, position = " + position);
+                        System.out.println("clicked on mReyclerview, title = " + movies.get(position).getTitle());
+                        System.out.println("clicked on mReyclerview, ID = " + movies.get(position).getID());
 
                         String currentIdmRV = movies.get(position).getID();
 
@@ -76,12 +77,13 @@ public class SearchResult_Frag extends Fragment {
                         editor.commit();
 
                         System.out.println("Sideskift fra film");
-                        AppCompatActivity activity = (AppCompatActivity)getContext();
+                        AppCompatActivity activity = (AppCompatActivity) getContext();
                         FilmInfoFragment filmInfo = new FilmInfoFragment();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, filmInfo).addToBackStack(null).commit();
 
 
                     }
+
                     @Override
                     public void onLongItemClick(View view, int position) {
 
@@ -100,7 +102,7 @@ public class SearchResult_Frag extends Fragment {
         SearchResultViewModel model = new ViewModelProvider(requireActivity()).get(SearchResultViewModel.class);
 
         model.getMovie().observe(getViewLifecycleOwner(), item -> {
-            System.out.println("Item in resultfrag: "+item);
+            System.out.println("Item in resultfrag: " + item);
             JSONObject movieJson = item;
             JSONArray moviesJson = null;
 
@@ -118,16 +120,28 @@ public class SearchResult_Frag extends Fragment {
 
             movies = Movie.fromJson(moviesJson);
             System.out.println(movies.get(0).getTitle().toString());
-            for(int i=0;i<moviesJson.length();i++){
-                String title = movies.get(i).getTitle().toString();
-                String imagePath = movies.get(i).getmImageResource();
-                String fullImagePath = prefixImage + imagePath;
-                String language = movies.get(i).getLanguage();
-                String releaseDate = movies.get(i).getRelease();
-                String summary = movies.get(i).getSummary();
-                String id = movies.get(i).getID();
-                Movie movie = new Movie(releaseDate, language, title, fullImagePath, "", summary,id);
-                exampleList.add(movie);
+            for (int i = 0; i < moviesJson.length(); i++) {
+                try {
+
+
+                    String title = movies.get(i).getTitle().toString();
+                    String imagePath = movies.get(i).getmImageResource();
+                    String fullImagePath = prefixImage + imagePath;
+                    String language = movies.get(i).getLanguage();
+                    String releaseDate = movies.get(i).getRelease();
+                    String summary = movies.get(i).getSummary();
+                    String id = movies.get(i).getID();
+
+                    if (!title.isEmpty() && !imagePath.isEmpty() && !language.isEmpty() && !releaseDate.isEmpty() && !summary.isEmpty() && !id.isEmpty()) {
+                        Movie movie = new Movie(releaseDate, language, title, fullImagePath, "", summary, id);
+                        exampleList.add(movie);
+                    } else {
+                        Movie movie = new Movie(null, null, null, null, null, null, null);
+                        exampleList.add(movie);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
 
             }
 
@@ -136,8 +150,6 @@ public class SearchResult_Frag extends Fragment {
 
         });
     }
-
-
 
 
 }
